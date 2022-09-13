@@ -13,27 +13,25 @@ namespace API.Controllers
         private readonly IAbout _about;
         private readonly IMapper _mapper;
         private readonly IPhotoService _photoService;
-        private readonly DataContext _context;
-
-        public AboutController(IAbout about, IMapper mapper, IPhotoService photoService, DataContext context)
+        
+        public AboutController(IAbout about, IMapper mapper, IPhotoService photoService)
         {
             _about = about;
             _mapper = mapper;
             _photoService = photoService;
-            _context = context;
         }
 
-        [HttpPost]
-        public async Task<ActionResult> RegisterAbout(RegisterAboutDto registerAboutDto)
-        {
-            var about = _mapper.Map<About>(registerAboutDto);
+        //[HttpPost]
+        //public async Task<ActionResult> RegisterAbout(RegisterAboutDto registerAboutDto)
+        //{
+        //    var about = _mapper.Map<About>(registerAboutDto);
 
-            _context.Abouts.Add(about);
+        //    _context.Abouts.Add(about);
 
-            await _context.SaveChangesAsync();
+        //    await _context.SaveChangesAsync();
 
-            return Ok(registerAboutDto);
-        }
+        //    return Ok(registerAboutDto);
+        //}
 
         [HttpPut]
         public async Task<ActionResult> UpdateAbout(AboutUpdateDto aboutUpdateDto)

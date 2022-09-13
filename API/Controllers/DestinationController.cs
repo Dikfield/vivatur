@@ -24,7 +24,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{name}", Name = "GetDestination")]
-        public async Task<ActionResult<DestinationDto>> GetAllDestinations(string name)
+        public async Task<ActionResult<DestinationDto>> GetDestinationByName(string name)
         {
                         
             var destination = await _destinationRepo.GetByNameAsync(name);
@@ -35,7 +35,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetDestination()
+        public async Task<ActionResult> GetAllDestinations()
         {
             var destinations = await _destinationRepo.GetAllAsync();
 

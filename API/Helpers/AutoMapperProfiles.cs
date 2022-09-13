@@ -19,6 +19,7 @@ namespace API.Helpers
             CreateMap<DestinationDto, Destination>();
             CreateMap<Destination, Destination>();
             CreateMap<DestinationUpdateDto, Destination>();
+            CreateMap<Destination, RegisterDestinationDto>();
 
 
         }
