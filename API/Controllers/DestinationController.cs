@@ -47,7 +47,12 @@ namespace API.Controllers
         {
             if (await _destinationRepo.GetByNameAsync(registerDestinationDto.Name) != null) return BadRequest("This Destination is already stored");
 
-            var dest = _mapper.Map<Destination>(registerDestinationDto);
+            var dest = new Destination();
+
+            _mapper.Map(registerDestinationDto, dest);
+
+            
+
             dest.Name = registerDestinationDto.Name.ToLower();
 
             _destinationRepo.Register(dest);

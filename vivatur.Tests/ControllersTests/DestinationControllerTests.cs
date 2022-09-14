@@ -85,30 +85,25 @@ namespace vivatur.Tests.ControllersTests
 
         }
 
-        //[Fact]
-        //public async void RegisterDestinationHolland_Returns_DestinationHolland()
-        //{
-        //    var dest = Mock.Of<RegisterDestinationDto>
-        //                (x=>
-        //                    x.Name == "Brasil" &&
-        //                    x.Public == true
-        //                );
-        //    var dest1 = Mock.Of<Destination>
-        //                (x =>
-        //                    x.Name == "Brasil" &&
-        //                    x.Public == true
-        //                );
-
-        //    _destinationRepo.Setup(x => x.GetByNameAsync(It.IsAny<string>())).Returns(Task.FromResult<Destination>(null));
-
-        //    _destinationRepo.Setup(x => x.Register(dest1));
-
-        //    _destinationRepo.Setup(x => x.SaveAllAsync()).Returns(Task.FromResult(true));
+        [Fact]
+        public async void RegisterDestinationHolland_Returns_DestinationHolland()
+        {
+            var dest = Mock.Of<RegisterDestinationDto>
+            (x =>
+                x.Name == "Brasil" &&
+                x.Public == true
+            );
 
 
-        //    var result = await _controller.RegisterDestination(dest);
+            _destinationRepo.Setup(x => x.GetByNameAsync(It.IsAny<string>())).Returns(Task.FromResult<Destination>(null));
 
-        //    Assert.IsAssignableFrom<ActionResult<RegisterDestinationDto>>(result);
+             
+            _destinationRepo.Setup(x => x.SaveAllAsync()).Returns(Task.FromResult(true));
+
+
+            var result = await _controller.RegisterDestination(dest);
+
+            Assert.IsAssignableFrom<ActionResult>(result);
 
 
 
