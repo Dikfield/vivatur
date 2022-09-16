@@ -12,6 +12,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { HomeComponent } from './home/home.component';
 import { DestinationsComponent } from './destinations/destinations.component';
 import { RegisterDestinationsComponent } from './register-destinations/register-destinations.component';
+import { ToastrModule } from 'ngx-toastr';
+import { SharedModule } from './_modules/shared.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,7 @@ import { RegisterDestinationsComponent } from './register-destinations/register-
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    BsDropdownModule.forRoot()
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

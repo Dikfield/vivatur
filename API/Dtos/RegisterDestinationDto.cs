@@ -8,7 +8,7 @@ namespace API.Dtos
         [StringLength(40, MinimumLength = 3)]
         public string Name { get; set; }
         [Required]
-        public bool Public { get; set; }
+        public int Public { get; set; }
         public decimal? Price { get; set; }
         public DateTime Created { get; set; }
         public string? City { get; set; }

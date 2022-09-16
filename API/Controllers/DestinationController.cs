@@ -54,6 +54,9 @@ namespace API.Controllers
             
 
             dest.Name = registerDestinationDto.Name.ToLower();
+           
+            if(registerDestinationDto.Public ==1) dest.Public = true;
+            else dest.Public = false;
 
             _destinationRepo.Register(dest);
 
