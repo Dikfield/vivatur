@@ -1,0 +1,74 @@
+<section class="pb-4">
+  <div class="container">
+    <div *ngIf="(accountService.currentUser$ | async) === null" class="bg-white border rounded-5">
+
+    <section class="w-100 p-4 d-flex justify-content-center pb-4" >
+
+
+
+      <form  #loginForm="ngForm" style="width: 22rem;" (ngSubmit)="login()" autocomplete="off">
+        <!-- Email input -->
+        <div class="form-outline mb-4">
+          <input
+          name="username"
+          [(ngModel)]="model.username"
+          type="email"
+          class="form-control">
+          <label class="form-label" for="form1Example1" style="margin-left: 0px;">Email address</label>
+        <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 88.8px;"></div><div class="form-notch-trailing"></div></div></div>
+
+        <!-- Password input -->
+        <div class="form-outline mb-4">
+          <input
+          name="password"
+          [(ngModel)]="model.password"
+          type="password"
+          class="form-control">
+          <label class="form-label" for="form1Example2" style="margin-left: 0px;">Password</label>
+        <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 64.8px;"></div><div class="form-notch-trailing"></div></div></div>
+
+        <!-- 2 column grid layout for inline styling -->
+        <div class="row mb-4">
+          <div class="col d-flex justify-content-center">
+            <!-- Checkbox -->
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked="">
+              <label class="form-check-label" for="form1Example3"> Remember me </label>
+            </div>
+          </div>
+
+          <div class="col">
+            <!-- Simple link -->
+            <a href="#!">Forgot password?</a>
+          </div>
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+      </form>
+    </section>
+
+
+
+    <div class="p-4 text-center border-top mobile-hidden">
+      <a class="btn btn-link px-3" data-mdb-toggle="collapse" href="#example1" role="button" aria-expanded="false" aria-controls="example1" data-ripple-color="hsl(0, 0%, 67%)">
+        <i class="fas fa-code me-md-2"></i>
+        <span class="d-none d-md-inline-block">
+          Show code
+        </span>
+      </a>
+
+
+        <a class="btn btn-link px-3 " data-ripple-color="hsl(0, 0%, 67%)" >
+          <i class="fas fa-file-code me-md-2 pe-none"></i>
+          <span class="d-none d-md-inline-block export-to-snippet pe-none">
+            Edit in sandbox
+          </span>
+        </a>
+
+    </div>
+
+
+  </div>
+</div>
+
