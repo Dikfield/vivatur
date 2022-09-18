@@ -19,6 +19,10 @@ import { DestinationsListComponent } from './destinations/destinations-list/dest
 import { DestinationCardComponent } from './destinations/destination-card/destination-card.component';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { DestinationDetailComponent } from './destinations/destination-detail/destination-detail.component';
+import { DestinationEditComponent } from './destinations/destination-edit/destination-edit.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { LoadingInterceptor } from './_interceptors/loading.interceptor';
+import { PhotoDetinationEditorComponent } from './destinations/photo-detination-editor/photo-detination-editor.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,9 @@ import { DestinationDetailComponent } from './destinations/destination-detail/de
     ServerErrorComponent,
     DestinationsListComponent,
     DestinationCardComponent,
-    DestinationDetailComponent
+    DestinationDetailComponent,
+    DestinationEditComponent,
+    PhotoDetinationEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -40,11 +46,13 @@ import { DestinationDetailComponent } from './destinations/destination-detail/de
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    NgxSpinnerModule
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS, useClass:ErrorInterceptor, multi: true},
-    {provide:HTTP_INTERCEPTORS, useClass:JwtInterceptor, multi: true}
+    {provide:HTTP_INTERCEPTORS, useClass:JwtInterceptor, multi: true},
+    {provide:HTTP_INTERCEPTORS, useClass:LoadingInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

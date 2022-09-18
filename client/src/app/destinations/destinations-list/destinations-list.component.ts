@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Destination } from 'src/app/_models/destination';
 import { DestinationsService } from 'src/app/_services/destinations.service';
 
@@ -8,19 +9,12 @@ import { DestinationsService } from 'src/app/_services/destinations.service';
   styleUrls: ['./destinations-list.component.css']
 })
 export class DestinationsListComponent implements OnInit {
-    destinations: Destination[];
+    destinations$: Observable<Destination[]>;
 
     constructor(private destinationService:DestinationsService) { }
 
   ngOnInit(): void {
-    this.loadDestinations();
+    this.destinations$ = this.destinationService.getDestinations();
   }
-
-  loadDestinations() {
-    this.destinationService.getDestinations().subscribe({
-      next:(destinations) =>
-        this.destinations = destinations
-      })
-    }
 
 }

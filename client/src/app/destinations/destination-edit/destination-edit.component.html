@@ -1,0 +1,86 @@
+<div class="container">
+<div class="row" *ngIf="destination">
+  <div class="col-3">
+      <h1 class="">Edição {{destination.name}}</h1>
+    </div>
+    <div class="col-9">
+      <div class="alert alert-info" *ngIf="editForm.dirty">
+        <strong>Informação:</strong> Você fez mudanças que se não salvas, serão perdidas
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="card">
+      <img src="{{destination.photoUrl}}" alt="{{destination.name}}"
+        class="card-img-top img-thumbnail principal_img">
+        <div class="card-body">
+          <div>
+            <strong>Name</strong>
+            <p>{{destination.name}}</p>
+          </div>
+          <div>
+            <strong>public</strong>
+            <p>{{destination.public}}</p>
+          </div>
+          <div>
+            <strong>Criado em</strong>
+            <p>{{destination.created}}</p>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-success btn-block">Salvar mudanças</button>
+        </div>
+    </div>
+  </div>
+
+    <div class="col-4">
+      <tabset class="member-tabset">
+        <tab heading="Sobre{{destination.name}}">
+          <form #editForm="ngForm" id="editForm" (ngSubmit)="updateDestination()">
+            <textarea class="form-control fw-bold" [(ngModel)]="destination.title1" name="title1" rows="1"></textarea>
+            <textarea class="form-control" [(ngModel)]="destination.description1" name="description1" rows="6"></textarea>
+            <textarea class="form-control fw-bold" [(ngModel)]="destination.title2" name="title2" rows="1"></textarea>
+            <textarea class="form-control" [(ngModel)]="destination.description2" name="description2" rows="6"></textarea>
+            <textarea class="form-control fw-bold" [(ngModel)]="destination.title3" name="title3" rows="1"></textarea>
+            <textarea class="form-control" [(ngModel)]="destination.description3" name="description3" rows="6"></textarea>
+            <textarea class="form-control fw-bold" [(ngModel)]="destination.title4" name="title4" rows="1"></textarea>
+            <textarea class="form-control" [(ngModel)]="destination.description4" name="description4" rows="6"></textarea>
+            <textarea class="form-control fw-bold" [(ngModel)]="destination.title5" name="title5" rows="1"></textarea>
+            <textarea class="form-control" [(ngModel)]="destination.description5" name="description5" rows="6"></textarea>
+          </form>
+        </tab>
+      </tabset>
+    </div>
+
+    <div class="col-3">
+      <tabset class="member-tabset">
+        <tab heading="Sobre{{destination.name}}">
+          <form>
+            <div *ngFor="let photo of destination.photos" class="col-8">
+              <h4>Imagem</h4>
+            <img src="{{photo.url}}" alt="{{photo.name}}"
+            class="card-img-top img-thumbnail">
+            </div>
+          </form>
+        </tab>
+      </tabset>
+    </div>
+
+    <div class="col-1">
+      <tabset class="member-tabset">
+        <tab heading="Sobre{{destination.name}}">
+          <form>
+            <h4>Descrição</h4>
+            <div *ngFor="let photo of destination.photos" class="col-8">
+            <img src="{{photo.url}}" alt="{{photo.name}}"
+            class="card-img-top img-thumbnail">
+            <div class="text-center">
+              <button class="btn btn-sm">Main</button>
+              <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+            </div>
+            </div>
+          </form>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<form>
+  <h4>Descrição</h4>
+  <div *ngFor="let photo of destination.destinationPhotos" class="col-8">
+  <img src="{{photo.url}}" alt="{{photo.name}}"
+  class="card-img-top img-thumbnail">
+  <div class="text-center">
+    <button class="btn btn-sm">Main</button>
+    <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+  </div>
+  </div>
+</form>

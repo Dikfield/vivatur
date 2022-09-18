@@ -1,5 +1,5 @@
 <div class="row">
-  <div *ngFor="let destination of destinations" class="col-2">
+  <div *ngFor="let destination of destinations$ | async" class="col-2">
     <app-destination-card [destination]="destination"></app-destination-card>
   </div>
 </div>
