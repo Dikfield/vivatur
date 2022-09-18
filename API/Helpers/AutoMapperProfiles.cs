@@ -8,7 +8,9 @@ namespace API.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Destination, DestinationDto>();
+            CreateMap<Destination, DestinationDto>()
+                .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src =>
+                src.Photos.FirstOrDefault(x => x.IsMain).Url));
             CreateMap<RegisterDestinationDto, Destination>();
             CreateMap<Photo, PhotoDto>();
             CreateMap<AboutDto, About>();
@@ -20,6 +22,7 @@ namespace API.Helpers
             CreateMap<Destination, Destination>();
             CreateMap<DestinationUpdateDto, Destination>();
             CreateMap<Destination, RegisterDestinationDto>();
+
 
 
         }

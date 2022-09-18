@@ -1,0 +1,15 @@
+<div class="card mb-4">
+  <div class="card-img-wrapper">
+    <img src="{{destination.photoUrl}}" alt="{{destination.name}}" class="card-img-top">
+    <ul class="list-inline destination-icons animate text-center">
+      <li class="list-inline-item"><button routerLink='/destinations/{{destination.name}}' class="btn btn-primary">
+        <i class="fa fa-edit"></i></button></li>
+    </ul>
+  </div>
+  <div class="card-body p-1">
+    <h6 class="card-tittle text-center mb-1"><i class="fa fa-edit mr-2"></i>
+      {{destination.name}} <br><br> Clique para editar
+    </h6>
+    <p class="card-text text-muted text-center">{{destination.city}}</p>
+  </div>
+</div>

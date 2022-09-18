@@ -25,15 +25,7 @@ export class LoginFormComponent implements OnInit {
     this.accountService.login(this.model).subscribe({
       next:(response) => {
         this.router.navigateByUrl('/');
-        this.toastr.success();
-    },
-      error:(e) => {
-        console.log(e);
-        this.toastr.error(e.error);
-      }
-    })
-  }
-
-
-
+        this.toastr.success("You logged in");
+      },})
+    }
 }

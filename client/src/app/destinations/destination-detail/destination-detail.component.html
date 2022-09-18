@@ -1,0 +1,22 @@
+<div class="row" *ngIf="destination">
+  <div class="col-4">
+    <div class="card">
+      <img src="{{destination.photoUrl}}" alt="{{destination.name}}"
+        class="card-img-top img-thumbnail">
+        <div class="card-body">
+          <div>
+            <strong>Name</strong>
+            <p>{{destination.name}}</p>
+          </div>
+          <div>
+            <strong>public</strong>
+            <p>{{destination.public}}</p>
+          </div>
+          <div>
+            <strong>Criado em</strong>
+            <p>{{destination.created}}</p>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

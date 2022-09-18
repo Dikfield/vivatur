@@ -24,7 +24,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{name}", Name = "GetDestination")]
-        public async Task<ActionResult<DestinationDto>> GetDestinationByName(string name)
+        public async Task<ActionResult> GetDestinationByName(string name)
         {
                         
             var destination = await _destinationRepo.GetByNameAsync(name);
@@ -110,9 +110,13 @@ namespace API.Controllers
 
             if (dest == null) return NotFound("Name not found");
 
-            _destinationRepo.DeleteDestination(dest);
+            var desti = new Destination();
 
-            if (await _destinationRepo.SaveAllAsync()) return Ok($"{name} deleted");
+            _mapper.Map(dest, desti);
+
+            if (await _destinationRepo.DeleteDestination(desti)) return Ok($"{dest.Name} deleted");
+
+            
 
             return BadRequest("same error in the system");
 
@@ -170,9 +174,13 @@ namespace API.Controllers
 
             if(dest == null) return NotFound("Try another name");
 
-            _mapper.Map(destinationUpdateDto, dest);
+            var desti = new Destination();
 
-            _destinationRepo.Update(dest);
+            _mapper.Map(dest, desti);
+
+            _mapper.Map(destinationUpdateDto, desti);
+
+            _destinationRepo.Update(desti);
 
             if(await _destinationRepo.SaveAllAsync()) return Ok();
 

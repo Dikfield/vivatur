@@ -5,6 +5,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 
 namespace API.Data
 {
@@ -35,10 +36,10 @@ namespace API.Data
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<Destination> GetByNameAsync(string name)
+        public async Task<DestinationDto> GetByNameAsync(string name)
         {
             return await _context.Destinations
-                .ProjectTo<Destination>(_mapper.ConfigurationProvider)
+                .ProjectTo<DestinationDto>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync(x => x.Name == name);
         }
 
@@ -62,7 +63,7 @@ namespace API.Data
         {
             _context.Photos.Remove(photo);
         }
-        public async void DeleteDestination(Destination dest)
+        public async Task<bool> DeleteDestination(Destination dest)
         {
             var count = dest.Photos.Count;
 
@@ -70,6 +71,8 @@ namespace API.Data
                 await _photoService.DeletePhotoAsync(photo.PublicId);
 
             _context.Destinations.Remove(dest);
+
+            return await _context.SaveChangesAsync() > 0;
                                                 
         }
 

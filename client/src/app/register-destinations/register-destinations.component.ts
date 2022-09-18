@@ -17,10 +17,10 @@ export class RegisterDestinationsComponent implements OnInit {
   }
 
   register(){
-    this.accountService.register(this.model).subscribe({
+    this.accountService.registerDestination(this.model).subscribe({
       next:(response)=>{
         console.log(response);
-        this.toastr.success();
+        this.toastr.success("Registered");
       }, error:(e)=> {
         console.log(e);
         this.toastr.error(e.error)}

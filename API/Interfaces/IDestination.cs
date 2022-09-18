@@ -9,11 +9,11 @@ namespace API.Interfaces
         public void Update(Destination dest);
         Task<bool> SaveAllAsync();
         Task<IEnumerable<DestinationDto>> GetAllAsync();
-        Task<Destination> GetByNameAsync(string name);
+        Task<DestinationDto> GetByNameAsync(string name);
         Task<Photo> GetPhotoByIdAsync(int id);
         Task<bool> SavePhoto(Photo photo);
         void DeletePhoto(Photo photo);
-        public void DeleteDestination(Destination dest);
+        public Task<bool> DeleteDestination(Destination dest);
         void Register(Destination dest);
 
     }
