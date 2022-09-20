@@ -10,15 +10,25 @@ namespace API.Helpers
         {
             CreateMap<Destination, DestinationDto>()
                 .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src =>
-                src.Photos.FirstOrDefault(x => x.IsMain).Url));
+                src.DestinationPhotos.FirstOrDefault(x => x.IsMain).Url));
+
+            CreateMap<DestinationDescription, DestinationDescriptionDto>()
+                .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.DescriptionPhoto.Url));
+
+            CreateMap<DestinationDto, Destination>();
+            CreateMap<DestinationPhotoDto, DestinationPhoto>();
+            CreateMap<RegisterDestinationDescriptionDto, DestinationDescription>();
+
+            CreateMap<DestinationPhoto, DestinationPhotoDto>();
+
             CreateMap<RegisterDestinationDto, Destination>();
-            CreateMap<Photo, PhotoDto>();
+
             CreateMap<AboutDto, About>();
             CreateMap<RegisterAboutDto, About>();
             CreateMap<AboutUpdateDto, About>();
             CreateMap<About, AboutDto>();
             CreateMap<VivaPhoto, VivaPhotoDto>();
-            CreateMap<DestinationDto, Destination>();
+
             CreateMap<Destination, Destination>();
             CreateMap<DestinationUpdateDto, Destination>();
             CreateMap<Destination, RegisterDestinationDto>();

@@ -62,7 +62,7 @@ namespace API.Controllers
         }
 
         [HttpPost("add-photo")]
-        public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
+        public async Task<ActionResult<DestinationPhotoDto>> AddPhoto(IFormFile file)
         {
 
             var about = await _about.GetAboutOrigin();

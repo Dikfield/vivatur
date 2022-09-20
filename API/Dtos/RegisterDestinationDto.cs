@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using API.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace API.Dtos
 {
@@ -9,10 +10,8 @@ namespace API.Dtos
         public string Name { get; set; }
         [Required]
         public int Public { get; set; }
-        public decimal? Price { get; set; }
-        public DateTime Created { get; set; }
         public string? City { get; set; }
-        public string? Country { get; set; }
+        public string? BestMonths { get; set; }
 
     }
 }

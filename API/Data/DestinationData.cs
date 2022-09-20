@@ -29,11 +29,12 @@ namespace API.Data
                 .ToListAsync(); 
         }
 
-        public async Task<Photo> GetPhotoByIdAsync(int id)
+        public async Task<DestinationPhoto> GetPhotoByIdAsync(int id)
         {
-            return await _context.Photos
+            return await _context.DestinationPhotos
                 .Where(x => x.Id == id)
                 .SingleOrDefaultAsync();
+
         }
 
         public async Task<DestinationDto> GetByNameAsync(string name)
@@ -41,6 +42,7 @@ namespace API.Data
             return await _context.Destinations
                 .ProjectTo<DestinationDto>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync(x => x.Name == name);
+
         }
 
         public async Task<bool> SaveAllAsync()
@@ -48,10 +50,21 @@ namespace API.Data
             return await _context.SaveChangesAsync() >= 0;
         }
 
-        public async Task<bool> SavePhoto(Photo photo)
+        public async Task<bool> SavePhoto(DestinationPhoto photo)
         {
-            await _context.Photos.AddAsync(photo);
+            await _context.DestinationPhotos.AddAsync(photo);
             return await _context.SaveChangesAsync() >= 0;
+
+            return true;
+        }
+
+
+        public async Task<bool> DescriptionSavePhoto(DescriptionPhoto photo)
+        {
+            await _context.DescriptionPhotos.AddAsync(photo);
+            return await _context.SaveChangesAsync() >= 0;
+
+            return true;
         }
 
         public void Update(Destination dest)
@@ -59,15 +72,15 @@ namespace API.Data
             _context.Entry(dest).State= EntityState.Modified;
         }
 
-        public void DeletePhoto(Photo photo)
+        public void DeletePhoto(DestinationPhoto photo)
         {
-            _context.Photos.Remove(photo);
+            _context.DestinationPhotos.Remove(photo);
         }
         public async Task<bool> DeleteDestination(Destination dest)
         {
-            var count = dest.Photos.Count;
+            var count = dest.DestinationPhotos.Count;
 
-            foreach (var photo in dest.Photos)
+            foreach (var photo in dest.DestinationPhotos)
                 await _photoService.DeletePhotoAsync(photo.PublicId);
 
             _context.Destinations.Remove(dest);
@@ -79,6 +92,11 @@ namespace API.Data
         public void Register(Destination dest)
         {
             _context.Destinations.Add(dest);
+        }
+
+        public void RegisterDescription(DestinationDescription desc)
+        {
+            _context.DestinationDescriptions.Add(desc);
         }
     }
 }

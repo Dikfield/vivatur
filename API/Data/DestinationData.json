@@ -1,11 +1,16 @@
 [
   {
-    "Name": "Camboja",
+    "Name": "França",
+    "City": "Paris",
     "Public": true,
-    "Photos": [
+    "DestinationPhotos": [
       {
-        "Url": "https://www.umviajante.com.br/wp-content/uploads/2016/12/angkor-wat-camboja-001.jpg",
+        "Url": "https://pt.wikipedia.org/wiki/Ficheiro:Eiffel_Tower_Marsfeld_Paris.jpg",
         "IsMain": true
+      },
+      {
+        "Url": "https://pt.wikipedia.org/wiki/Ficheiro:Le_sacre_coeur.jpg",
+        "IsMain": false
       }
     ]
   }
