@@ -6,7 +6,6 @@ namespace API.Interfaces
 {
     public interface IDestination
     {
-        public void Update(Destination dest);
         Task<bool> SaveAllAsync();
         Task<IEnumerable<DestinationDto>> GetAllAsync();
         Task<DestinationDto> GetByNameAsync(string name);
@@ -16,7 +15,13 @@ namespace API.Interfaces
         public Task<bool> DeleteDestination(Destination dest);
         void Register(Destination dest);
         void RegisterDescription(DestinationDescription desc);
-        public Task<bool> DescriptionSavePhoto(DescriptionPhoto photo);
+        Task<bool> DescriptionSavePhoto(DescriptionPhoto photo);
+        void DestinationUpdate(Destination desc);
+        Task<bool> DeleteDescription(DestinationDescription desc);
+        Task<DestinationDescriptionDto> GetDescriptionByIdAsync(int id);
+        void DescriptionUpdate(DestinationDescription destinationDescription);
+        Task<DescriptionPhoto> GetDescriptionPhotoByDescriptionIdAsync(int descriptionId);
+        void DescriptionDeletePhoto(DescriptionPhoto photo);
 
     }
 }

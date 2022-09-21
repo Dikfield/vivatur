@@ -6,7 +6,6 @@ namespace API.Entities
     public class DestinationDescription:Description
     {
         public DescriptionPhoto DescriptionPhoto { get; set; }
-        public Destination Destination { get; set; }
         public int DestinationId { get; set; }
     }
 }

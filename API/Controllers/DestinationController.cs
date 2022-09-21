@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    public class DestinationController:BaseApiController
+    public class DestinationController : BaseApiController
     {
-        
+
         private readonly IPhotoService _photoService;
         private readonly IMapper _mapper;
         private readonly IDestination _destinationRepo;
@@ -26,11 +26,11 @@ namespace API.Controllers
         [HttpGet("{name}", Name = "GetDestination")]
         public async Task<ActionResult> GetDestinationByName(string name)
         {
-                        
+
             var destination = await _destinationRepo.GetByNameAsync(name);
 
             if (destination == null) return NotFound("please try another name");
-            
+
             return Ok(destination);
         }
 
@@ -50,11 +50,11 @@ namespace API.Controllers
             var dest = new Destination();
 
             _mapper.Map(registerDestinationDto, dest);
-                       
+
 
             dest.Name = registerDestinationDto.Name.ToLower();
-           
-            if(registerDestinationDto.Public ==1) dest.Public = true;
+
+            if (registerDestinationDto.Public == 1) dest.Public = true;
             else dest.Public = false;
 
             _destinationRepo.Register(dest);
@@ -71,32 +71,69 @@ namespace API.Controllers
         public async Task<ActionResult<DestinationPhoto>> AddPhoto(IFormFile file, string name)
         {
 
-                var dest = await _destinationRepo.GetByNameAsync(name);
-                var result = await _photoService.AddPhotoAsync(file);
+            var dest = await _destinationRepo.GetByNameAsync(name);
+            var result = await _photoService.AddPhotoAsync(file);
 
-                if (result.Error != null) return BadRequest(result.Error.Message);
+            if (result.Error != null) return BadRequest(result.Error.Message);
 
-                var photo = new DestinationPhoto
-                {
-                    Url = result.SecureUrl.AbsoluteUri,
-                    PublicId = result.PublicId,
-                    DestinationId = dest.Id
+            var photo = new DestinationPhoto
+            {
+                Url = result.SecureUrl.AbsoluteUri,
+                PublicId = result.PublicId,
+                DestinationId = dest.Id
 
-                };
+            };
 
-                if (dest.DestinationPhotos.Count == 0)
-                {
-                    photo.IsMain = true;
-                }
+            if (dest.DestinationPhotos.Count == 0)
+            {
+                photo.IsMain = true;
+            }
 
-                
-                await _destinationRepo.SavePhoto(photo);
 
-                if (await _destinationRepo.SaveAllAsync())
-                    return CreatedAtRoute("GetDestination", new { Name = dest.Name }, _mapper.Map<DestinationPhotoDto>(photo));
+            await _destinationRepo.SavePhoto(photo);
 
-                return BadRequest("Problem Adding photo");
+            if (await _destinationRepo.SaveAllAsync())
+                return CreatedAtRoute("GetDestination", new { Name = dest.Name }, _mapper.Map<DestinationPhotoDto>(photo));
+
+            return BadRequest("Problem Adding photo");
+
+        }
+
+        [HttpPost("description/add-photo/{descriptionId}")]
+        public async Task<ActionResult<DescriptionPhoto>> DescriptionAddPhoto(IFormFile file, int descriptionId)
+        {
+
+            var desc = await _destinationRepo.GetDescriptionByIdAsync(descriptionId);
+
+            if (desc.PhotoUrl != null) return BadRequest("There is already a photo there");
             
+            var result = await _photoService.AddPhotoAsync(file);
+
+            if (result.Error != null) return BadRequest(result.Error.Message);
+
+            var photo = new DescriptionPhoto
+            {
+                Url = result.SecureUrl.AbsoluteUri,
+                PublicId = result.PublicId,
+                DescriptionId = desc.Id,
+
+            };
+
+            await _destinationRepo.DescriptionSavePhoto(photo);
+
+            var desci = new DestinationDescription();
+
+            _mapper.Map(desc, desci);
+
+            desci.DescriptionPhoto = photo;
+
+            _destinationRepo.DescriptionUpdate(desci);
+
+            if (await _destinationRepo.SaveAllAsync())
+                return Ok("Deleted");
+
+            return BadRequest("Problem Adding photo");
+
         }
 
         [HttpDelete("delete/{name}")]
@@ -111,12 +148,29 @@ namespace API.Controllers
             _mapper.Map(dest, desti);
 
             if (await _destinationRepo.DeleteDestination(desti)) return Ok($"{dest.Name} deleted");
-                       
+
 
             return BadRequest("same error in the system");
 
         }
 
+        [HttpDelete("description/delete/{id}")]
+        public async Task<ActionResult> DeleteDescription(int id)
+        {
+            var desc = await _destinationRepo.GetDescriptionByIdAsync(id);
+
+            if (desc == null) return NotFound("Name not found");
+
+            var desci = new DestinationDescription();
+
+            _mapper.Map(desc, desci);
+
+            if (await _destinationRepo.DeleteDescription(desci)) return Ok($"{desci.Title} deleted");
+
+
+            return BadRequest("same error in the system");
+
+        }
 
         [HttpPut("set-main-photo/{name}/{photoId}")]
         public async Task<ActionResult> SetMainPhoto(int photoId, string name)
@@ -132,8 +186,8 @@ namespace API.Controllers
             if (currentMain != null) currentMain.IsMain = false;
 
             photo.IsMain = true;
-                   
-                      
+
+
 
             if (await _destinationRepo.SaveAllAsync()) return NoContent();
 
@@ -145,7 +199,7 @@ namespace API.Controllers
         {
             var photo = await _destinationRepo.GetPhotoByIdAsync(photoId);
 
-            
+
             if (photo == null) return NotFound();
 
             if (photo.IsMain) return BadRequest("You can not delete a main photo");
@@ -153,7 +207,7 @@ namespace API.Controllers
             if (photo.PublicId != null)
             {
                 var result = await _photoService.DeletePhotoAsync(photo.PublicId);
-                if(result.Error != null) return BadRequest(result.Error);
+                if (result.Error != null) return BadRequest(result.Error);
             }
 
             _destinationRepo.DeletePhoto(photo);
@@ -163,46 +217,102 @@ namespace API.Controllers
             return BadRequest("Failed to delete the photo");
         }
 
+        [HttpDelete("Description/delete-photo/{descriptionId}")]
+        public async Task<ActionResult> DeletePhotoDescription(int descriptionId)
+        {
+            var photo = await _destinationRepo.GetDescriptionPhotoByDescriptionIdAsync(descriptionId);
+
+            if (photo == null) return NotFound();
+
+
+            if (photo.PublicId != null)
+            {
+                var result = await _photoService.DeletePhotoAsync(photo.PublicId);
+                if (result.Error != null) return BadRequest(result.Error);
+            }
+
+            _destinationRepo.DescriptionDeletePhoto(photo);
+
+            if (await _destinationRepo.SaveAllAsync()) return Ok();
+
+            return BadRequest("Failed to delete the photo");
+        }
+
         [HttpPut("{name}")]
-        public async Task<ActionResult>UpdateDestination(DestinationUpdateDto destinationUpdateDto, string name)
+        public async Task<ActionResult> UpdateDestination(DestinationUpdateDto destinationUpdateDto, string name)
         {
             var dest = await _destinationRepo.GetByNameAsync(name);
 
-            if(dest == null) return NotFound("Try another name");
+            if (dest == null) return NotFound("Try another name");
 
             var desti = new Destination();
 
-            desti.Id = dest.Id;
-            desti.Name = dest.Name;
-            desti.Created = dest.Created;
-            desti.City = dest.City;
-            desti.Public = dest.Public;
+            _mapper.Map(dest, desti);
 
             _mapper.Map(destinationUpdateDto, desti);
 
-            _destinationRepo.Update(desti);
+            _destinationRepo.DestinationUpdate(desti);
 
-            if(await _destinationRepo.SaveAllAsync()) return Ok();
+            if (await _destinationRepo.SaveAllAsync()) return Ok();
 
             return BadRequest("Failed to update destination");
         }
 
+        [HttpPut("description/update/{id}")]
+        public async Task<ActionResult> UpdateDescriptionn(DestinationDescriptionUpdateDto destinationDescriptionUpdateDto, int id)
+        {
+            var desc = await _destinationRepo.GetDescriptionByIdAsync(id);
+
+            if (desc == null) return NotFound("Try another description id");
+
+            var desti = new DestinationDescription();
+
+            _mapper.Map(desc, desti);
+
+            _mapper.Map(destinationDescriptionUpdateDto, desti);
+
+            _destinationRepo.DescriptionUpdate(desti);
+
+            if (await _destinationRepo.SaveAllAsync()) return Ok();
+
+            return BadRequest("Failed to update description");
+        }
+
         [HttpPost("description/register/{name}")]
-        public async Task<ActionResult>RegisterDescription(RegisterDestinationDescriptionDto registerDestinationDescriptionDto, string name)
+        public async Task<ActionResult> RegisterDescription([FromForm] RegisterDestinationDescriptionDto registerDestinationDescriptionDto, string name)
         {
             var dest = await _destinationRepo.GetByNameAsync(name);
+
 
             var desc = new DestinationDescription();
 
             _mapper.Map(registerDestinationDescriptionDto, desc);
 
             _destinationRepo.RegisterDescription(desc);
+            desc.DestinationId = dest.Id;
+
+            if (!await _destinationRepo.SaveAllAsync()) return BadRequest("Some error to save the new destination");
+
+            var result = await _photoService.AddPhotoAsync(registerDestinationDescriptionDto.File);
+
+            if (result.Error != null) return BadRequest(result.Error.Message);
+
+            var photo = new DescriptionPhoto
+            {
+                Url = result.SecureUrl.AbsoluteUri,
+                PublicId = result.PublicId,
+                DescriptionId = desc.Id
+
+            };
+
+            _destinationRepo.DescriptionUpdate(desc);
+
+            await _destinationRepo.DescriptionSavePhoto(photo);
 
             if (await _destinationRepo.SaveAllAsync())
-                return Ok(registerDestinationDescriptionDto);
+                return Ok();
 
-            return BadRequest("Some error to save the new description");
-
+            return BadRequest("Problem Adding photo");
         }
 
     }

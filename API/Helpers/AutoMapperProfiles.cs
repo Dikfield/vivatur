@@ -15,6 +15,7 @@ namespace API.Helpers
             CreateMap<DestinationDescription, DestinationDescriptionDto>()
                 .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.DescriptionPhoto.Url));
 
+            CreateMap<DestinationDescriptionDto, DestinationDescription>();
             CreateMap<DestinationDto, Destination>();
             CreateMap<DestinationPhotoDto, DestinationPhoto>();
             CreateMap<RegisterDestinationDescriptionDto, DestinationDescription>();
@@ -32,6 +33,7 @@ namespace API.Helpers
             CreateMap<Destination, Destination>();
             CreateMap<DestinationUpdateDto, Destination>();
             CreateMap<Destination, RegisterDestinationDto>();
+            CreateMap<DestinationDescriptionUpdateDto, DestinationDescription>();
 
 
 
