@@ -1,6 +1,6 @@
 <div class="card mb-4">
   <div class="card-img-wrapper">
-    <img src="{{destination.photoUrl}}" alt="{{destination.name}}" class="card-img-top">
+    <img src="{{destination.photoUrl || './assets/user.png'}}" alt="{{destination.name}}" class="card-img-top">
     <ul class="list-inline destination-icons animate text-center">
       <li class="list-inline-item"><button routerLink='/destination/edit/{{destination.name}}' class="btn btn-primary">
         <i class="fa fa-edit"></i></button></li>

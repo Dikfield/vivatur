@@ -8,8 +8,8 @@ export interface Destination{
   photoUrl:string;
   created:Date;
   city:string;
-  bestMonth:string;
+  bestMonths:string;
   destinationPhotos:DestinationPhoto[];
-  destinationDescriptions:DestinationDescription[];
+  descriptions:DestinationDescription[];
 
 }

@@ -16,11 +16,11 @@ export class DestinationDetailComponent implements OnInit {
     private route:ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.loadMember();
+    this.loadDestination();
 
   }
 
-  loadMember() {
+  loadDestination() {
     this.destinationService.getDestination(this.route.snapshot.paramMap.get('name')).subscribe({
       next:(destination) => this.destination = destination
     })

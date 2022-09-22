@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Destination } from 'src/app/_models/destination';
+import { DestinationPhoto } from 'src/app/_models/destinationPhoto';
 import { DestinationsService } from 'src/app/_services/destinations.service';
 
 @Component({
@@ -13,6 +14,7 @@ import { DestinationsService } from 'src/app/_services/destinations.service';
 export class DestinationEditComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
   destination:Destination;
+
   @HostListener('window:beforeunload', ['$event']) unloadNotification($event:any){
     if(this.editForm.dirty){
       $event.returnValue = true;
@@ -25,11 +27,11 @@ export class DestinationEditComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.loadMember();
+    this.loadDestination();
 
   }
 
-  loadMember() {
+  loadDestination() {
     this.destinationService.getDestination(this.route.snapshot.paramMap.get('name')).subscribe({
       next:(destination) => this.destination = destination
     })
@@ -40,6 +42,9 @@ export class DestinationEditComponent implements OnInit {
       this.editForm.reset(this.destination);
     }
     })
+  }
 
+  updateDescription (model) {
+    console.log(model)
   }
 }

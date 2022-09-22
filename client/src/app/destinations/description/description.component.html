@@ -1,0 +1,51 @@
+<div class="col-12">
+      <div *ngFor="let description of destination.descriptions; index as indexOfelement;" >
+        <br *ngIf="indexOfelement !=0">
+        <div class="col-sm-6">
+         <h4 class="text-center">Descrição {{indexOfelement + 1}}</h4>
+        <br>
+        <form #dataForm="ngForm" id="dataForm" (ngSubmit)="updateDescription(destination.descriptions[indexOfelement])">
+        <textarea class="form-control fw-bold" [(ngModel)]="description.title" name="title" rows="1" ></textarea>
+        <br>
+        <textarea class="form-control" [(ngModel)]="description.text" name="text" rows="6"></textarea><br><br>
+      </form>
+      <div class="card-footer text-center">
+      <button [disable]="!dataForm.dirty" form="dataForm" class="btn btn-success btn-block" type="submit">Salvar mudanças</button>
+        </div>
+        <br>
+    </div>
+
+    <div class="col-sm-4">
+<img src="{{description.photoUrl || './assets/user.png'}}" alt="{{description.photoUrl}}"
+  class="card-img-top img-thumbnail" style="width: 200px;">
+  <div class="col-6">
+<div *ngIf="!description.photoUrl; else withPhoto">
+<button class="btn btn-sm btn-success">carregue uma imagem</button>
+</div>
+<ng-template #withPhoto>
+<button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete a foto</button>
+</ng-template>
+</div>
+</div>
+</div>
+<br><br><br>
+<div>
+  <div *ngIf="!newDescription" (click)="addNewDescription()" class="btn btn-success btn-block">Adicione mais descrições clicando aqui</div>
+</div>
+
+<div *ngIf="newDescription">
+<form #descriptionEditForm="ngForm" id="descriptionEditForm" >
+  <h4>Título</h4>
+  <textarea class="form-control fw-bold" name="title" rows="1" ></textarea>
+  <br>
+  <h4>Texto</h4>
+  <textarea class="form-control" name="text" rows="6"></textarea><br><br>
+</form>
+<button class="btn btn-sm btn-success">carregue uma imagem</button>
+<div>
+  <br>
+  <div class="btn btn-success btn-block">Registre aqui</div>
+</div>
+</div>
+</div>
+

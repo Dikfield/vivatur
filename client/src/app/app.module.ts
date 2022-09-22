@@ -23,6 +23,7 @@ import { DestinationEditComponent } from './destinations/destination-edit/destin
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { PhotoDetinationEditorComponent } from './destinations/photo-detination-editor/photo-detination-editor.component';
+import { DescriptionComponent } from './destinations/description/description.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { PhotoDetinationEditorComponent } from './destinations/photo-detination-
     DestinationCardComponent,
     DestinationDetailComponent,
     DestinationEditComponent,
-    PhotoDetinationEditorComponent
+    PhotoDetinationEditorComponent,
+    DescriptionComponent
   ],
   imports: [
     BrowserModule,
