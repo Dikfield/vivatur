@@ -21,6 +21,7 @@ import { environment } from 'src/environments/environment';
 export class DescriptionComponent implements OnInit {
   @Input() destination:Destination;
   @ViewChild('dataForm') dataForm: NgForm;
+  Index:number;
   newDescription:boolean = false;
   user:User;
   uploader:FileUploader;
@@ -41,10 +42,10 @@ export class DescriptionComponent implements OnInit {
     this.newDescription = true;
   }
 
-  updateDescription(description:DestinationDescription){
-    this.destinationService.updateDescription(description).subscribe({
-      next:() => {this.toastr.success('Destino atualizado');
-      this.dataForm.reset(description);
+  updateDescription(descriptionId:number){
+    this.destinationService.updateDescription(this.destination.descriptions[descriptionId]).subscribe({
+      next:() => {this.toastr.success('Descrição atualizada');
+      this.dataForm.reset(this.destination.descriptions[descriptionId]);
     }
     })
   }
@@ -73,6 +74,9 @@ export class DescriptionComponent implements OnInit {
       this.destination.descriptions[0].descriptionPhoto.url = photo.url;
       }
     }
+  }
+  getIndex(index:any){
+    this.Index= index;
   }
 }
 

@@ -4,13 +4,13 @@
         <div class="col-sm-6">
          <h4 class="text-center">Descrição {{indexOfelement + 1}}</h4>
         <br>
-        <form #dataForm="ngForm" id="dataForm" (ngSubmit)="updateDescription(destination.descriptions)">
+        <form #dataForm="ngForm" id="dataForm" (ngSubmit)="updateDescription(Index)">
         <textarea class="form-control fw-bold" [(ngModel)]="description.title" name="title" rows="1" ></textarea>
         <br>
         <textarea class="form-control" [(ngModel)]="description.text" name="text" rows="6"></textarea><br><br>
       </form>
       <div class="card-footer text-center">
-      <button [disable]="!dataForm.dirty" form="dataForm" class="btn btn-success btn-block" type="submit">Salvar mudanças</button>
+      <button [disable]="!dataForm.dirty" form="dataForm" class="btn btn-success btn-block" (click)="getIndex(indexOfelement)" type="submit" >Salvar mudanças</button>
         </div>
         <br>
     </div>

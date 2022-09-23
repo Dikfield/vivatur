@@ -43,10 +43,7 @@ export class DestinationsService {
 
   updateDescription(description:DestinationDescription){
     return this.http.put(this.baseUrl + 'destination/description/update/' + description.id, description).pipe(
-      map(() => {
-        const index = this.descriptions.indexOf(description);
-        this.descriptions[index] = description;
-      })
+      map(() => {})
     )
   }
 
