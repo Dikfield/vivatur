@@ -4,7 +4,7 @@
         <div class="col-sm-6">
          <h4 class="text-center">Descrição {{indexOfelement + 1}}</h4>
         <br>
-        <form #dataForm="ngForm" id="dataForm" (ngSubmit)="updateDescription(destination.descriptions[indexOfelement])">
+        <form #dataForm="ngForm" id="dataForm" (ngSubmit)="updateDescription(destination.descriptions)">
         <textarea class="form-control fw-bold" [(ngModel)]="description.title" name="title" rows="1" ></textarea>
         <br>
         <textarea class="form-control" [(ngModel)]="description.text" name="text" rows="6"></textarea><br><br>
@@ -20,7 +20,56 @@
   class="card-img-top img-thumbnail" style="width: 200px;">
   <div class="col-6">
 <div *ngIf="!description.photoUrl; else withPhoto">
-<button class="btn btn-sm btn-success">carregue uma imagem</button>
+  <input type="file" ng2FileSelect [uploader]="uploader" multiple  />
+
+
+<div class="row">
+
+  <div class="col-md-9" style="margin-bottom: 40px" *ngIf="uploader?.queue?.length">
+
+      <h3>Fila de carregamento</h3>
+      <p>Quantidade na fila: {{ uploader?.queue?.length }}</p>
+
+      <table class="table">
+          <thead>
+          <tr>
+              <th width="50%">Nome</th>
+              <th>Size</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of uploader.queue">
+              <td><strong>{{ item?.file?.name }}</strong></td>
+              <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+
+         </tr>
+          </tbody>
+      </table>
+
+      <div>
+          <div>
+              Progresso:
+              <div class="progress" style="">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+              </div>
+          </div>
+          <button type="button" class="btn btn-success btn-s"
+                  (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+              <span class="fa fa-upload"></span> Carregar todas
+          </button>
+          <button type="button" class="btn btn-warning btn-s"
+                  (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+              <span class="fa fa-ban"></span> Cancelar
+          </button>
+          <button type="button" class="btn btn-danger btn-s"
+                  (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+              <span class="fa fa-trash"></span> Remover
+          </button>
+      </div>
+
+  </div>
+
+</div>
 </div>
 <ng-template #withPhoto>
 <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete a foto</button>
