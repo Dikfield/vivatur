@@ -54,4 +54,12 @@ export class DestinationsService {
   deletePhoto(photoId:number){
     return this.http.delete(this.baseUrl + 'destination/delete-photo/' + photoId);
   }
+
+  deleteDescriptionPhoto(descriptionId:number) {
+    return this.http.delete(this.baseUrl + 'destination/description/delete-photo/' + descriptionId)
+  }
+
+  deleteDestination(name:string) {
+    return this.http.delete(this.baseUrl + 'destination/delete/' + name)
+  }
 }

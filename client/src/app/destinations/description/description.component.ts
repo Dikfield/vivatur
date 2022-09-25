@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
@@ -21,7 +21,7 @@ import { environment } from 'src/environments/environment';
 export class DescriptionComponent implements OnInit {
   @Input() destination:Destination;
   @ViewChild('dataForm') dataForm: NgForm;
-  Index:number;
+  Index:number =0;
   newDescription:boolean = false;
   user:User;
   uploader:FileUploader;
@@ -30,12 +30,13 @@ export class DescriptionComponent implements OnInit {
 
 
   constructor(private destinationService:DestinationsService, private route: ActivatedRoute,
-    private toastr:ToastrService, private accountService:AccountService) {
+    private toastr:ToastrService, private accountService:AccountService,
+    private router:Router) {
       this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user)
      }
 
   ngOnInit(): void {
-    this.initializeUploader(this.destination.descriptions[3].id);
+    this.initializeUploader();
   }
 
   addNewDescription(){
@@ -54,9 +55,9 @@ export class DescriptionComponent implements OnInit {
     this.hasBaseDropZoneOver =e;
   }
 
-  initializeUploader(descriptionId:number) {
+  initializeUploader() {
     this.uploader = new FileUploader({
-    url:this.baseUrl + 'destination/description/add-photo/' + this.destination.descriptions[3].id,
+    url:this.baseUrl + 'destination/description/add-photo/' + this.destination.descriptions[this.Index].id,
     authToken:'Bearer ' + this.user.token,
     isHTML5:true,
     allowedFileType:['image'],
@@ -71,13 +72,30 @@ export class DescriptionComponent implements OnInit {
   this.uploader.onSuccessItem = (item,response, status, headers) =>{
     if(response) {
       const photo:DescriptionPhoto = JSON.parse(response);
-      this.destination.descriptions[0].descriptionPhoto.url = photo.url;
+      this.destination.descriptions[this.Index].descriptionPhoto.url = photo.url;
       }
     }
   }
   getIndex(index:any){
     this.Index= index;
   }
+
+  deleteDescriptionPhoto (index:number){
+    this.destinationService.deleteDescriptionPhoto(this.destination.descriptions[index].id).subscribe({
+      next:()=> {this.toastr.success('Foto deletada');
+      this.reloadCurrentRoute();
+  }
+    })
+  }
+
+  reloadCurrentRoute() {
+    let currentUrl = this.router.url;
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([currentUrl]);
+    });
+}
+
+
 }
 
 

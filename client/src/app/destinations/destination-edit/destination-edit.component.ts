@@ -1,3 +1,4 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,6 +15,8 @@ import { DestinationsService } from 'src/app/_services/destinations.service';
 export class DestinationEditComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
   destination:Destination;
+  bottom:boolean;
+  model:any = {};
 
   @HostListener('window:beforeunload', ['$event']) unloadNotification($event:any){
     if(this.editForm.dirty){
@@ -28,6 +31,7 @@ export class DestinationEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadDestination();
+    this.bottom = false;
 
   }
 
@@ -37,14 +41,23 @@ export class DestinationEditComponent implements OnInit {
     })
   }
   updateDestination(){
-    this.destinationService.updateDestination(this.destination).subscribe({
+    if(this.model.public ==="1") this.destination.public = true;
+    else this.destination.public = false;
+    this.bottom=false;
+      this.destinationService.updateDestination(this.destination).subscribe({
       next:() => {this.toastr.success('Destino atualizado');
       this.editForm.reset(this.destination);
+      console.log(this.destination);
+      console.log(this.model.public);
     }
     })
   }
 
-  updateDescription (model) {
-    console.log(model)
+  clickBottom(){
+    this.bottom = !this.bottom;
+  }
+
+  setScreen(){
+    console.log('teste');
   }
 }

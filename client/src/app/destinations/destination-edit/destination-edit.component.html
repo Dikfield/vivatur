@@ -1,58 +1,94 @@
 <div class="container">
-<div class="row" *ngIf="destination">
-  <div class="col-3">
-      <h1 class="">Edição {{destination.name}}</h1>
+  <div class="row" *ngIf="destination">
+    <div class="col-3">
+      <h1 class="">Edição {{ destination.name }}</h1>
     </div>
     <div class="col-9">
       <div class="alert alert-info" *ngIf="editForm.dirty">
-        <strong>Informação:</strong> Você fez mudanças que se não salvas, serão perdidas
+        <strong>Informação:</strong> Você fez mudanças que se não salvas, serão
+        perdidas
       </div>
     </div>
     <div class="col-3">
       <div class="card">
-      <img src="{{destination.photoUrl}}" alt="{{destination.name}}"
-        class="card-img-top img-thumbnail principal_img">
+        <img
+          src="{{ destination.photoUrl }}"
+          alt="{{ destination.name }}"
+          class="card-img-top img-thumbnail principal_img"
+        />
         <div class="card-body">
-          <form  #editForm="ngForm" id="editForm" (ngSubmit)="updateDestination() ">
+          <form
+            #editForm="ngForm"
+            id="editForm"
+            (ngSubmit)="updateDestination()"
+          >
             <strong>País</strong>
-            <p>{{destination.name}}</p>
+            <p>{{ destination.name }}</p>
             <strong>Cidades</strong>
-            <textarea class="form-control" [(ngModel)]="destination.city" name="city" rows="2"></textarea>
+            <textarea
+              class="form-control"
+              [(ngModel)]="destination.city"
+              name="city"
+              rows="2"
+            ></textarea>
             <strong>Melhores meses</strong>
-            <textarea class="form-control" [(ngModel)]="destination.bestMonths" name="bestMonths" rows="1"></textarea>
-        </form>
-          <div class="dropdown">
-            <strong>Destino está público?</strong>
-            <div class="dropdown-menu mt-3" *dropdownMenu>
-              <a>Sim</a>
-              <a>Não</a>
+            <textarea
+              class="form-control"
+              [(ngModel)]="destination.bestMonths"
+              name="bestMonths"
+              rows="1"
+            ></textarea>
+            <strong (click)="clickBottom()">O Destino está público?</strong>
+
+              <select
+                *ngIf="bottom"
+                class="form-control"
+                type="number"
+                name="public"
+                [(ngModel)]="model.public"
+                placeholder="public"
+              >
+
+                <option value="1" >Sim</option>
+
+                <option value="0">Não</option>
+              </select>
+
+            <div (click)="clickBottom()" *ngIf="!bottom">
+              <div *ngIf="destination.public; else notPublic">
+                <p>Sim</p>
+              </div>
+              <ng-template #notPublic>Não</ng-template>
             </div>
-            <p *ngIf="destination.public; else notValid">Sim</p>
-            <ng-template #notValid>Não</ng-template>
-          </div>
+             </form>
           <div>
             <strong>Criado em</strong>
-            <p>{{destination.created}}</p>
+            <p>{{ destination.created }}</p>
           </div>
         </div>
         <div class="card-footer text-center">
-          <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-success btn-block">Salvar mudanças</button>
+          <button
+            [disabled]="!editForm.dirty"
+            form="editForm"
+            class="btn btn-success btn-block"
+          >
+            Salvar mudanças
+          </button>
         </div>
+      </div>
+    </div>
+
+    <div class="col-9">
+      <tabset class="member-tabset">
+        <tab heading="Descrições do destino {{ destination.name }}">
+          <app-description [destination]="destination"></app-description>
+        </tab>
+        <tab heading="Fotos do destino{{ destination.name }}">
+          <app-photo-detination-editor
+            [destination]="destination"
+          ></app-photo-detination-editor>
+        </tab>
+      </tabset>
     </div>
   </div>
-
-<div class="col-9">
-<tabset class="member-tabset">
-  <tab heading='Descrições do destino {{destination.name}}'>
-    <app-description [destination]="destination"></app-description>
-
-</tab>
-<tab heading='Fotos do destino{{destination.name}}'>
-<app-photo-detination-editor [destination]="destination"></app-photo-detination-editor>
-</tab>
-</tabset>
 </div>
-</div>
-</div>
-
-
