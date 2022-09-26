@@ -28,14 +28,6 @@ export class AccountService {
     )
   }
 
-  registerDestination(model:any){
-    return this.http.post(this.baseUrl + 'destination', model).pipe(
-      map((destination : any) => {
-        console.log(destination);
-      })
-    )
-  }
-
   setCurrentUser(user:User){
     this.currentUserSource.next(user);
   }

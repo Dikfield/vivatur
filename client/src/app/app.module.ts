@@ -40,7 +40,7 @@ import { DescriptionComponent } from './destinations/description/description.com
     DestinationDetailComponent,
     DestinationEditComponent,
     PhotoDetinationEditorComponent,
-    DescriptionComponent
+    DescriptionComponent,
   ],
   imports: [
     BrowserModule,

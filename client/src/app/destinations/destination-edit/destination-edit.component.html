@@ -40,19 +40,18 @@
             ></textarea>
             <strong (click)="clickBottom()">O Destino está público?</strong>
 
-              <select
-                *ngIf="bottom"
-                class="form-control"
-                type="number"
-                name="public"
-                [(ngModel)]="model.public"
-                placeholder="public"
-              >
+            <select
+              *ngIf="bottom"
+              class="form-control"
+              type="number"
+              name="public"
+              [(ngModel)]="model.public"
+              placeholder="public"
+            >
+              <option value="1">Sim</option>
 
-                <option value="1" >Sim</option>
-
-                <option value="0">Não</option>
-              </select>
+              <option value="0">Não</option>
+            </select>
 
             <div (click)="clickBottom()" *ngIf="!bottom">
               <div *ngIf="destination.public; else notPublic">
@@ -60,7 +59,7 @@
               </div>
               <ng-template #notPublic>Não</ng-template>
             </div>
-             </form>
+          </form>
           <div>
             <strong>Criado em</strong>
             <p>{{ destination.created }}</p>

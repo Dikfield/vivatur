@@ -1,106 +1,110 @@
 <div class="col-12">
-      <div *ngFor="let description of destination.descriptions; index as indexOfelement;" >
-        <br *ngIf="indexOfelement !=0">
-        <div class="col-sm-6">
-         <h4 class="text-center">Descrição {{indexOfelement + 1}}</h4>
-        <br>
-        <form #dataForm="ngForm" id="dataForm" (ngSubmit)="updateDescription(Index)">
-        <textarea class="form-control fw-bold" [(ngModel)]="description.title" name="title" rows="1" ></textarea>
-        <br>
-        <textarea class="form-control" [(ngModel)]="description.text" name="text" rows="6"></textarea><br><br>
+  <div
+    *ngFor="
+      let description of destination.descriptions;
+      index as indexOfelement
+    "
+  >
+    <br *ngIf="indexOfelement != 0" />
+    <div class="col-sm-6">
+      <h4 class="text-center">Descrição {{ indexOfelement + 1 }}</h4>
+      <br />
+      <form
+        #dataForm="ngForm"
+        id="dataForm"
+        (ngSubmit)="updateDescription(Index)"
+      >
+        <textarea
+          class="form-control fw-bold"
+          [(ngModel)]="description.title"
+          name="title"
+          rows="1"
+        ></textarea>
+        <br />
+        <textarea
+          class="form-control"
+          [(ngModel)]="description.text"
+          name="text"
+          rows="6"
+        ></textarea
+        ><br /><br />
       </form>
       <div class="card-footer text-center">
-      <button [disable]="!dataForm.dirty" form="dataForm" class="btn btn-success btn-block" (click)="getIndex(indexOfelement)" type="submit" >Salvar mudanças</button>
-        </div>
-        <br>
+        <button
+          [disable]="!dataForm.dirty"
+          form="dataForm"
+          class="btn btn-success btn-block"
+          (click)="getIndex(indexOfelement)"
+          type="submit"
+        >
+          Salvar mudanças
+        </button>
+      </div>
+      <br />
     </div>
 
     <div class="col-sm-12">
-<img src="{{description.photoUrl || './assets/user.png'}}" alt="{{description.photoUrl}}"
-  class="card-img-top img-thumbnail" style="width: 200px;">
-  <div class="col-6">
-<div *ngIf="!description.photoUrl; else withPhoto">
-
-
-  <div class="row">
-
-    <div class="row mt-6">
-
-        <h3>Adicionar fotos</h3>
-
-        Apenas uma
-        <input type="file" ng2FileSelect [uploader]="uploader" />
-    </div>
-
-    <div class="col-md-9" style="margin-bottom: 40px" *ngIf="uploader?.queue?.length">
-      <h3>Fila de carregamento</h3>
-      <p>Quantidade na fila: {{ uploader?.queue?.length }}</p>
-
-      <table class="table">
-          <thead>
-          <tr>
-              <th width="50%">Nome</th>
-              <th>Size</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let item of uploader.queue">
-              <td><strong>{{ item?.file?.name }}</strong></td>
-              <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
-
-         </tr>
-          </tbody>
-      </table>
-
-      <div>
-          <div>
-              Progresso:
-              <div class="progress" style="">
-                  <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
-              </div>
-          </div>
-          <button type="button" class="btn btn-success btn-s"
-                  (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
-              <span class="fa fa-upload"></span> Carregar todas
+      <img
+        src="{{ description.photoUrl || './assets/user.png' }}"
+        alt="{{ description.photoUrl }}"
+        class="card-img-top img-thumbnail"
+        style="width: 200px"
+      />
+      <div class="col-6">
+        <div *ngIf="!description.photoUrl; else withPhoto">
+        <div class="text-center">
+          <input type="file" class="form-control" (change)="onChange($event)">
+          <button (click)="onUpload(description.id)" class="btn btn-success">
+            Carregue a imagem
           </button>
-          <button type="button" class="btn btn-warning btn-s"
-                  (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
-              <span class="fa fa-ban"></span> Cancelar
-          </button>
-          <button type="button" class="btn btn-danger btn-s"
-                  (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
-              <span class="fa fa-trash"></span> Remover
-          </button>
+        </div>
+        <div class="container text-center jumbotron"
+          *ngIf="shortLink">
+          <h2>Visite aqui</h2>
+          <a href="{{shortLink}}">{{shortLink}}</a>
+        </div>
+        <div class="container" *ngIf="loading">
+          <h3>Loading...</h3>
+        </div>
       </div>
-
+        <ng-template #withPhoto>
+          <button
+            (click)="deleteDescriptionPhoto(indexOfelement)"
+            class="btn btn-sm btn-danger"
+          >
+            <i class="fa fa-trash"></i> Delete a foto
+          </button>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <br /><br /><br />
+  <div>
+    <div
+      *ngIf="!newDescription"
+      (click)="addNewDescription()"
+      class="btn btn-success btn-block"
+    >
+      Adicione mais descrições clicando aqui
+    </div>
   </div>
 
-</div>
-</div>
-<ng-template #withPhoto>
-<button (click)="deleteDescriptionPhoto(indexOfelement)" class="btn btn-sm btn-danger"><i class="fa fa-trash" ></i> Delete a foto</button>
-</ng-template>
-</div>
-</div>
-</div>
-<br><br><br>
-<div>
-  <div *ngIf="!newDescription" (click)="addNewDescription()" class="btn btn-success btn-block">Adicione mais descrições clicando aqui</div>
-</div>
+  <div *ngIf="newDescription">
+    <form #descriptionEditForm="ngForm" id="descriptionEditForm">
+      <div class="form-group">
+        <input type="text" class="form-control" name="title"
+        [(ngModel)]="model.title" placeholder="Título" rows="1">
+      </div>
 
-<div *ngIf="newDescription">
-<form #descriptionEditForm="ngForm" id="descriptionEditForm" >
-  <h4>Título</h4>
-  <textarea class="form-control fw-bold" name="title" rows="1" ></textarea>
-  <br>
-  <h4>Texto</h4>
-  <textarea class="form-control" name="text" rows="6"></textarea><br><br>
-</form>
-<button class="btn btn-sm btn-success">carregue uma imagem</button>
-<div>
-  <br>
-  <div class="btn btn-success btn-block">Registre aqui</div>
+      <div class="form-group">
+        <textarea type="text" class="form-control" name="text"
+        [(ngModel)]="model.text" placeholder="Texto" rows="6"></textarea>
+      </div>
+    </form>
+    <br>
+    <div>
+      <br />
+      <div class="btn btn-success btn-block" (click)="registerDescriptions()">Registre aqui</div>
+    </div>
+  </div>
 </div>
-</div>
-</div>
-

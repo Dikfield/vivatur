@@ -44,7 +44,7 @@ namespace API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Abouts");
+                    b.ToTable("Abouts", (string)null);
                 });
 
             modelBuilder.Entity("API.Entities.Admin", b =>
@@ -156,7 +156,7 @@ namespace API.Migrations
                     b.HasIndex("DescriptionId")
                         .IsUnique();
 
-                    b.ToTable("DescriptionPhotos");
+                    b.ToTable("DescriptionPhotos", (string)null);
                 });
 
             modelBuilder.Entity("API.Entities.Destination", b =>
@@ -185,7 +185,7 @@ namespace API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Destinations");
+                    b.ToTable("Destinations", (string)null);
                 });
 
             modelBuilder.Entity("API.Entities.DestinationDescription", b =>
@@ -211,7 +211,7 @@ namespace API.Migrations
 
                     b.HasIndex("DestinationId");
 
-                    b.ToTable("DestinationDescriptions");
+                    b.ToTable("DestinationDescriptions", (string)null);
                 });
 
             modelBuilder.Entity("API.Entities.DestinationPhoto", b =>
@@ -239,7 +239,7 @@ namespace API.Migrations
 
                     b.HasIndex("DestinationId");
 
-                    b.ToTable("DestinationPhotos");
+                    b.ToTable("DestinationPhotos", (string)null);
                 });
 
             modelBuilder.Entity("API.Entities.Role", b =>
@@ -298,7 +298,7 @@ namespace API.Migrations
 
                     b.HasIndex("AboutId");
 
-                    b.ToTable("VivaPhotos");
+                    b.ToTable("VivaPhotos", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

@@ -1,29 +1,58 @@
-
-<div class="container" *ngIf="accountService.currentUser$ | async">
+<div class="container">
   <div class="row justify-content-center">
     <div class="col-4">
-  <form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
-  <h2 class="text-center text-primary">Registre um destino</h2>
-  <hr>
-  <div class="form-group">
-    <input type="text" class="form-control" name="name"
-    [(ngModel)]="model.name" placeholder="name">
-  </div>
+      <form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
+        <h2 class="text-center text-primary">Registre um destino</h2>
+        <hr />
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            name="name"
+            [(ngModel)]="model.name"
+            placeholder="name"
+          />
+        </div>
 
-  <div class="form-group">
-    <label>Escolha se o destino deve aparecer na página principal</label>
-    <select class="form-control" type="boolean" name="public"
-    [(ngModel)]="model.public" placeholder="public">
-      <option value=1>Sim</option>
-      <option value=0>Não</option>
-    </select>
-  </div>
-  <div class="form-group text-center">
-    <button class="btn btn-success" type="submit">Register</button>
-    <button class="btn btn-primary" (click)="cancel()" type="button">Cancel</button>
-  </div>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            name="city"
+            [(ngModel)]="model.city"
+            placeholder="city"
+          />
+        </div>
 
-</form>
-</div>
-</div>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            name="bestMonths"
+            [(ngModel)]="model.bestMonths"
+            placeholder="bestMonths"
+          />
+        </div>
+        <div class="form-group">
+          <label>Escolha se o destino deve aparecer na página principal</label>
+          <select
+            class="form-control"
+            type="boolean"
+            name="public"
+            [(ngModel)]="model.public"
+            placeholder="public"
+          >
+            <option value="1">Sim</option>
+            <option value="0">Não</option>
+          </select>
+        </div>
+        <div class="form-group text-center">
+          <button class="btn btn-success" type="submit">Register</button>
+          <button class="btn btn-primary" (click)="cancel()" type="button">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

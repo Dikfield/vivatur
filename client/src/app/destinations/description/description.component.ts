@@ -13,6 +13,7 @@ import { AccountService } from 'src/app/_services/account.service';
 import { DestinationsService } from 'src/app/_services/destinations.service';
 import { environment } from 'src/environments/environment';
 
+
 @Component({
   selector: 'app-description',
   templateUrl: './description.component.html',
@@ -21,13 +22,14 @@ import { environment } from 'src/environments/environment';
 export class DescriptionComponent implements OnInit {
   @Input() destination:Destination;
   @ViewChild('dataForm') dataForm: NgForm;
+  model:any={};
   Index:number =0;
   newDescription:boolean = false;
   user:User;
-  uploader:FileUploader;
-  hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
-
+  shortLink:string = "";
+  loading:boolean = false;
+  file:File = null;
 
   constructor(private destinationService:DestinationsService, private route: ActivatedRoute,
     private toastr:ToastrService, private accountService:AccountService,
@@ -36,7 +38,6 @@ export class DescriptionComponent implements OnInit {
      }
 
   ngOnInit(): void {
-    this.initializeUploader();
   }
 
   addNewDescription(){
@@ -51,31 +52,6 @@ export class DescriptionComponent implements OnInit {
     })
   }
 
-  fileOverBase(e:any){
-    this.hasBaseDropZoneOver =e;
-  }
-
-  initializeUploader() {
-    this.uploader = new FileUploader({
-    url:this.baseUrl + 'destination/description/add-photo/' + this.destination.descriptions[this.Index].id,
-    authToken:'Bearer ' + this.user.token,
-    isHTML5:true,
-    allowedFileType:['image'],
-    removeAfterUpload:true,
-    autoUpload:false,
-    maxFileSize:10 * 1024 * 1024
-  });
-
-  this.uploader.onAfterAddingFile = (file) =>{
-    file.withCredentials = false;
-  }
-  this.uploader.onSuccessItem = (item,response, status, headers) =>{
-    if(response) {
-      const photo:DescriptionPhoto = JSON.parse(response);
-      this.destination.descriptions[this.Index].descriptionPhoto.url = photo.url;
-      }
-    }
-  }
   getIndex(index:any){
     this.Index= index;
   }
@@ -94,7 +70,29 @@ export class DescriptionComponent implements OnInit {
         this.router.navigate([currentUrl]);
     });
 }
+  registerDescriptions() {
+    this.destinationService.registerDescription(this.model,this.destination.name).subscribe({
+      next:()=>{this.toastr.success('Registrado')
+      this.reloadCurrentRoute();
+    }
+    })
+  }
 
+  onChange(event) {
+    this.file =event.target.files[0];
+  }
+
+  onUpload(descriptionId:number) {
+    this.loading = !this.loading;
+    this.destinationService.uploadDescriptionPhoto(this.file,descriptionId).subscribe({
+      next:(event:any)=>{
+        if(typeof (event) === 'object'){
+          this.loading = false;
+          this.reloadCurrentRoute();
+        }
+      }, error:(e)=>console.log(e)
+    });
+  }
 
 }
 

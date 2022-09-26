@@ -1,6 +1,6 @@
 import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Destination } from '../_models/destination';
 import { DestinationDescription } from '../_models/destinationDescription';
@@ -12,9 +12,32 @@ import { DestinationDescription } from '../_models/destinationDescription';
 export class DestinationsService {
   baseUrl = environment.apiUrl;
   destinations: Destination [] = [];
-  descriptions:DestinationDescription [] = []
+  descriptions:DestinationDescription [] = [];
+
 
   constructor(private http:HttpClient) { }
+
+  registerDestination(model:any){
+    return this.http.post(this.baseUrl + 'destination', model).pipe(
+      map((destination : any) => {
+        console.log(destination);
+      })
+    )
+  }
+
+  uploadDescriptionPhoto(file, descriptionId:number):Observable<any>{
+    const formData = new FormData();
+    formData.append("file", file, file.name);
+    return this.http.post(this.baseUrl + 'destination/description/add-photo/' + descriptionId, formData);
+  }
+
+  registerDescription(model:any, name:string){
+    return this.http.post(this.baseUrl + 'destination/description/register/' + name, model).pipe(
+      map((destinationDescription : any) => {
+        console.log(destinationDescription);
+      })
+    )
+  }
 
   getDestinations() {
     if(this.destinations.length > 0) return of(this.destinations);

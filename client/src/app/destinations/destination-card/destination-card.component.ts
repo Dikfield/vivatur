@@ -15,12 +15,8 @@ import { DestinationsService } from 'src/app/_services/destinations.service';
 })
 export class DestinationCardComponent implements OnInit {
   @Input() destination:Destination;
-  user:User;
 
-  constructor(private destinationService:DestinationsService, private router:Router,
-    private toastr:ToastrService, private accountService:AccountService) {
-      this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user)
-    }
+  constructor(private router:Router, private toastr:ToastrService, private destinationService:DestinationsService) {}
 
   ngOnInit(): void {
   }
@@ -32,9 +28,9 @@ export class DestinationCardComponent implements OnInit {
     });
 }
 
-  deleteDestination() {
-    this.destinationService.deleteDestination(this.destination.name).subscribe({
-      next:(response)=> {this.toastr.success('Destino deletado');
+  deleteDestination(name:string) {
+    this.destinationService.deleteDestination(name).subscribe({
+      next:(response)=> {this.toastr.success();
       console.log(response);
       this.reloadCurrentRoute();
      }, error:()=> this.reloadCurrentRoute()})

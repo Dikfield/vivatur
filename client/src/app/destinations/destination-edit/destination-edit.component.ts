@@ -47,8 +47,6 @@ export class DestinationEditComponent implements OnInit {
       this.destinationService.updateDestination(this.destination).subscribe({
       next:() => {this.toastr.success('Destino atualizado');
       this.editForm.reset(this.destination);
-      console.log(this.destination);
-      console.log(this.model.public);
     }
     })
   }
@@ -57,7 +55,4 @@ export class DestinationEditComponent implements OnInit {
     this.bottom = !this.bottom;
   }
 
-  setScreen(){
-    console.log('teste');
-  }
 }

@@ -130,7 +130,7 @@ namespace API.Controllers
             _destinationRepo.DescriptionUpdate(desci);
 
             if (await _destinationRepo.SaveAllAsync())
-                return Ok("Deleted");
+                return Ok();
 
             return BadRequest("Problem Adding photo");
 
@@ -147,7 +147,7 @@ namespace API.Controllers
 
             _mapper.Map(dest, desti);
 
-            if (await _destinationRepo.DeleteDestination(desti)) return Ok($"{dest.Name} deleted");
+            if (await _destinationRepo.DeleteDestination(desti)) return Ok();
 
 
             return BadRequest("same error in the system");
@@ -165,7 +165,7 @@ namespace API.Controllers
 
             _mapper.Map(desc, desci);
 
-            if (await _destinationRepo.DeleteDescription(desci)) return Ok($"{desci.Title} deleted");
+            if (await _destinationRepo.DeleteDescription(desci)) return Ok();
 
 
             return BadRequest("same error in the system");
@@ -278,8 +278,8 @@ namespace API.Controllers
             return BadRequest("Failed to update description");
         }
 
-        [HttpPost("description/register/{name}")]
-        public async Task<ActionResult> RegisterDescription([FromForm] RegisterDestinationDescriptionDto registerDestinationDescriptionDto, string name)
+        [HttpPost("description/registerwp/{name}")]
+        public async Task<ActionResult> RegisterDescriptionwp([FromForm] RegisterDestinationDescriptionDto registerDestinationDescriptionDto, string name)
         {
             var dest = await _destinationRepo.GetByNameAsync(name);
 
@@ -313,6 +313,23 @@ namespace API.Controllers
                 return Ok();
 
             return BadRequest("Problem Adding photo");
+        }
+
+        [HttpPost("description/register/{name}")]
+        public async Task<ActionResult> RegisterDescription(RegisterDestinationDescriptionDto registerDestinationDescriptionDto, string name)
+        {
+            var dest = await _destinationRepo.GetByNameAsync(name);
+
+            var desc = new DestinationDescription();
+
+            _mapper.Map(registerDestinationDescriptionDto, desc);
+
+            _destinationRepo.RegisterDescription(desc);
+            desc.DestinationId = dest.Id;
+
+            if (!await _destinationRepo.SaveAllAsync()) return BadRequest("Some error to save the new destination");
+
+            return Ok();
         }
 
     }
