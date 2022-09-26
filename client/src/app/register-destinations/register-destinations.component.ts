@@ -21,8 +21,8 @@ export class RegisterDestinationsComponent implements OnInit {
   register(){
     this.destinationService.registerDestination(this.model).subscribe({
       next:(response)=>{
-        this.reloadCurrentRoute();
         this.toastr.success("Registered");
+        this.reloadCurrentRoute();
       }, error:(e)=> {
         console.log(e);
         this.toastr.error(e.error)}

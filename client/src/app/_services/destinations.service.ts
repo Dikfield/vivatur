@@ -31,8 +31,8 @@ export class DestinationsService {
     return this.http.post(this.baseUrl + 'destination/description/add-photo/' + descriptionId, formData);
   }
 
-  registerDescription(model:any, name:string){
-    return this.http.post(this.baseUrl + 'destination/description/register/' + name, model).pipe(
+  registerDescription(model:any, id:number){
+    return this.http.post(this.baseUrl + 'destination/description/register/' + id, model).pipe(
       map((destinationDescription : any) => {
         console.log(destinationDescription);
       })
@@ -55,8 +55,14 @@ export class DestinationsService {
     return this.http.get<Destination>(this.baseUrl + 'destination/' + name);
   }
 
+  getDestinationById(id:number) {
+    const destination = this.destinations.find(x => x.id === id);
+    if(destination !== undefined) return of(destination);
+    return this.http.get<Destination>(this.baseUrl + 'destination/' + id);
+  }
+
   updateDestination(destination:Destination){
-    return this.http.put(this.baseUrl + 'destination/' + destination.name, destination).pipe(
+    return this.http.put(this.baseUrl + 'destination/' + destination.id, destination).pipe(
       map(() => {
         const index = this.destinations.indexOf(destination);
         this.destinations[index] = destination;
@@ -70,8 +76,8 @@ export class DestinationsService {
     )
   }
 
-  setMainPhoto(name:string, photoId:number) {
-    return this.http.put(this.baseUrl + 'destination/set-main-photo/'+ name +'/' + photoId, {})
+  setMainPhoto(id:number, photoId:number) {
+    return this.http.put(this.baseUrl + 'destination/set-main-photo/'+ id +'/' + photoId, {})
   }
 
   deletePhoto(photoId:number){
@@ -82,7 +88,7 @@ export class DestinationsService {
     return this.http.delete(this.baseUrl + 'destination/description/delete-photo/' + descriptionId)
   }
 
-  deleteDestination(name:string) {
-    return this.http.delete(this.baseUrl + 'destination/delete/' + name)
+  deleteDestination(id:number) {
+    return this.http.delete(this.baseUrl + 'destination/delete/' + id)
   }
 }

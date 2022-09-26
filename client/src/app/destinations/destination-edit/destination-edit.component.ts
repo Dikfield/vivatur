@@ -36,7 +36,7 @@ export class DestinationEditComponent implements OnInit {
   }
 
   loadDestination() {
-    this.destinationService.getDestination(this.route.snapshot.paramMap.get('name')).subscribe({
+    this.destinationService.getDestinationById(parseInt(this.route.snapshot.paramMap.get('id'))).subscribe({
       next:(destination) => this.destination = destination
     })
   }

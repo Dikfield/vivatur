@@ -28,11 +28,11 @@ export class PhotoDetinationEditorComponent implements OnInit {
      }
 
   ngOnInit(): void {
-    this.initializeUploader(this.destination.name);
+    this.initializeUploader();
   }
 
-  setMainPhoto(name:string, photo:DestinationPhoto) {
-    this.destinationService.setMainPhoto(name, photo.id).subscribe(() => {
+  setMainPhoto(id:number, photo:DestinationPhoto) {
+    this.destinationService.setMainPhoto(id, photo.id).subscribe(() => {
       this.destination.photoUrl = photo.url;
       this.destination.destinationPhotos.forEach(p =>{
         if(p.isMain)p.isMain = false;
@@ -50,9 +50,9 @@ export class PhotoDetinationEditorComponent implements OnInit {
     this.hasBaseDropZoneOver =e;
   }
 
-  initializeUploader(name:string) {
+  initializeUploader() {
     this.uploader = new FileUploader({
-    url:this.baseUrl + 'destination/add-photo/' + this.destination.name,
+    url:this.baseUrl + 'destination/add-photo/' + this.destination.id,
     authToken:'Bearer ' + this.user.token,
     isHTML5:true,
     allowedFileType:['image'],

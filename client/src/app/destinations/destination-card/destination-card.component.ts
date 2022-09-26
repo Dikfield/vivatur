@@ -28,8 +28,8 @@ export class DestinationCardComponent implements OnInit {
     });
 }
 
-  deleteDestination(name:string) {
-    this.destinationService.deleteDestination(name).subscribe({
+  deleteDestination(id:number) {
+    this.destinationService.deleteDestination(id).subscribe({
       next:(response)=> {this.toastr.success();
       console.log(response);
       this.reloadCurrentRoute();

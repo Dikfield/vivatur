@@ -23,11 +23,11 @@ namespace API.Controllers
             _destinationRepo = destinationRepo;
         }
 
-        [HttpGet("{name}", Name = "GetDestination")]
-        public async Task<ActionResult> GetDestinationByName(string name)
+        [HttpGet("{id}", Name = "GetDestination")]
+        public async Task<ActionResult> GetDestinationById(int id)
         {
 
-            var destination = await _destinationRepo.GetByNameAsync(name);
+            var destination = await _destinationRepo.GetDestinationByIdAsync(id);
 
             if (destination == null) return NotFound("please try another name");
 
@@ -67,11 +67,11 @@ namespace API.Controllers
 
         }
 
-        [HttpPost("add-photo/{name}")]
-        public async Task<ActionResult<DestinationPhoto>> AddPhoto(IFormFile file, string name)
+        [HttpPost("add-photo/{id}")]
+        public async Task<ActionResult<DestinationPhoto>> AddPhoto(IFormFile file, int id)
         {
 
-            var dest = await _destinationRepo.GetByNameAsync(name);
+            var dest = await _destinationRepo.GetDestinationByIdAsync(id);
             var result = await _photoService.AddPhotoAsync(file);
 
             if (result.Error != null) return BadRequest(result.Error.Message);
@@ -93,7 +93,7 @@ namespace API.Controllers
             await _destinationRepo.SavePhoto(photo);
 
             if (await _destinationRepo.SaveAllAsync())
-                return CreatedAtRoute("GetDestination", new { Name = dest.Name }, _mapper.Map<DestinationPhotoDto>(photo));
+                return CreatedAtRoute("GetDestination", new { Id = dest.Id }, _mapper.Map<DestinationPhotoDto>(photo));
 
             return BadRequest("Problem Adding photo");
 
@@ -136,10 +136,10 @@ namespace API.Controllers
 
         }
 
-        [HttpDelete("delete/{name}")]
-        public async Task<ActionResult> DeleteDestination(string name)
+        [HttpDelete("delete/{id}")]
+        public async Task<ActionResult> DeleteDestination(int id)
         {
-            var dest = await _destinationRepo.GetByNameAsync(name);
+            var dest = await _destinationRepo.GetDestinationByIdAsync(id);
 
             if (dest == null) return NotFound("Name not found");
 
@@ -172,10 +172,10 @@ namespace API.Controllers
 
         }
 
-        [HttpPut("set-main-photo/{name}/{photoId}")]
-        public async Task<ActionResult> SetMainPhoto(int photoId, string name)
+        [HttpPut("set-main-photo/{id}/{photoId}")]
+        public async Task<ActionResult> SetMainPhoto(int photoId, int id)
         {
-            var dest = await _destinationRepo.GetByNameAsync(name);
+            var dest = await _destinationRepo.GetDestinationByIdAsync(id);
 
             var photo = await _destinationRepo.GetPhotoByIdAsync(photoId);
 
@@ -238,10 +238,10 @@ namespace API.Controllers
             return BadRequest("Failed to delete the photo");
         }
 
-        [HttpPut("{name}")]
-        public async Task<ActionResult> UpdateDestination(DestinationUpdateDto destinationUpdateDto, string name)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateDestination(DestinationUpdateDto destinationUpdateDto, int id)
         {
-            var dest = await _destinationRepo.GetByNameAsync(name);
+            var dest = await _destinationRepo.GetDestinationByIdAsync(id);
 
             if (dest == null) return NotFound("Try another name");
 
@@ -278,10 +278,10 @@ namespace API.Controllers
             return BadRequest("Failed to update description");
         }
 
-        [HttpPost("description/registerwp/{name}")]
-        public async Task<ActionResult> RegisterDescriptionwp([FromForm] RegisterDestinationDescriptionDto registerDestinationDescriptionDto, string name)
+        [HttpPost("description/registerwp/{id}")]
+        public async Task<ActionResult> RegisterDescriptionwp([FromForm] RegisterDestinationDescriptionDto registerDestinationDescriptionDto, int id)
         {
-            var dest = await _destinationRepo.GetByNameAsync(name);
+            var dest = await _destinationRepo.GetDestinationByIdAsync(id);
 
 
             var desc = new DestinationDescription();
@@ -315,10 +315,10 @@ namespace API.Controllers
             return BadRequest("Problem Adding photo");
         }
 
-        [HttpPost("description/register/{name}")]
-        public async Task<ActionResult> RegisterDescription(RegisterDestinationDescriptionDto registerDestinationDescriptionDto, string name)
+        [HttpPost("description/register/{id}")]
+        public async Task<ActionResult> RegisterDescription(RegisterDestinationDescriptionDto registerDestinationDescriptionDto, int id)
         {
-            var dest = await _destinationRepo.GetByNameAsync(name);
+            var dest = await _destinationRepo.GetDestinationByIdAsync(id);
 
             var desc = new DestinationDescription();
 

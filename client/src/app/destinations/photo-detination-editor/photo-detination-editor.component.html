@@ -11,7 +11,7 @@
       <div class="card-footer">
         <button
           [disabled]="photo.isMain"
-          (click)="setMainPhoto(destination.name, photo)"
+          (click)="setMainPhoto(destination.id, photo)"
           [ngClass]="
             photo.isMain ? 'btn-success active' : 'btn-outline-success'
           "

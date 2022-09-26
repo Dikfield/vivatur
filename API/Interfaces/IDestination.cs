@@ -9,6 +9,7 @@ namespace API.Interfaces
         Task<bool> SaveAllAsync();
         Task<IEnumerable<DestinationDto>> GetAllAsync();
         Task<DestinationDto> GetByNameAsync(string name);
+        Task<DestinationDto> GetDestinationByIdAsync(int id);
         Task<DestinationPhoto> GetPhotoByIdAsync(int id);
         Task<bool> SavePhoto(DestinationPhoto photo);
         void DeletePhoto(DestinationPhoto photo);

@@ -19,8 +19,8 @@ const routes: Routes = [
     canActivate:[AuthGuard],
     children:[
       {path:'destinations', component:DestinationsListComponent},
-      {path:'destinations/:name', component:DestinationDetailComponent},
-      {path:'destination/edit/:name', component:DestinationEditComponent, canDeactivate:[PreventUnsavedChangesGuard]},
+      {path:'destinations/:id', component:DestinationDetailComponent},
+      {path:'destination/edit/:id', component:DestinationEditComponent, canDeactivate:[PreventUnsavedChangesGuard]},
       {path:'register', component:RegisterDestinationsComponent},
     ]
   },

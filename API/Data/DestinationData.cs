@@ -53,6 +53,14 @@ namespace API.Data
 
         }
 
+        public async Task<DestinationDto> GetDestinationByIdAsync(int id)
+        {
+            return await _context.Destinations
+                .ProjectTo<DestinationDto>(_mapper.ConfigurationProvider)
+                .SingleOrDefaultAsync(x => x.Id == id);
+
+        }
+
         public async Task<DestinationDescriptionDto> GetDescriptionByIdAsync(int id)
         {
             return await _context.DestinationDescriptions
