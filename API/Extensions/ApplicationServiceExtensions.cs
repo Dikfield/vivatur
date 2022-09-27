@@ -17,6 +17,7 @@ namespace API.Extensions
             services.AddScoped<IAbout, AboutData>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddScoped<IDestination, DestinationData>();
+            services.AddScoped<IPromotion, PromotionData>();
 
             services.AddDbContext<DataContext>(options =>
             {

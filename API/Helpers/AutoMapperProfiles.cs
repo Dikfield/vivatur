@@ -36,6 +36,34 @@ namespace API.Helpers
             CreateMap<DestinationDescriptionUpdateDto, DestinationDescription>();
 
 
+            CreateMap<Promotion, PromotionDto>()
+                .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src =>
+                src.PromotionPhotos.FirstOrDefault(x => x.IsMain).Url));
+
+            CreateMap<PromotionDescription, PromotionDescriptionDto>()
+                .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.PromotionDescriptionPhoto.Url));
+
+            CreateMap<PromotionDescriptionDto, PromotionDescription>();
+            CreateMap<PromotionDto, Promotion>();
+            CreateMap<PromotionPhotoDto, PromotionPhoto>();
+            CreateMap<RegisterPromotionDescriptionDto, PromotionDescription>();
+
+            CreateMap<PromotionPhoto, PromotionPhotoDto>();
+
+            CreateMap<RegisterPromotionDto, Promotion>();
+
+            CreateMap<AboutDto, About>();
+            CreateMap<RegisterAboutDto, About>();
+            CreateMap<AboutUpdateDto, About>();
+            CreateMap<About, AboutDto>();
+            CreateMap<VivaPhoto, VivaPhotoDto>();
+
+            CreateMap<Promotion, Promotion>();
+            CreateMap<PromotionUpdateDto, Promotion>();
+            CreateMap<Promotion, RegisterPromotionDto>();
+            CreateMap<PromotionDescriptionUpdateDto, PromotionDescription>();
+
+
 
         }
     }

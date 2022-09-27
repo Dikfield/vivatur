@@ -1,0 +1,110 @@
+<div class="col-12">
+  <div
+    *ngFor="
+      let description of promotion.promotionDescriptions;
+      index as indexOfelement
+    "
+  >
+    <br *ngIf="indexOfelement != 0" />
+    <div class="col-sm-6">
+      <h4 class="text-center">Descrição {{ indexOfelement + 1 }}</h4>
+      <br />
+      <form
+        #dataForm="ngForm"
+        id="dataForm"
+        (ngSubmit)="updateDescription(Index)"
+      >
+        <textarea
+          class="form-control fw-bold"
+          [(ngModel)]="description.title"
+          name="title"
+          rows="1"
+        ></textarea>
+        <br />
+        <textarea
+          class="form-control"
+          [(ngModel)]="description.text"
+          name="text"
+          rows="6"
+        ></textarea
+        ><br /><br />
+      </form>
+      <div class="card-footer text-center">
+        <button
+          [disable]="!dataForm.dirty"
+          form="dataForm"
+          class="btn btn-success btn-block"
+          (click)="getIndex(indexOfelement)"
+          type="submit"
+        >
+          Salvar mudanças
+        </button>
+      </div>
+      <br />
+    </div>
+
+    <div class="col-sm-12">
+      <img
+        src="{{ description.photoUrl || './assets/user.png' }}"
+        alt="{{ description.photoUrl }}"
+        class="card-img-top img-thumbnail"
+        style="width: 200px"
+      />
+      <div class="col-6">
+        <div *ngIf="!description.photoUrl; else withPhoto">
+        <div class="text-center">
+          <input type="file" class="form-control" (change)="onChange($event)">
+          <button (click)="onUpload(description.id)" class="btn btn-success">
+            Carregue a imagem
+          </button>
+        </div>
+        <div class="container text-center jumbotron"
+          *ngIf="shortLink">
+          <h2>Visite aqui</h2>
+          <a href="{{shortLink}}">{{shortLink}}</a>
+        </div>
+        <div class="container" *ngIf="loading">
+          <h3>Loading...</h3>
+        </div>
+      </div>
+        <ng-template #withPhoto>
+          <button
+            (click)="deleteDescriptionPhoto(indexOfelement)"
+            class="btn btn-sm btn-danger"
+          >
+            <i class="fa fa-trash"></i> Delete a foto
+          </button>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <br /><br /><br />
+  <div>
+    <div
+      *ngIf="!newDescription"
+      (click)="addNewDescription()"
+      class="btn btn-success btn-block"
+    >
+      Adicione mais descrições clicando aqui
+    </div>
+  </div>
+
+  <div *ngIf="newDescription">
+    <form #descriptionEditForm="ngForm" id="descriptionEditForm">
+      <div class="form-group">
+        <input type="text" class="form-control" name="title"
+        [(ngModel)]="model.title" placeholder="Título" rows="1">
+      </div>
+
+      <div class="form-group">
+        <textarea type="text" class="form-control" name="text"
+        [(ngModel)]="model.text" placeholder="Texto" rows="6"></textarea>
+      </div>
+    </form>
+    <br>
+    <div>
+      <br />
+      <div class="btn btn-success btn-block" (click)="registerDescriptions()">Registre aqui</div>
+    </div>
+  </div>
+</div>

@@ -26,12 +26,17 @@
       </a>
       <ng-container *ngIf="accountService.currentUser$ | async">
         <a class="nav-link" routerLink="destinations" routerLinkActive="active"
-          >Destinos</a
+          >Editar Destinos</a
+        >
+        <a class="nav-link" routerLink="promotions" routerLinkActive="active"
+          >Editar Promoções</a
         >
         <a class="nav-link" routerLink="register" routerLinkActive="active"
-          >Registrar</a
+          >Registrar destinos</a
         >
-        <a class="nav-link">Editar</a>
+        <a class="nav-link" routerLink="promotion/register" routerLinkActive="active"
+          >Registrar promoções</a
+        >
         <a class="nav-link">Sobre mim</a>
       </ng-container>
 

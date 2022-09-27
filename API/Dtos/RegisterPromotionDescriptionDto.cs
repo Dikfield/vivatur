@@ -2,7 +2,7 @@
 
 namespace API.Dtos
 {
-    public class RegisterPromotionDescriptionDto
+    public class RegisterDestinationDescriptionDto
     {
         public string Title { get; set; }
         public string Text { get; set; }

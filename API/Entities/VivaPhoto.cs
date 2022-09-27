@@ -3,12 +3,8 @@
 namespace API.Entities
 {
     [Table("VivaPhotos")]
-    public class VivaPhoto
+    public class VivaPhoto:Photo
     {
-        public int Id { get; set; }
-        public string Url { get; set; }
-        public bool IsMain { get; set; }
-        public string PublicId { get; set; }
         public About About{ get; set; }
         public int AboutId{ get; set; }
     }

@@ -2,7 +2,7 @@
 
 namespace API.Dtos
 {
-    public class PromotionPhotoDto:Photo
+    public class DestinationPhotoDto:Photo
     {
     }
 }

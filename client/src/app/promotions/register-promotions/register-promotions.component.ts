@@ -1,25 +1,24 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AccountService } from '../_services/account.service';
-import { DestinationsService } from '../_services/destinations.service';
+import { PromotionsService } from 'src/app/_services/promotions.service';
 
 @Component({
-  selector: 'app-register-destinations',
-  templateUrl: './register-destinations.component.html',
-  styleUrls: ['./register-destinations.component.css']
+  selector: 'app-register-promotions',
+  templateUrl: './register-promotions.component.html',
+  styleUrls: ['./register-promotions.component.css']
 })
-export class RegisterDestinationsComponent implements OnInit {
+export class RegisterPromotionsComponent implements OnInit {
   model:any = {};
 
-  constructor(public destinationService:DestinationsService,
+  constructor(public promotionService:PromotionsService,
     private toastr:ToastrService, private router:Router) { }
 
   ngOnInit(): void {
   }
 
   register(){
-    this.destinationService.registerDestination(this.model).subscribe({
+    this.promotionService.registerPromotion(this.model).subscribe({
       next:(response)=>{
         this.toastr.success("Registered");
         this.reloadCurrentRoute();

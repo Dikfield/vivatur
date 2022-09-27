@@ -1,0 +1,25 @@
+<div class="row" *ngIf="promotion">
+  <div class="col-4">
+    <div class="card">
+      <img
+        src="{{ promotion.photoUrl }}"
+        alt="{{ promotion.name }}"
+        class="card-img-top img-thumbnail"
+      />
+      <div class="card-body">
+        <div>
+          <strong>Name</strong>
+          <p>{{ promotion.name }}</p>
+        </div>
+        <div>
+          <strong>public</strong>
+          <p>{{ promotion.public }}</p>
+        </div>
+        <div>
+          <strong>Criado em</strong>
+          <p>{{ promotion.created }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

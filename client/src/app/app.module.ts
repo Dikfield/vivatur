@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { HomeComponent } from './home/home.component';
-import { RegisterDestinationsComponent } from './register-destinations/register-destinations.component';
+import { RegisterDestinationsComponent } from './destinations/register-destinations/register-destinations.component';
 import { SharedModule } from './_modules/shared.module';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
@@ -24,6 +24,13 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { PhotoDetinationEditorComponent } from './destinations/photo-detination-editor/photo-detination-editor.component';
 import { DescriptionComponent } from './destinations/description/description.component';
+import { PromotionCardComponent } from './promotions/promotion-card/promotion-card.component';
+import { PromotionDetailComponent } from './promotions/promotion-detail/promotion-detail.component';
+import { PromotionsListComponent } from './promotions/promotions-list/promotions-list.component';
+import { PromotionEditComponent } from './promotions/promotion-edit/promotion-edit.component';
+import { PromotionDescriptionComponent } from './promotions/promotionDescription/promotionDescription.component';
+import { PhotoPromotionEditorComponent } from './promotions/photo-promotion-editor/photo-promotion-editor.component';
+import { RegisterPromotionsComponent } from './promotions/register-promotions/register-promotions.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +48,13 @@ import { DescriptionComponent } from './destinations/description/description.com
     DestinationEditComponent,
     PhotoDetinationEditorComponent,
     DescriptionComponent,
+    PromotionCardComponent,
+    PromotionDetailComponent,
+    PromotionsListComponent,
+    PromotionEditComponent,
+    PromotionDescriptionComponent,
+    PhotoPromotionEditorComponent,
+    RegisterPromotionsComponent
   ],
   imports: [
     BrowserModule,

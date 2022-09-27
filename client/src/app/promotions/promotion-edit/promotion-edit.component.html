@@ -1,0 +1,100 @@
+<div class="container">
+  <div class="row" *ngIf="promotion">
+    <div class="col-3">
+      <h1 class="">Edição {{promotion.name }}</h1>
+    </div>
+    <div class="col-9">
+      <div class="alert alert-info" *ngIf="editForm.dirty">
+        <strong>Informação:</strong> Você fez mudanças que se não salvas, serão
+        perdidas
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="card">
+        <img
+          src="{{ promotion.photoUrl }}"
+          alt="{{ promotion.name }}"
+          class="card-img-top img-thumbnail principal_img"
+        />
+        <div class="card-body">
+          <form
+            #editForm="ngForm"
+            id="editForm"
+            (ngSubmit)="updatePromotion()"
+          >
+            <strong>País</strong>
+            <p>{{ promotion.name }}</p>
+            <strong>Cidades</strong>
+            <textarea
+              class="form-control"
+              [(ngModel)]="promotion.city"
+              name="city"
+              rows="2"
+            ></textarea>
+            <strong>Preço</strong>
+            <textarea
+              class="form-control"
+              [(ngModel)]="promotion.price"
+              name="price"
+              rows="1"
+            ></textarea>
+            <strong>Época do ano</strong>
+            <textarea
+              class="form-control"
+              [(ngModel)]="promotion.month"
+              name="month"
+              rows="1"
+            ></textarea>
+            <strong (click)="clickBottom()">O Destino está público?</strong>
+
+            <select
+              *ngIf="bottom"
+              class="form-control"
+              type="number"
+              name="public"
+              [(ngModel)]="model.public"
+              placeholder="public"
+            >
+              <option value="1">Sim</option>
+
+              <option value="0">Não</option>
+            </select>
+
+            <div (click)="clickBottom()" *ngIf="!bottom">
+              <div *ngIf="promotion.public; else notPublic">
+                <p>Sim</p>
+              </div>
+              <ng-template #notPublic>Não</ng-template>
+            </div>
+          </form>
+          <div>
+            <strong>Criado em</strong>
+            <p>{{promotion.created }}</p>
+          </div>
+        </div>
+        <div class="card-footer text-center">
+          <button
+            [disabled]="!editForm.dirty"
+            form="editForm"
+            class="btn btn-success btn-block"
+          >
+            Salvar mudanças
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-9">
+      <tabset class="member-tabset">
+        <tab heading="Descrições do destino {{promotion.name }}">
+          <app-promotionDescription [promotion]="promotion"></app-promotionDescription>
+        </tab>
+        <tab heading="Fotos do destino{{promotion.name }}">
+          <app-photo-promotion-editor
+            [promotion]="promotion"
+          ></app-photo-promotion-editor>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { RegisterDestinationsComponent } from '../register-destinations/register-destinations.component';
 import { AccountService } from '../_services/account.service';
 
 @Component({
