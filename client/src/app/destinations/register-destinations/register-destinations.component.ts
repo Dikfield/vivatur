@@ -19,21 +19,17 @@ export class RegisterDestinationsComponent implements OnInit {
 
   register(){
     this.destinationService.registerDestination(this.model).subscribe({
-      next:(response)=>{
+      next:()=>{
         this.toastr.success("Registered");
-        this.reloadCurrentRoute();
+        this.router.navigateByUrl('destinations');
+
       }, error:(e)=> {
         console.log(e);
         this.toastr.error(e.error)}
     })
   }
 
-  reloadCurrentRoute() {
-    let currentUrl = this.router.url;
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-        this.router.navigate([currentUrl]);
-    });
-}
+
 
   cancel(){
     console.log('cancelled');

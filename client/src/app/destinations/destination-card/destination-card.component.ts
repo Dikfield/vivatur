@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrComponentlessModule, ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
@@ -15,6 +15,7 @@ import { DestinationsService } from 'src/app/_services/destinations.service';
 })
 export class DestinationCardComponent implements OnInit {
   @Input() destination:Destination;
+  @Output() destinationDeleted = new EventEmitter<number>();
 
   constructor(private router:Router, private toastr:ToastrService, private destinationService:DestinationsService) {}
 
@@ -30,9 +31,9 @@ export class DestinationCardComponent implements OnInit {
 
   deleteDestination(id:number) {
     this.destinationService.deleteDestination(id).subscribe({
-      next:(response)=> {this.toastr.success();
-      console.log(response);
-      this.reloadCurrentRoute();
+      next:(response)=> {
+        this.toastr.success();
+        this.destinationDeleted.emit(id);
      }, error:()=> this.reloadCurrentRoute()})
   }
 

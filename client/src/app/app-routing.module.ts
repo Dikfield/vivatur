@@ -14,6 +14,7 @@ import { RegisterPromotionsComponent } from './promotions/register-promotions/re
 import { RegisterDestinationsComponent } from './destinations/register-destinations/register-destinations.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
+import { AboutEditComponent } from './about/about-edit/about-edit.component';
 
 const routes: Routes = [
   {path:'', component:HomeComponent},
@@ -30,6 +31,7 @@ const routes: Routes = [
       {path:'promotions/:id', component:PromotionDetailComponent},
       {path:'promotion/edit/:id', component:PromotionEditComponent, canDeactivate:[PreventUnsavedChangesGuard]},
       {path:'promotion/register', component:RegisterPromotionsComponent},
+      {path:'about', component:AboutEditComponent}
     ]
   },
   {path:'errors', component:TestErrorsComponent},

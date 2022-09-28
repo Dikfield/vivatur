@@ -1,0 +1,115 @@
+<div class="row">
+  <div class="col-6">
+    <h4 class="text-center">Sobre Vivian e Viva Turismo</h4>
+    <div *ngFor="let about of abouts; index as indexOfelement">
+      <form #dataForm="ngForm" id="dataForm" (ngSubmit)="updateAbout(Index)">
+        <br *ngIf="indexOfelement != 0" />
+        <br />
+        <textarea
+          class="form-control fw-bold"
+          [(ngModel)]="about.title"
+          name="title"
+          rows="1"
+        ></textarea>
+        <br />
+        <textarea
+          class="form-control"
+          [(ngModel)]="about.description"
+          name="description"
+          rows="6"
+        ></textarea
+        ><br /><br />
+      </form>
+      <div class="card-footer text-center">
+        <button
+          [disable]="!dataForm.dirty"
+          form="dataForm"
+          class="btn btn-success btn-block"
+          (click)="getIndex(indexOfelement)"
+          type="submit"
+        >
+          Salvar mudanças
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-3">
+    <h3>Fotos de viva Turismo</h3>
+    <div class="card-img-wrapper">
+      <div *ngFor="let about of abouts; index as indexOfabouts">
+        <div *ngIf="about.id == 1">
+          <div *ngFor="let photo of about.vivaPhotos index">
+            <br />
+            <img
+              src="{{ photo.url }}"
+              alt="{{ photo.url }}"
+              class="card-img-top"
+              style="width: 200px"
+            />
+            <button class="btn btn btn-danger" (click)="deletePhoto(photo.id); getIndex(indexOfabouts)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+          <br /><br />
+          <div class="text-center">
+            <input
+              type="file"
+              class="form-control"
+              (change)="onChange($event)"
+            />
+            <button (click)="onUpload(about.id); getIndex(indexOfabouts)" class="btn btn-success">
+              Carregue a imagem
+            </button>
+          </div>
+          <div class="container text-center jumbotron" *ngIf="shortLink">
+            <h2>Visite aqui</h2>
+            <a href="{{ shortLink }}">{{ shortLink }}</a>
+          </div>
+          <div class="container" *ngIf="loading">
+            <h3>Loading...</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-3">
+    <h3>Fotos de Vivian</h3>
+    <div class="card-img-wrapper">
+      <div *ngFor="let about of abouts; index as indexOfabouts">
+        <div *ngIf="about.id == 3">
+          <div *ngFor="let photo of about.vivaPhotos">
+            <br />
+            <img
+              src="{{ photo.url }}"
+              alt="{{ photo.url }}"
+              class="card-img-top"
+              style="width: 200px"
+            />
+            <button class="btn btn btn-danger" (click)="deletePhoto(photo.id); getIndex(indexOfabouts)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+          <br /><br />
+          <div class="text-center">
+            <input
+              type="file"
+              class="form-control"
+              (change)="onChange($event)"
+            />
+            <button (click)="onUpload(about.id); getIndex(indexOfabouts)" class="btn btn-success">
+              Carregue a imagem
+            </button>
+          </div>
+          <div class="container text-center jumbotron" *ngIf="shortLink">
+            <h2>Visite aqui</h2>
+            <a href="{{ shortLink }}">{{ shortLink }}</a>
+          </div>
+          <div class="container" *ngIf="loading">
+            <h3>Loading...</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -21,52 +21,79 @@ namespace API.Controllers
             _photoService = photoService;
         }
 
-        //[HttpPost]
-        //public async Task<ActionResult> RegisterAbout(RegisterAboutDto registerAboutDto)
-        //{
-        //    var about = _mapper.Map<About>(registerAboutDto);
-
-        //    _context.Abouts.Add(about);
-
-        //    await _context.SaveChangesAsync();
-
-        //    return Ok(registerAboutDto);
-        //}
-
-        [HttpPut]
-        public async Task<ActionResult> UpdateAbout(AboutUpdateDto aboutUpdateDto)
+        [HttpPost]
+        public async Task<ActionResult> RegisterAbout(RegisterAboutDto registerAboutDto)
         {
-            var about = await _about.GetAboutOrigin();
+            var about = _mapper.Map<About>(registerAboutDto);
 
-            about.Name = aboutUpdateDto.Name;
-            about.Description = aboutUpdateDto.Description;
-            about.Information = aboutUpdateDto.Information;
+            _about.Register(about);
+
+            if (!await _about.SaveAllAsync()) return BadRequest("Error saving about");
+
+            return Ok(registerAboutDto);
+        }
+
+        [HttpDelete("delete/{id}")]
+        public async Task<ActionResult> DeleteAbout(int id)
+        {
+            var dest = await _about.GetAboutById(id);
+
+            if (dest == null) return NotFound("Name not found");
+
+            var desti = new About();
+
+            _mapper.Map(dest, desti);
+
+            if (await _about.DeleteAbout(desti)) return Ok($"{desti.Title} deleted");
 
 
-            _mapper.Map(aboutUpdateDto, about);
+            return BadRequest("same error in the system");
 
-            _about.Update(about);
+        }
 
-            if (await _about.SaveAllAsync()) return NoContent();
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateAbout(AboutUpdateDto aboutUpdateDto, int id)
+        {
+            var about = await _about.GetAboutById(id);
 
-            return BadRequest("Failed to update user");
+            if (about == null) return NotFound("Try another name");
+
+            var abouti = new About();
+
+            _mapper.Map(about, abouti);
+
+            _mapper.Map(aboutUpdateDto, abouti);
+
+            _about.Update(abouti);
+
+            if (await _about.SaveAllAsync()) return Ok();
+
+            return BadRequest("Failed to update destination");
         }
 
         [HttpGet(Name = "GetAbout")]
-        public async Task<ActionResult<About>> GetAbout()
+        public async Task<ActionResult> GetAbout()
         {
 
             var about = await _about.GetAbout();
-
             return Ok(about);
         }
 
-        [HttpPost("add-photo")]
-        public async Task<ActionResult<DestinationPhotoDto>> AddPhoto(IFormFile file)
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetAboutById(int id)
         {
 
-            var about = await _about.GetAboutOrigin();
+            var about = await _about.GetAboutById(id);
+            return Ok(about);
+        }
 
+        [HttpPost("add-photo/{id}")]
+        public async Task<ActionResult<VivaPhotoDto>> AddPhoto(IFormFile file, int id)
+        {
+
+            var about = await _about.GetAboutById(id);
+
+            if (about == null) return BadRequest("id does not exist");
 
             var result = await _photoService.AddPhotoAsync(file);
 
@@ -75,44 +102,37 @@ namespace API.Controllers
             var photo = new VivaPhoto
             {
                 Url = result.SecureUrl.AbsoluteUri,
-                PublicId = result.PublicId
+                PublicId = result.PublicId,
+                AboutId = id,
+                VivaPic = true,
+                IsMain = false
+
 
             };
 
-            if (about.VivaPhotos.Count == 0)
-            {
-                photo.IsMain = true;
-            }
-
-
+            
             about.VivaPhotos.Add(photo);
-
-            if (await _about.SaveAllAsync())
+            if (await _about.AboutSavePhoto(photo))
                 return CreatedAtRoute("GetAbout", _mapper.Map<VivaPhotoDto>(photo));
 
-
-
+            
             return BadRequest("Problem Adding photo");
 
 
         }
 
-        [HttpPut("set-main-photo/{photoId}")]
-        public async Task<ActionResult> SetMainPhoto(int photoId)
+        [HttpPut("set-type-photo/{photoId}")]
+        public async Task<ActionResult> SetPhotoType(int photoId)
         {
-            var about = await _about.GetAboutOrigin();
-
             var photo = await _about.GetPhotoByIdAsync(photoId);
 
-            if (photo.IsMain) return BadRequest("This is already a main photo");
-            var currentMain = about.VivaPhotos.FirstOrDefault(x => x.IsMain == true);
+            if (photo == null) return BadRequest("does not exist");
 
-            if (currentMain != null) currentMain.IsMain = false;
-            photo.IsMain = true;
+            photo.VivaPic = !photo.VivaPic;
 
             if (await _about.SaveAllAsync()) return NoContent();
 
-            return BadRequest("Failed to set a main photo");
+            return BadRequest("Failed to change the type");
         }
 
         [HttpDelete("delete-photo/{photoId}")]
@@ -123,7 +143,6 @@ namespace API.Controllers
 
             if (photo == null) return NotFound();
 
-            if (photo.IsMain) return BadRequest("You can not delete a main photo");
 
             if (photo.PublicId != null)
             {

@@ -31,6 +31,7 @@ import { PromotionEditComponent } from './promotions/promotion-edit/promotion-ed
 import { PromotionDescriptionComponent } from './promotions/promotionDescription/promotionDescription.component';
 import { PhotoPromotionEditorComponent } from './promotions/photo-promotion-editor/photo-promotion-editor.component';
 import { RegisterPromotionsComponent } from './promotions/register-promotions/register-promotions.component';
+import { AboutEditComponent } from './about/about-edit/about-edit.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { RegisterPromotionsComponent } from './promotions/register-promotions/re
     PromotionEditComponent,
     PromotionDescriptionComponent,
     PhotoPromotionEditorComponent,
-    RegisterPromotionsComponent
+    RegisterPromotionsComponent,
+    AboutEditComponent
   ],
   imports: [
     BrowserModule,

@@ -18,9 +18,9 @@ export class DestinationsService {
   constructor(private http:HttpClient) { }
 
   registerDestination(model:any){
-    return this.http.post(this.baseUrl + 'destination', model).pipe(
-      map((destination : any) => {
-        console.log(destination);
+    return this.http.post<Destination>(this.baseUrl + 'destination', model).pipe(
+      map((destination) => {
+        this.destinations.push(destination);
       })
     )
   }
@@ -40,7 +40,7 @@ export class DestinationsService {
   }
 
   getDestinations() {
-    if(this.destinations.length > 0) return of(this.destinations);
+     if(this.destinations.length > 0) return of(this.destinations);
     return this.http.get<Destination[]>(this.baseUrl + 'destination').pipe(
       map(destinations =>{
         this.destinations = destinations;
@@ -89,6 +89,6 @@ export class DestinationsService {
   }
 
   deleteDestination(id:number) {
-    return this.http.delete(this.baseUrl + 'destination/delete/' + id)
+    return this.http.delete(this.baseUrl + 'destination/delete/' + id, {responseType: 'text'})
   }
 }

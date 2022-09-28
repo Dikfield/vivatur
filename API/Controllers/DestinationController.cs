@@ -147,7 +147,7 @@ namespace API.Controllers
 
             _mapper.Map(dest, desti);
 
-            if (await _destinationRepo.DeleteDestination(desti)) return Ok();
+            if (await _destinationRepo.DeleteDestination(desti)) return Ok($"{desti.Name} deleted" );
 
 
             return BadRequest("same error in the system");

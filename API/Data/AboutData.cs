@@ -1,6 +1,7 @@
 ﻿using API.Dtos;
 using API.Entities;
 using API.Interfaces;
+using API.Services;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
@@ -11,11 +12,13 @@ namespace API.Data
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
+        private readonly IPhotoService _photoService;
 
-        public AboutData(DataContext context, IMapper mapper)
+        public AboutData(DataContext context, IMapper mapper, IPhotoService photoService)
         {
             _context = context;
             _mapper = mapper;
+            _photoService = photoService;
         }
 
 
@@ -27,6 +30,26 @@ namespace API.Data
         public void Update(About about)
         {
             _context.Entry(about).State = EntityState.Modified;
+        }
+
+        public async Task<bool> DeleteAbout(About about)
+        {
+            var count = about.VivaPhotos.Count();
+
+            foreach (var photo in about.VivaPhotos)
+                await _photoService.DeletePhotoAsync(photo.PublicId);
+
+            _context.Abouts.Remove(about);
+
+            return await _context.SaveChangesAsync() > 0;
+
+        }
+        public async Task<bool> AboutSavePhoto(VivaPhoto photo)
+        {
+            await _context.VivaPhotos.AddAsync(photo);
+
+            return await _context.SaveChangesAsync() >= 0;
+
         }
 
         public async Task<VivaPhoto> GetPhotoByIdAsync(int id)
@@ -55,13 +78,24 @@ namespace API.Data
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<AboutDto> GetAbout()
+        public async Task<IEnumerable<AboutDto>> GetAbout()
         {
             return await _context.Abouts
                 .ProjectTo<AboutDto>(_mapper.ConfigurationProvider)
-                .SingleOrDefaultAsync();
+                .ToListAsync();
         }
 
+        public async Task<AboutDto> GetAboutById(int id)
+        {
+            return await _context.Abouts
+                .ProjectTo<AboutDto>(_mapper.ConfigurationProvider)
+                .SingleOrDefaultAsync(x => x.Id == id);
+        }
+
+        public void Register(About about)
+        {
+            _context.Abouts.Add(about);
+        }
 
     }
 }
