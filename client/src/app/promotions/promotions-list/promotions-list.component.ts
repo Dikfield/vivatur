@@ -11,16 +11,32 @@ import { PromotionsService } from 'src/app/_services/promotions.service';
   styleUrls: ['./promotions-list.component.css']
 })
 export class PromotionsListComponent implements OnInit {
-    promotions$: Observable<Promotion[]>;
+    promotions: Promotion[];
     @Input() promotion:Promotion;
 
     constructor(private promotionService:PromotionsService, private router:Router,
       private toastr:ToastrService) { }
 
   ngOnInit(): void {
-    this.promotions$ = this.promotionService.getPromotions();
+    this.initialState();
+  }
+
+  promotionDeleted(id:number) {
+    this.promotions = this.promotions.filter(
+      promotion => promotion.id != id
+    );
+  }
+
+    initialState() {
+      this.promotionService.getPromotions().subscribe({
+        next:(promotions) =>{
+          this.promotions = promotions;
+        }
+      });
+    }
+
   }
 
 
 
-}
+

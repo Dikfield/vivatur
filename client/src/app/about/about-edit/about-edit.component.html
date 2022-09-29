@@ -39,7 +39,7 @@
     <div class="card-img-wrapper">
       <div *ngFor="let about of abouts; index as indexOfabouts">
         <div *ngIf="about.id == 1">
-          <div *ngFor="let photo of about.vivaPhotos index">
+          <div *ngFor="let photo of about.vivaPhotos; index">
             <br />
             <img
               src="{{ photo.url }}"
@@ -47,7 +47,10 @@
               class="card-img-top"
               style="width: 200px"
             />
-            <button class="btn btn btn-danger" (click)="deletePhoto(photo.id); getIndex(indexOfabouts)">
+            <button
+              class="btn btn btn-danger"
+              (click)="deletePhoto(photo.id); getIndex(indexOfabouts)"
+            >
               <i class="fa fa-trash"></i>
             </button>
           </div>
@@ -58,16 +61,12 @@
               class="form-control"
               (change)="onChange($event)"
             />
-            <button (click)="onUpload(about.id); getIndex(indexOfabouts)" class="btn btn-success">
+            <button
+              (click)="onUpload(about.id); getIndex(indexOfabouts)"
+              class="btn btn-success"
+            >
               Carregue a imagem
             </button>
-          </div>
-          <div class="container text-center jumbotron" *ngIf="shortLink">
-            <h2>Visite aqui</h2>
-            <a href="{{ shortLink }}">{{ shortLink }}</a>
-          </div>
-          <div class="container" *ngIf="loading">
-            <h3>Loading...</h3>
           </div>
         </div>
       </div>
@@ -86,7 +85,10 @@
               class="card-img-top"
               style="width: 200px"
             />
-            <button class="btn btn btn-danger" (click)="deletePhoto(photo.id); getIndex(indexOfabouts)">
+            <button
+              class="btn btn btn-danger"
+              (click)="deletePhoto(photo.id); getIndex(indexOfabouts)"
+            >
               <i class="fa fa-trash"></i>
             </button>
           </div>
@@ -97,16 +99,12 @@
               class="form-control"
               (change)="onChange($event)"
             />
-            <button (click)="onUpload(about.id); getIndex(indexOfabouts)" class="btn btn-success">
+            <button
+              (click)="onUpload(about.id); getIndex(indexOfabouts)"
+              class="btn btn-success"
+            >
               Carregue a imagem
             </button>
-          </div>
-          <div class="container text-center jumbotron" *ngIf="shortLink">
-            <h2>Visite aqui</h2>
-            <a href="{{ shortLink }}">{{ shortLink }}</a>
-          </div>
-          <div class="container" *ngIf="loading">
-            <h3>Loading...</h3>
           </div>
         </div>
       </div>

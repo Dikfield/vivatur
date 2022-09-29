@@ -21,19 +21,13 @@ export class RegisterPromotionsComponent implements OnInit {
     this.promotionService.registerPromotion(this.model).subscribe({
       next:(response)=>{
         this.toastr.success("Registered");
-        this.reloadCurrentRoute();
+        this.router.navigateByUrl('promotions');
       }, error:(e)=> {
         console.log(e);
         this.toastr.error(e.error)}
     })
   }
 
-  reloadCurrentRoute() {
-    let currentUrl = this.router.url;
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-        this.router.navigate([currentUrl]);
-    });
-}
 
   cancel(){
     console.log('cancelled');

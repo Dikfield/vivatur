@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Destination } from 'src/app/_models/destination';
@@ -14,25 +14,20 @@ import { PromotionsService } from 'src/app/_services/promotions.service';
 })
 export class PromotionCardComponent implements OnInit {
   @Input() promotion:Promotion;
+  @Output() promotionDeleted = new EventEmitter<number>();
 
   constructor(private router:Router, private toastr:ToastrService, private promotionService:PromotionsService) {}
 
   ngOnInit(): void {
   }
 
-  reloadCurrentRoute() {
-    let currentUrl = this.router.url;
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-        this.router.navigate([currentUrl]);
-    });
-}
 
   deletePromotion(id:number) {
     this.promotionService.deletePromotion(id).subscribe({
-      next:(response)=> {this.toastr.success();
-      console.log(response);
-      this.reloadCurrentRoute();
-     }, error:()=> this.reloadCurrentRoute()})
+      next:(response)=> {
+        this.toastr.success();
+        this.promotionDeleted.emit(id);
+     }
+  })
   }
-
 }
