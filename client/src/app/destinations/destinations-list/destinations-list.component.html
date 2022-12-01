@@ -1,5 +1,36 @@
 <div class="row">
-  <div *ngFor="let destination of destinations" class="col-2">
-    <app-destination-card (destinationDeleted)="destinationDeleted($event)" [destination]="destination"> </app-destination-card>
+  <div *ngFor="let destination of destinations; last as isLast" class="col-2">
+    <app-destination-card
+      (destinationDeleted)="destinationDeleted($event)"
+      [destination]="destination"
+    >
+    </app-destination-card>
+    <div *ngIf="isLast">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="openModal(template)"
+      >
+        Registre um novo destino
+      </button>
+    </div>
   </div>
 </div>
+<br /><br />
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Registro</h4>
+    <button
+      type="button"
+      class="btn-close close pull-right"
+      aria-label="Close"
+      (click)="closeModal()"
+    >
+      <span aria-hidden="true" class="visually-hidden"></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-register-destinations></app-register-destinations>
+  </div>
+</ng-template>

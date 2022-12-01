@@ -1,0 +1,117 @@
+:host {
+  grid-column: full-start / full-end;
+}
+
+  .header {
+    width: 100%;
+    position: relative;
+    justify-items: center;
+
+  &__grad {
+    background-color: black;
+    opacity: .2;
+    position: absolute;
+    margin-top: 5.6rem;
+    width: 100%;
+    height: calc(100vh - 5.6rem);
+    object-fit:cover;
+    z-index: 1000;
+  }
+
+  &__img {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    object-fit:cover;
+
+  }
+
+}
+
+.nav-bar {
+  position: relative;
+  color:white;
+  display: flex;
+  justify-content: space-around;
+  background-color: transparent;
+  height: 5.6rem;
+  width: 100%;
+  align-items: center;
+
+  &__line {
+    background-color:black;
+    position: absolute;
+    opacity: .7;
+    height: 5.6rem;
+    width: 100%;
+    z-index: 20;
+
+  }
+
+
+  &__icon {
+
+
+    &--1 {
+      z-index: 100;
+
+      img {
+        height: 3.3rem;
+        width: 3.045rem;
+      };
+    }
+
+    &--2 {
+      padding-right: 2.077rem;
+      z-index: 100;
+    }
+
+    &--3 {
+      z-index: 100;
+    }
+  }
+
+  &__menu {
+    font-family: 'nunito';
+    line-height: 2.18rem;
+    font-size: 1.6rem;
+    font-weight: 400;
+    display: flex;
+    list-style: none;
+    z-index: 100;
+  }
+
+  &__item {
+
+
+    &:not(:last-child){
+      padding-right: 5.9rem;
+    }
+
+
+  }
+
+  &__contact {
+    margin-top: .7rem;
+    display: flex;
+    align-items: center;
+
+  }
+}
+
+.main-logo {
+  position: absolute;
+  height: 28rem;
+  width: 18.7rem;
+  left: 43.47vw;
+  right: 43.54vw;
+  top: 19.63vh;
+  z-index: 1000;
+
+  @media only screen and (min-width: 112em) {
+    height: 55rem;
+    width: 55rem;
+  }
+}
+
+

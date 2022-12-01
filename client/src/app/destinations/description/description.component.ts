@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
 import { ToastrService } from 'ngx-toastr';
-import { take } from 'rxjs';
+import { EMPTY, take } from 'rxjs';
 import { DescriptionPhoto } from 'src/app/_models/descriptionPhoto';
 import { Destination } from 'src/app/_models/destination';
 import { DestinationDescription } from 'src/app/_models/destinationDescription';
@@ -58,9 +58,10 @@ export class DescriptionComponent implements OnInit {
 
   deleteDescriptionPhoto (index:number){
     this.destinationService.deleteDescriptionPhoto(this.destination.descriptions[index].id).subscribe({
-      next:()=> {this.toastr.success('Foto deletada');
-      this.reloadCurrentRoute();
-  }
+      next:()=> {
+      this.toastr.success('Foto deletada');
+      this.loadDestinations();
+      }
     })
   }
 
@@ -92,6 +93,11 @@ export class DescriptionComponent implements OnInit {
         this.reloadCurrentRoute();
       }, error:(e)=>console.log(e)
     });
+  }
+
+  loadDestinations() {
+    this.destinationService.getDestinationById(this.destination.id).subscribe(
+      destination => this.destination = destination);
   }
 
 }

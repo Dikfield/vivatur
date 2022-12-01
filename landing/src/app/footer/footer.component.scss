@@ -1,0 +1,53 @@
+:host {
+  grid-column: full-start / full-end;
+}
+
+.footer {
+  grid-column: full-start / full-end;
+  justify-content: space-evenly;
+  background-color: #231F20;
+  padding: 4rem;
+  display: flex;
+  align-items: center;
+  color: white;
+
+  &__box {
+    background-color: white;
+    width: 11rem;
+    height: 11.5rem;
+    border-radius: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__icon {
+    height: 10rem;
+    width: 7rem;
+
+  }
+
+  &__link:link,
+  &__link:visited {
+    text-decoration: none;
+    color: white;
+  }
+}
+
+.menu-list {
+  display: flex;
+  list-style: none;
+
+  &__title {
+    list-style: none;
+    text-decoration: none;
+    color: white;
+  }
+
+  &__item {
+    padding: 0 3rem;
+    list-style: none;
+
+  }
+
+}

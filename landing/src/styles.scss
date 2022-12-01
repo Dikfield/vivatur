@@ -1,0 +1,51 @@
+//RESPONSIVE BREAKPOINTS
+$bp-largest: 112.5em; //1800px
+$bp-large: 62.5em; //1000px
+$bp-medium: 50em; //800px
+$bp-small: 37.5em; //600px
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+body {
+  color: black;
+  font-size: 1.5rem;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.container {
+  display: grid;
+  grid-template-rows: 100vh 100vh 100vh 100vh repeat(7, min-content);
+  grid-template-columns: [full-start] repeat(12, [col-start] minmax(min-content, 20rem) [col-end]) [full-end];
+  justify-content: center;
+}
+
+.section-title {
+  grid-column: 1 / -1;
+  font-size: 4rem;
+  z-index: 100;
+}
+
+.section-text {
+  grid-column: 1 / -1;
+  padding-top: 5rem;
+  font-size: 2rem;
+}
+
+
+
+
+
+
+

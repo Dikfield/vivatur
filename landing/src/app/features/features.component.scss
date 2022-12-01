@@ -1,0 +1,89 @@
+:host {
+  grid-column: full-start / full-end;
+}
+
+.features {
+  position: relative;
+
+  &__icons {
+    position: absolute;
+    padding: 2rem;
+    height: 36.6vh;
+    width: 58.8vw;
+    top: 8rem;
+    left: 30vw;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(5vh, 40vh));
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    grid-row-gap: 5rem;
+
+    img {
+      height: 10.5rem;
+      width: 10.5rem;
+    }
+
+    &--item {
+      height: 14.2rem;
+      width: 12.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+    }
+  }
+
+  &__img {
+    width: 100%;
+    height: 100vh;
+  }
+
+  &__box {
+    position: absolute;
+    top: 0;
+    background-image: linear-gradient(
+      rgba(255, 255, 255, 0.75),
+      rgba(255, 255, 255, 0.75)
+    );
+    background-size: cover;
+    height: 100vh;
+    width: 36.8rem;
+    margin-left: 13.7rem;
+    box-shadow: 3px 4px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+
+    &__content {
+      position: absolute;
+
+      &--feature {
+        display: flex;
+        justify-content: center;
+      }
+
+      &--title {
+        font-family: "Sansita Swashed";
+        font-style: normal;
+        font-size: 4rem;
+        font-weight: 500;
+        text-align: center;
+        padding-top: 9rem;
+        line-height: 4.8rem;
+        color: #231f20;
+      }
+    }
+  }
+}
+
+.section-text {
+  text-align: center;
+  font-family: "nunito";
+  font-size: 1.4rem;
+  line-height: 1.9rem;
+  font-weight: 700;
+  color: #000000;
+  margin: 0 10rem;
+}
+
+

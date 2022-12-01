@@ -1,0 +1,112 @@
+:host {
+  grid-column: full-start / full-end;
+}
+
+.about {
+  position: relative;
+  background-color: #c1d4e0;
+
+  &__gallery {
+    display: flex;
+    flex-direction: column;
+    padding-left: 44%;
+    padding-right: 12%;
+  }
+
+  &__img {
+    &--1 {
+      height: 62.8rem;
+      width: 67rem;
+    }
+
+    &--2 {
+      height: 84.6rem;
+      width: 67rem;
+    }
+  }
+
+  &__box {
+    position: absolute;
+    top: 0;
+    background-image: linear-gradient(
+      rgba(255, 255, 255, 0.75),
+      rgba(255, 255, 255, 0.75)
+    );
+    background-size: cover;
+    height: 100%;
+    width: 36.8rem;
+    margin-left: 13.7rem;
+    box-shadow: 3px 4px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+
+    &__content {
+      position: absolute;
+
+      &--about {
+        display: flex;
+        justify-content: center;
+      }
+
+      &--title {
+        font-family: "Sansita Swashed";
+        font-style: normal;
+        font-size: 3.6rem;
+        font-weight: 500;
+        text-align: center;
+        padding-top: 9rem;
+        line-height: 4.3rem;
+        color: #231f20;
+      }
+
+      &--line {
+        background-color: #ffffff;
+        width: 15.5rem;
+        height: 0.1rem;
+        margin: auto;
+        margin-top: 1rem;
+        border: 0.1rem solid #ffffff;
+      }
+
+      &--center {
+        margin-top: 0.5rem;
+        color: #a472b0;
+        font-family: "nunito";
+        font-weight: 500;
+        text-align: center;
+        font-size: normal;
+
+        .heading {
+          font-size: 2.4rem;
+          line-height: 3.3rem;
+        }
+
+        h4 {
+          font-size: 1.2rem;
+          line-height: 1.6rem;
+        }
+      }
+    }
+  }
+}
+
+.section-text {
+  text-align: center;
+  font-family: "nunito";
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+  font-weight: 500;
+  color: #000000;
+  margin: 0 5rem;
+  text-align: justify;
+
+  .text-1 {
+    margin-top: -2rem;
+    margin-bottom: 10.2rem;
+  }
+
+  .text-3 {
+    margin-top: 1.9rem;
+    margin-bottom: 10.2rem;
+  }
+}

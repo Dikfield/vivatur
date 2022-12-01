@@ -1,0 +1,89 @@
+:host {
+  grid-column: full-start / full-end;
+}
+.destinations {
+  position: relative;
+
+  &__img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+  }
+
+  &__box {
+    position: absolute;
+    top: 0;
+    background-image: linear-gradient(
+      rgba(255, 255, 255, 0.75),
+      rgba(255, 255, 255, 0.75)
+    );
+    height: 100vh;
+    width: 36.8rem;
+    margin-left: 13.7rem;
+    box-shadow: 3px 4px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+
+    &__content {
+      position: absolute;
+
+      &--destination {
+        display: flex;
+        justify-content: center;
+      }
+
+      &--title {
+        font-family: "Sansita Swashed";
+        font-style: normal;
+        font-size: 4rem;
+        font-weight: 500;
+        text-align: center;
+        padding-top: 9rem;
+        line-height: 4.8rem;
+        color: #231f20;
+      }
+
+      &--line {
+        background-color: #ffffff;
+        width: 15.5rem;
+        height: 0.1rem;
+        margin: auto;
+        margin-top: 1rem;
+        border: 0.1rem solid #ffffff;
+      }
+
+      &--center {
+        margin-top: 0.5rem;
+        color: #a472b0;
+        font-family: "nunito";
+        font-weight: 400;
+        text-align: center;
+        font-size: normal;
+
+        h2 {
+          font-size: 3.2rem;
+          line-height: 4.4rem;
+        }
+
+        h4 {
+          font-size: 1.2rem;
+          line-height: 1.6rem;
+        }
+      }
+    }
+  }
+}
+
+.section-text {
+  text-align: center;
+  font-family: "nunito";
+  font-size: 1.4rem;
+  line-height: 1.9rem;
+  font-weight: 700;
+  color: #000000;
+  margin: 0 10rem;
+}
+
+.arrow {
+  margin: 2rem;
+}

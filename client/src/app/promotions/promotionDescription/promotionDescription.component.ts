@@ -55,7 +55,7 @@ export class PromotionDescriptionComponent implements OnInit {
   deleteDescriptionPhoto (index:number){
     this.promotionService.deleteDescriptionPhoto(this.promotion.promotionDescriptions[index].id).subscribe({
       next:()=> {this.toastr.success('Foto deletada');
-      this.reloadCurrentRoute();
+      this.loadPromotions();
   }
     })
   }
@@ -88,6 +88,11 @@ export class PromotionDescriptionComponent implements OnInit {
         this.reloadCurrentRoute();
       }, error:(e)=>console.log(e)
     });
+  }
+
+  loadPromotions() {
+    this.promotionService.getPromotionById(this.promotion.id).subscribe(
+      promotion => this.promotion = promotion);
   }
 
 }

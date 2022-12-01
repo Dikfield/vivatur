@@ -26,18 +26,15 @@
       </a>
       <ng-container *ngIf="accountService.currentUser$ | async">
         <a class="nav-link" routerLink="destinations" routerLinkActive="active"
-          >Editar Destinos</a
+          >Destinos</a
         >
         <a class="nav-link" routerLink="promotions" routerLinkActive="active"
-          >Editar Promoções</a
+          >Promoções</a
         >
-        <a class="nav-link" routerLink="register" routerLinkActive="active"
-          >Registrar destinos</a
+
+        <a class="nav-link" routerLink="about" routerLinkActive="active"
+          >Sobre mim</a
         >
-        <a class="nav-link" routerLink="promotion/register" routerLinkActive="active"
-          >Registrar promoções</a
-        >
-        <a class="nav-link" routerLink="about" routerLinkActive="active">Sobre mim</a>
       </ng-container>
 
       <div
@@ -47,7 +44,9 @@
       >
         <a class="dropdown-toggle text" dropdownToggle> Welcome Admin</a>
         <div class="dropdown-menu mt-3" *dropdownMenu="">
-          <a class="dropdown-item">Edit Destination</a>
+          <a class="dropdown-item" routerLink="destinations">Destinos</a>
+          <a class="dropdown-item" routerLink="promotions">Promoções</a>
+          <a class="dropdown-item" routerLink="about">Sobre mim</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" routerLink="" (click)="logout()">Logout</a>
         </div>

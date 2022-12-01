@@ -1,5 +1,35 @@
 <div class="row">
-  <div *ngFor="let promotion of promotions" class="col-2">
-    <app-promotion-card (promotionDeleted)="promotionDeleted($event)" [promotion]="promotion"> </app-promotion-card>
+  <div *ngFor="let promotion of promotions; last as isLast" class="col-2">
+    <app-promotion-card
+      (promotionDeleted)="promotionDeleted($event)"
+      [promotion]="promotion"
+    >
+    </app-promotion-card>
+    <div *ngIf="isLast">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="openModal(template)"
+      >
+        Registre uma nova promoção
+      </button>
+    </div>
   </div>
+  <br /><br />
+  <ng-template #template>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Registro</h4>
+      <button
+        type="button"
+        class="btn-close close pull-right"
+        aria-label="Close"
+        (click)="closeModal()"
+      >
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-register-promotions></app-register-promotions>
+    </div>
+  </ng-template>
 </div>
