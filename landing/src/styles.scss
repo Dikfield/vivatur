@@ -15,6 +15,7 @@ $bp-small: 37.5em; //600px
 html {
   box-sizing: border-box;
   font-size: 62.5%;
+  scroll-behavior: smooth;
 }
 
 body {

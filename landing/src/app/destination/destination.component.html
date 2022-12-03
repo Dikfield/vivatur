@@ -1,29 +1,29 @@
-<div class="destinations">
-  <img src="../../assets/imgs/maldives_img.png" alt="" class="destinations__img" />
+<div class="destinations" *ngIf="destinations && destinations.length > 0" id="destination">
+  <img src={{destinations[ite].photoUrl}} alt="" class="destinations__img" @slideAnimation/>
   <div class="destinations__grad"></div>
   <div class="destinations__box">
     <div class="destinations__box__content">
       <div class="destinations__box__content--title">Destinos</div>
       <div class="destinations__box__content--line"></div>
       <div class="destinations__box__content--destination">
-        <img
+        <button (click)=backwardList()><img
           src="../../assets/icons/Polygon_4.svg"
           alt="arrow left"
           class="arrow"
-        />
+        /></button>
         <div class="destinations__box__content--center">
-          <h2 class="heading">Maldivas</h2>
+          <h2 class="heading">{{destinations[ite].name}}</h2>
         </div>
-        <img
+        <button (click)=forwardList()><img
           src="../../assets/icons/Polygon_3.svg"
           alt="arrow right"
           class="arrow"
-        />
+        /></button>
       </div>
       <div class="section-text">
         <p>
           Você escolhe o local, e nós fazemos um roteiro exclusivo e
-          personalizado de acordo com suas preferências! Veja aqio algumas
+          personalizado de acordo com suas preferências! Veja aqui algumas
           indicações de destinos incríveis para explorar:
         </p>
         <br />
