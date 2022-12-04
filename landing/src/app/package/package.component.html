@@ -1,24 +1,23 @@
 <div class="package" id="promotions">
-  <img src="../../assets/imgs/egypt_img.png" alt="" class="package__img" />
+  <img src={{promotions[ite].photoUrl}} alt="" class="package__img" />
   <div class="package__grad"></div>
   <div class="package__box">
     <div class="package__box__content">
       <div class="package__box__content--title">Promoções</div>
       <div class="package__box__content--line"></div>
         <div class="package__box__content--promotions">
-        <img src="../../assets/icons/Polygon_4.svg" alt="arrow left" class="arrow">
+          <button (click)=backwardList()><img src="../../assets/icons/Polygon_4.svg" alt="arrow left" class="arrow"></button>
         <div class="package__box__content--center">
 
-        <h2 class="heading">Reveillon Egito</h2>
+        <h2 class="heading">{{promotions[ite].name}}</h2>
         <h4 class="mid-heading">a partir de</h4>
-        <h2 class="heading">USD 1,935</h2>
+        <h2 class="heading">USD {{promotions[ite].price}}</h2>
       </div>
-      <img src="../../assets/icons/Polygon_3.svg" alt="arrow right" class="arrow">
+      <button (click)=forwardList()><img src="../../assets/icons/Polygon_3.svg" alt="arrow right" class="arrow"></button>
     </div>
         <div class="section-text">
-          <p>3 noites em hotel abc + 3 noites em hotel efg</p><br>
-          <p>Passagem aérea e transfer incluso</p>
-        </div>
+          <p>{{promotions[ite].promotionDescriptions[0].text}}</p><br>
+          </div>
 
     </div>
   </div>

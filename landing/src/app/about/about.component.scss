@@ -14,9 +14,12 @@
   }
 
   &__img {
+    object-fit: cover;
+
     &--1 {
       height: 62.8rem;
       width: 67rem;
+
     }
 
     &--2 {
@@ -79,6 +82,7 @@
         .heading {
           font-size: 2.4rem;
           line-height: 3.3rem;
+          margin: 0 6rem;
         }
 
         h4 {
