@@ -66,6 +66,7 @@ export class DestinationComponent {
   forwardList() {
     if (this.ite < this.destinations.length - 1) {
       this.ite++;
+      scaleIn;
     } else {
       this.ite =0;
     }

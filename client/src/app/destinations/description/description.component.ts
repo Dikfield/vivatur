@@ -73,7 +73,7 @@ export class DescriptionComponent implements OnInit {
 }
   registerDescriptions() {
     this.destinationService.registerDescription(this.model,this.destination.id).subscribe({
-      next:()=>{this.toastr.success('Registrado')
+      next:(description)=>{this.toastr.success('Registrado')
       this.reloadCurrentRoute();
     }
     })

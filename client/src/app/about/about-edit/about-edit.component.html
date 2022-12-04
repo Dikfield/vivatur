@@ -2,7 +2,7 @@
   <div class="col-6">
     <h4 class="text-center">Sobre Vivian e Viva Turismo</h4>
     <div *ngFor="let about of abouts; index as indexOfelement">
-      <form #dataForm="ngForm" id="dataForm" (ngSubmit)="updateAbout(Index)">
+      <form #dataForm="ngForm" id="dataForm" (ngSubmit)="updateAbout()">
         <br *ngIf="indexOfelement != 0" />
         <br />
         <textarea

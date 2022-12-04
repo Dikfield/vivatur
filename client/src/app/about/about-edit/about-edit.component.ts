@@ -38,17 +38,16 @@ export class AboutEditComponent implements OnInit {
       }
     })
     }
-    updateAbout(index:number){
-      this.aboutService.updateAbout(this.abouts[index]).subscribe({
+    updateAbout() {
+      this.aboutService.updateAbout(this.abouts[this.Index]).subscribe({
         next:(response) => {
         this.toastr.success('Descrição atualizada');
-        this.dataForm.reset(this.abouts[index]);
+        this.dataForm.reset(this.abouts[0]);
       }
       })
     }
 
   getIndex(index:number){
-    console.log(index);
     this.Index = index;
   }
   deletePhoto(photoId:number){
@@ -61,7 +60,7 @@ export class AboutEditComponent implements OnInit {
   }
 
   onChange(event) {
-    this.file =event.target.files[0];
+    this.file =event.target.files[this.Index];
   }
 
   onUpload(aboutId:number) {
