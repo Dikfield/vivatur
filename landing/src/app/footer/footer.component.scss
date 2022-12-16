@@ -4,6 +4,7 @@
 
 .footer {
   grid-column: full-start / full-end;
+  font-family: 'nunito';
   justify-content: space-evenly;
   background-color: #231F20;
   padding: 4rem;
@@ -51,3 +52,31 @@
   }
 
 }
+
+.contact-list{
+  display: flex;
+  align-items: end;
+
+  font-size: 1.2rem;
+  margin: 2.5rem auto;
+
+  &__img {
+    margin-right: 1.3rem;
+
+  }
+
+  &__text:visited,
+  &__text:link {
+    text-decoration: none;
+    color: white;
+
+  }
+
+
+}
+
+.contact-box{
+  margin:0 3rem;
+  list-style: none;
+}
+

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Destination } from '../_models/destination';
-import { DestinationDescription } from '../_models/destinationDescription';
+
 
 
 @Injectable({
@@ -12,8 +12,6 @@ import { DestinationDescription } from '../_models/destinationDescription';
 export class DestinationsService {
   baseUrl = environment.apiUrl;
   destinations: Destination [] = [];
-  descriptions:DestinationDescription [] = [];
-
 
   constructor(private http:HttpClient) { }
 
@@ -70,11 +68,6 @@ export class DestinationsService {
     )
   }
 
-  updateDescription(description:DestinationDescription){
-    return this.http.put(this.baseUrl + 'destination/description/update/' + description.id, description).pipe(
-      map(() => {})
-    )
-  }
 
   setMainPhoto(id:number, photoId:number) {
     return this.http.put(this.baseUrl + 'destination/set-main-photo/'+ id +'/' + photoId, {})

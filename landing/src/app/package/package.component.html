@@ -1,4 +1,4 @@
-<div class="package" id="promotions">
+<div class="package" id="promotions" *ngIf="promotions && promotions.length > 0">
   <img src={{promotions[ite].photoUrl}} alt="" class="package__img" />
   <div class="package__grad"></div>
   <div class="package__box">
@@ -16,7 +16,7 @@
       <button (click)=forwardList()><img src="../../assets/icons/Polygon_3.svg" alt="arrow right" class="arrow"></button>
     </div>
         <div class="section-text">
-          <p>{{promotions[ite].promotionDescriptions[0].text}}</p><br>
+          <p>{{promotions[ite].description}}</p><br>
           </div>
 
     </div>

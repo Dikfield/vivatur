@@ -1,4 +1,10 @@
 <div class="row">
+  <div class="col-12">
+    <!---<ng-container class="alert alert-info" *ngIf="dataForm.dirty" [(ngModel)]="dataForm" #dataForm="ngModel">
+      <strong>Informação:</strong> Você fez mudanças que se não salvas, serão
+      perdidas
+    </ng-container>--->
+  </div>
   <div class="col-6">
     <h4 class="text-center">Sobre Vivian e Viva Turismo</h4>
     <div *ngFor="let about of abouts; index as indexOfelement">
@@ -34,80 +40,251 @@
     </div>
   </div>
 
-  <div class="col-3">
-    <h3>Fotos de vivian</h3>
-    <div class="card-img-wrapper">
-      <div *ngFor="let about of abouts; index as indexOfabouts">
-        <div *ngIf="about.id == 1">
-          <div *ngFor="let photo of about.vivaPhotos; index">
-            <br />
+  <div class="col-6">
+    <tabset class="member-tabset">
+      <tab heading="Fotos">
+        <div class="col-12">
+          <h3>Fotos de vivian</h3>
+          <div class="card-img-wrapper">
+            <div *ngFor="let about of abouts; index as indexOfabouts">
+              <div *ngIf="about.id == 1">
+                <div *ngFor="let photo of about.vivaPhotos; index">
+                  <br />
+                  <img
+                    src="{{ photo.url }}"
+                    alt="{{ photo.url }}"
+                    class="card-img-top"
+                    style="width: 100px; height: 100px"
+                  />
+                  <button
+                    class="btn btn btn-danger"
+                    (click)="deletePhoto(photo.id); getIndex(indexOfabouts)"
+                  >
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+                <br /><br />
+                <div class="text-center" style="width: 300px">
+                  <input
+                    type="file"
+                    class="form-control"
+                    (change)="onChange($event)"
+                  />
+                  <button
+                    (click)="onUpload(about.id); getIndex(indexOfabouts)"
+                    class="btn btn-success"
+                  >
+                    Carregue a imagem
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br /><br />
+          <h3>Fotos da viva turismo</h3>
+          <div class="card-img-wrapper">
+            <div *ngFor="let about of abouts; index as indexOfabouts">
+              <div *ngIf="about.id == 3">
+                <div *ngFor="let photo of about.vivaPhotos">
+                  <br />
+                  <img
+                    src="{{ photo.url }}"
+                    alt="{{ photo.url }}"
+                    class="card-img-top"
+                    style="width: 100px; height: 150px"
+                  />
+                  <button
+                    class="btn btn btn-danger"
+                    (click)="deletePhoto(photo.id); getIndex(indexOfabouts)"
+                  >
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+                <br /><br />
+                <div class="text-center" style="width: 300px">
+                  <input
+                    type="file"
+                    class="form-control"
+                    (change)="onChange($event)"
+                  />
+                  <button
+                    (click)="onUpload(about.id); getIndex(indexOfabouts)"
+                    class="btn btn-success"
+                  >
+                    Carregue a imagem
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </tab>
+      <tab heading="Feedback">
+        <div class="col-12" *ngIf="feedbacks && feedbacks.length > 0">
+
+            <div class="selection-box">
+              <button-2 (click)="backwardList()">
+                <img
+                  src="../../../assets/icons/Polygon_4.svg"
+                  alt="arrow left"
+                  class="arrow"
+                />
+              </button-2>
+              <h3>Nome</h3>
+              <button-2 (click)="backwardList()">
+                <img
+                  src="../../../assets/icons/Polygon_3.svg"
+                  alt="arrow right"
+                  class="arrow"
+                />
+              </button-2>
+              <button-1
+                class="btn btn-primary"
+                type="submit"
+                form="feedForm"
+                (click)="updateFeedback(feedbacks[feedIndex])"
+              >
+                Atualize Feed
+              </button-1>
+              <button-1
+                class="btn btn-primary"
+                (click)="feedbackDeleted(feedbacks[feedIndex].id)"
+                type="submit"
+              >
+                Delete Feed
+              </button-1>
+            </div>
+            <form #feedForm="ngForm" id="feedForm" name="feedForm">
+            <textarea
+              class="form-control"
+              [(ngModel)]="feedbacks[feedIndex].name"
+              name="name"
+              rows="1"
+            ></textarea>
+
+            <div class="selection-box">
+              <h3>Descrição</h3>
+            </div>
+            <textarea
+              class="form-control"
+              [(ngModel)]="feedbacks[feedIndex].description"
+              name="description"
+              rows="4"
+            ></textarea>
+            <div class="selection-box">
+              <h3>Photo</h3>
+            </div>
+          </form>
+          <div
+            class="photo-box"
+            *ngIf="feedbacks[feedIndex]?.feedbackPhoto?.url"
+          >
             <img
-              src="{{ photo.url }}"
-              alt="{{ photo.url }}"
+              src="{{ feedbacks[feedIndex]?.feedbackPhoto?.url }}"
+              alt="{{ feedbacks[feedIndex]?.feedbackPhoto?.url }}"
               class="card-img-top"
-              style="width: 200px"
+              style="width: 150px; height: 150px"
             />
             <button
               class="btn btn btn-danger"
-              (click)="deletePhoto(photo.id); getIndex(indexOfabouts)"
+              (click)="deleteFeedPhoto(feedbacks[feedIndex].id)"
             >
               <i class="fa fa-trash"></i>
             </button>
+            <button-1
+              type="button"
+              class="btn btn-primary"
+              (click)="openModal(template)"
+            >
+              Registre um feedback
+            </button-1>
           </div>
-          <br /><br />
-          <div class="text-center">
+          <div
+            class="text-center"
+            style="width: 300px"
+            *ngIf="feedbacks[feedIndex]?.feedbackPhoto == null"
+          >
             <input
               type="file"
               class="form-control"
               (change)="onChange($event)"
             />
             <button
-              (click)="onUpload(about.id); getIndex(indexOfabouts)"
+              (click)="
+                onFeedUpload(feedbacks[feedIndex].id); getIndex(indexOfabouts)
+              "
               class="btn btn-success"
             >
               Carregue a imagem
             </button>
           </div>
+
+          <ng-template #template>
+            <div class="modal-header">
+              <h4 class="modal-title pull-left">Registro</h4>
+              <button
+                type="button"
+                class="btn-close close pull-right"
+                aria-label="Close"
+                (click)="closeModal()"
+              >
+                <span aria-hidden="true" class="visually-hidden"></span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row justify-content-center">
+                <div class="col-6">
+                  <form
+                    #dataForm="ngForm"
+                    id="dataForm"
+                    (ngSubmit)="registerFeed()"
+                    autocomplete="off"
+                  >
+                    <h2 class="text-center text-primary">
+                      Registre um feedback
+                    </h2>
+                    <hr />
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="name"
+                        [(ngModel)]="model.name"
+                        placeholder="nome cliente"
+                      />
+                    </div>
+
+                    <div class="form-group">
+                      <textarea
+                        type="text"
+                        class="form-control"
+                        name="description"
+                        rows="3"
+                        [(ngModel)]="model.description"
+                        placeholder="feedback"
+                      >
+                      </textarea>
+                    </div>
+                    <br /><br />
+                    <div class="form-group text-center">
+                      <button class="btn btn-success" type="submit">
+                        Registre
+                      </button>
+                      <button
+                        class="btn btn-primary"
+                        (click)="cancel()"
+                        type="submit"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </ng-template>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-3">
-    <h3>Fotos da viva turismo</h3>
-    <div class="card-img-wrapper">
-      <div *ngFor="let about of abouts; index as indexOfabouts">
-        <div *ngIf="about.id == 3">
-          <div *ngFor="let photo of about.vivaPhotos">
-            <br />
-            <img
-              src="{{ photo.url }}"
-              alt="{{ photo.url }}"
-              class="card-img-top"
-              style="width: 200px"
-            />
-            <button
-              class="btn btn btn-danger"
-              (click)="deletePhoto(photo.id); getIndex(indexOfabouts)"
-            >
-              <i class="fa fa-trash"></i>
-            </button>
-          </div>
-          <br /><br />
-          <div class="text-center">
-            <input
-              type="file"
-              class="form-control"
-              (change)="onChange($event)"
-            />
-            <button
-              (click)="onUpload(about.id); getIndex(indexOfabouts)"
-              class="btn btn-success"
-            >
-              Carregue a imagem
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+      </tab>
+    </tabset>
   </div>
 </div>

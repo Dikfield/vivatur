@@ -15,14 +15,7 @@ namespace API.Interfaces
         void DeletePhoto(PromotionPhoto photo);
         public Task<bool> DeletePromotion(Promotion dest);
         void Register(Promotion dest);
-        void RegisterDescription(PromotionDescription desc);
-        Task<bool> DescriptionSavePhoto(PromotionDescriptionPhoto photo);
         void PromotionUpdate(Promotion desc);
-        Task<bool> DeleteDescription(PromotionDescription desc);
-        Task<PromotionDescriptionDto> GetDescriptionByIdAsync(int id);
-        void DescriptionUpdate(PromotionDescription destinationDescription);
-        Task<PromotionDescriptionPhoto> GetDescriptionPhotoByDescriptionIdAsync(int descriptionId);
-        void DescriptionDeletePhoto(PromotionDescriptionPhoto photo);
 
     }
 }

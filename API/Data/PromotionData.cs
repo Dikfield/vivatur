@@ -37,14 +37,6 @@ namespace API.Data
 
         }
 
-        public async Task<PromotionDescriptionPhoto> GetDescriptionPhotoByDescriptionIdAsync(int descriptionId)
-        {
-            return await _context.PromotionDescriptionPhotos
-                .Where(x => x.PromotionDescriptionId == descriptionId)
-                .SingleOrDefaultAsync();
-
-        }
-
         public async Task<PromotionDto> GetByNameAsync(string name)
         {
             return await _context.Promotions
@@ -61,14 +53,6 @@ namespace API.Data
 
         }
 
-        public async Task<PromotionDescriptionDto> GetDescriptionByIdAsync(int id)
-        {
-            return await _context.PromotionDescriptions
-                .ProjectTo<PromotionDescriptionDto>(_mapper.ConfigurationProvider)
-                .SingleOrDefaultAsync(x => x.Id == id);
-
-        }
-
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() >= 0;
@@ -81,34 +65,18 @@ namespace API.Data
 
         }
 
-        public async Task<bool> DescriptionSavePhoto(PromotionDescriptionPhoto photo)
-        {
-            await _context.PromotionDescriptionPhotos.AddAsync(photo);
-
-            return await _context.SaveChangesAsync() >= 0;
-
-        }
-
 
         public void PromotionUpdate(Promotion dest)
         {
             _context.Entry(dest).State = EntityState.Modified;
         }
 
-        public void DescriptionUpdate(PromotionDescription desc)
-        {
-            _context.Entry(desc).State = EntityState.Modified;
-        }
 
         public void DeletePhoto(PromotionPhoto photo)
         {
             _context.PromotionPhotos.Remove(photo);
         }
 
-        public void DescriptionDeletePhoto(PromotionDescriptionPhoto photo)
-        {
-            _context.PromotionDescriptionPhotos.Remove(photo);
-        }
         public async Task<bool> DeletePromotion(Promotion dest)
         {
             var count = dest.PromotionPhotos.Count;
@@ -122,22 +90,10 @@ namespace API.Data
 
         }
 
-        public async Task<bool> DeleteDescription(PromotionDescription desc)
-        {
-            _context.PromotionDescriptions.Remove(desc);
-
-            return await _context.SaveChangesAsync() > 0;
-
-        }
-
         public void Register(Promotion dest)
         {
             _context.Promotions.Add(dest);
         }
 
-        public void RegisterDescription(PromotionDescription desc)
-        {
-            _context.PromotionDescriptions.Add(desc);
-        }
     }
 }

@@ -1,28 +1,127 @@
-<div class="form" id="form">
+<div class="form">
   <img src="../../assets/imgs/baloon_img.png" alt="" class="form__img" />
-  <div class="form__title">
-    Solicitar um Orçamento
-  </div>
-  <div class="form__content">
+  <div class="form__title">Solicitar um Orçamento</div>
+  <form
+    class="form__content"
+    id="mc-embedded-subscribe-form"
+    name="form"
+    target="_self"
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+  >
     <div class="form__travel">
-      <div class="form__box--title special">Algumas Informações sobre o destino/viagem desejados:</div>
+      <div class="form__box--title special">
+        Algumas Informações sobre o destino/viagem desejados:
+      </div>
       <div class="form__box--info--1">
-        <input type="text" class="form__box--text">
-        <input type="text" class="form__box--text">
-        <input type="text" class="form__box--text">
-        <input type="text" class="form__box--text">
-        <input type="text" class="form__box--text">
+        <input
+          name="DEST"
+          type="text"
+          class="form__box--text"
+          placeholder="Destino"
+          id="destino"
+          formControlName="destino"
+        />
+        <label for="destino" class="form__label --2">Destino</label>
+        <input
+          name="DATES"
+          type="date"
+          class="form__box--text"
+          placeholder="Data"
+          id="date"
+          formControlName="date"
+        />
+        <label for="date" class="form__label --2">Data</label>
+        <input
+          name="PESSOAS"
+          type="number"
+          class="form__box--text"
+          placeholder="Numero de pessoas"
+          id="nPessoas"
+          formControlName="nPessoas"
+        />
+        <label for="pessoas" class="form__label --2">Número de Pessoas</label>
+        <select
+          name="TYPE"
+          type="text"
+          class="form__box--text"
+          placeholder="Tipo de viagem"
+          id="type"
+          formControlName="type"
+        >
+          <option value="baixo">Baixo</option>
+          <option value="medio">Médio</option>
+          <option value="alto">Alto</option>
+        </select>
+        <label for="type" class="form__label --2">Tipo de viagem</label>
+        <br />
+        <select
+          name="INVEST"
+          type="text"
+          class="form__box--text"
+          placeholder="Investimento"
+          id="inve"
+          formControlName="inve"
+        >
+          <option value="baixo">Baixo</option>
+          <option value="medio">Médio</option>
+          <option value="alto">Alto</option>
+        </select>
+
+        <label for="type" class="form__label --2">Investimento</label>
       </div>
     </div>
     <div class="form__personal">
-      <div class="form__box--title">Seus dados para que possamos entrar em contato:</div>
+      <div class="form__box--title">
+        Seus dados para que possamos entrar em contato:
+      </div>
       <div class="form__box--info--2">
-        <input type="text" class="form__box--text">
-        <input type="text" class="form__box--text">
-        <input type="text" class="form__box--text">
+        <input
+          name="NAME"
+          type="text"
+          class="form__box--text"
+          placeholder="Nome completo"
+          id="name"
+          formControlName="name"
+        />
+        <label for="name" class="form__label --1">Nome Completo</label>
+        <input
+          name="TEL"
+          type="number"
+          class="form__box--text"
+          placeholder="Telefone"
+          id="tel"
+          formControlName="tel"
+        />
+        <label for="tel" class="form__label --1">Telefone</label>
+        <input
+          name="EMAIL"
+          type="email"
+          class="form__box--text form-group"
+          placeholder="Email"
+          ngModel email="true"
+          id="email"
+          formControlName="email"
+        />
+        <label for="email" class="form__label --1 control-label">Email</label>
+        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+        <div style="position: absolute; left: -5000px" aria-hidden="true">
+          <input
+            type="text"
+            name="b_865adb9487a7b29f43d302c44_0c481e80a5"
+            tabindex="-1"
+            value=""
+          />
+        </div>
       </div>
     </div>
-
-  </div>
-  <button class="btn">Solicitar Orçamento</button>
+  </form>
+  <button
+    type="submit"
+    form="mc-embedded-subscribe-form"
+    value="Submit"
+    class="btn btn--green form-group"
+  >
+    Solicitar Orçamento
+  </button>
 </div>

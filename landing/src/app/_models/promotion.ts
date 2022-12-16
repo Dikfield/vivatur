@@ -1,9 +1,9 @@
-import { PromotionDescription } from './promotionDescription';
 import { PromotionPhoto } from './promotionPhoto';
 
 export interface Promotion{
   id:number;
   name:string;
+  description:string;
   public:boolean;
   photoUrl:string;
   price:number;
@@ -11,6 +11,4 @@ export interface Promotion{
   city:string;
   bestMonths:string;
   promotionPhotos:PromotionPhoto[];
-  promotionDescriptions:PromotionDescription[];
-
 }

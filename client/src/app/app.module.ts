@@ -23,12 +23,10 @@ import { DestinationEditComponent } from './destinations/destination-edit/destin
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { PhotoDetinationEditorComponent } from './destinations/photo-detination-editor/photo-detination-editor.component';
-import { DescriptionComponent } from './destinations/description/description.component';
 import { PromotionCardComponent } from './promotions/promotion-card/promotion-card.component';
 import { PromotionDetailComponent } from './promotions/promotion-detail/promotion-detail.component';
 import { PromotionsListComponent } from './promotions/promotions-list/promotions-list.component';
 import { PromotionEditComponent } from './promotions/promotion-edit/promotion-edit.component';
-import { PromotionDescriptionComponent } from './promotions/promotionDescription/promotionDescription.component';
 import { PhotoPromotionEditorComponent } from './promotions/photo-promotion-editor/photo-promotion-editor.component';
 import { RegisterPromotionsComponent } from './promotions/register-promotions/register-promotions.component';
 import { AboutEditComponent } from './about/about-edit/about-edit.component';
@@ -48,12 +46,10 @@ import { AboutEditComponent } from './about/about-edit/about-edit.component';
     DestinationDetailComponent,
     DestinationEditComponent,
     PhotoDetinationEditorComponent,
-    DescriptionComponent,
     PromotionCardComponent,
     PromotionDetailComponent,
     PromotionsListComponent,
     PromotionEditComponent,
-    PromotionDescriptionComponent,
     PhotoPromotionEditorComponent,
     RegisterPromotionsComponent,
     AboutEditComponent

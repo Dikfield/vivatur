@@ -1,4 +1,5 @@
 import { VivaPhoto } from './vivaPhotos';
+import { Feedback } from './feedback';
 
 export interface About{
   id:number;
@@ -6,5 +7,6 @@ export interface About{
   description:string;
   vivaInfo:boolean;
   vivaPhotos:VivaPhoto[];
+  feedbacks:Feedback[];
 
 }

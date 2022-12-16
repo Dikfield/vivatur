@@ -4,7 +4,9 @@ using API.Entities;
 using API.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Xml.Linq;
 
 namespace API.Controllers
 {
@@ -33,18 +35,50 @@ namespace API.Controllers
             return Ok(registerAboutDto);
         }
 
+        [HttpPost("feed")]
+        public async Task<ActionResult> RegisterFeedback(RegisterFeedDto registerFeedDto)
+        {
+            var feed= _mapper.Map<Feedback>(registerFeedDto);
+            feed.AboutId = 3;
+
+            _about.RegisterFeedback(feed);
+
+            if (!await _about.SaveAllAsync()) return BadRequest("Error saving about");
+
+            return Ok(registerFeedDto);
+
+         }
+
         [HttpDelete("delete/{id}")]
         public async Task<ActionResult> DeleteAbout(int id)
         {
-            var dest = await _about.GetAboutById(id);
+            var about = await _about.GetAboutById(id);
 
-            if (dest == null) return NotFound("Name not found");
+            if (about == null) return NotFound("Name not found");
 
-            var desti = new About();
+            var abouti = new About();
 
-            _mapper.Map(dest, desti);
+            _mapper.Map(about, abouti);
 
-            if (await _about.DeleteAbout(desti)) return Ok($"{desti.Title} deleted");
+            if (await _about.DeleteAbout(abouti)) return Ok($"{abouti.Title} deleted");
+
+
+            return BadRequest("same error in the system");
+
+        }
+
+        [HttpDelete("feed/delete/{id}")]
+        public async Task<ActionResult> DeleteFeed(int id)
+        {
+            var feed = await _about.GetFeedById(id);
+
+            if (feed == null) return NotFound("Name not found");
+
+            var feedi = new Feedback();
+
+            _mapper.Map(feed, feedi);
+
+            if (await _about.DeleteFeed(feedi)) return Ok($"{feedi.Name} deleted");
 
 
             return BadRequest("same error in the system");
@@ -71,6 +105,26 @@ namespace API.Controllers
             return BadRequest("Failed to update destination");
         }
 
+        [HttpPut("feed/{id}")]
+        public async Task<ActionResult> UpdateFeedback(FeedbackUpdateDto feedbackUpdateDto, int id)
+        {
+            var feed = await _about.GetFeedById(id);
+
+            if (feed == null) return NotFound("Try another feedback");
+
+            var feedi = new Feedback();
+
+            _mapper.Map(feed, feedi);
+
+            _mapper.Map(feedbackUpdateDto, feedi);
+
+            _about.UpdateFeedback(feedi);
+
+            if (await _about.SaveAllAsync()) return Ok();
+
+            return BadRequest("Failed to update feedbacks");
+        }
+
         [HttpGet(Name = "GetAbout")]
         public async Task<ActionResult> GetAbout()
         {
@@ -79,12 +133,66 @@ namespace API.Controllers
             return Ok(about);
         }
 
+        [HttpGet("feed/{id}")]
+        public async Task<ActionResult> GetFeedById(int id)
+        {
+
+            var feed = await _about.GetFeedById(id);
+            return Ok(feed);
+        }
+
+        [HttpGet("feed")]
+        public async Task<ActionResult> GetFeed()
+        {
+
+            var feeds = await _about.GetFeed();
+            return Ok(feeds);
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult> GetAboutById(int id)
         {
 
             var about = await _about.GetAboutById(id);
             return Ok(about);
+        }
+
+        [HttpPost("feed/add-photo/{id}")]
+        public async Task<ActionResult<FeedbackPhotoDto>> AddFeedPhoto(IFormFile file, int id)
+        {
+
+            var feed = await _about.GetFeedById(id);
+
+            if (feed == null) return BadRequest("id does not exist");
+
+            var result = await _photoService.AddPhotoAsync(file);
+
+            if (result.Error != null) return BadRequest(result.Error.Message);
+
+            var photo = new FeedbackPhoto
+            {
+                Url = result.SecureUrl.AbsoluteUri,
+                PublicId = result.PublicId,
+                IsMain = true,
+                FeedbackId = feed.Id,
+            };
+
+            feed.FeedbackPhoto = photo;
+
+            await _about.FeedSavePhoto(photo);
+            
+
+            var feedi = new Feedback();
+
+            _mapper.Map(feed, feedi);
+
+            _about.UpdateFeedback(feedi);
+
+            if (await _about.SaveAllAsync()) return Ok(new {Id = photo.Id, Url = photo.Url, IsMain = photo.IsMain});
+
+            return BadRequest("Failed to update feedbacks");
+
+
         }
 
         [HttpPost("add-photo/{id}")]
@@ -110,12 +218,12 @@ namespace API.Controllers
 
             };
 
-            
+
             about.VivaPhotos.Add(photo);
             if (await _about.AboutSavePhoto(photo))
                 return CreatedAtRoute("GetAbout", _mapper.Map<VivaPhotoDto>(photo));
 
-            
+
             return BadRequest("Problem Adding photo");
 
 
@@ -151,6 +259,30 @@ namespace API.Controllers
             }
 
             _about.DeletePhoto(photo);
+
+            if (await _about.SaveAllAsync()) return Ok();
+
+            return BadRequest("Failed to delete the photo");
+        }
+
+        [HttpDelete("feed/delete-photo/{feedId}")]
+        public async Task<ActionResult> DeleteFeedPhoto(int feedId)
+        {
+            var feed = await _about.GetFeedById(feedId);
+            var photo = feed.FeedbackPhoto;
+
+
+            if (photo == null) return NotFound();
+
+
+            if (photo.PublicId != null)
+            {
+                var result = await _photoService.DeletePhotoAsync(photo.PublicId);
+                if (result.Error != null) return BadRequest(result.Error);
+            }
+            
+            feed.FeedbackPhoto = null;
+            _about.DeleteFeedPhoto(photo);
 
             if (await _about.SaveAllAsync()) return Ok();
 

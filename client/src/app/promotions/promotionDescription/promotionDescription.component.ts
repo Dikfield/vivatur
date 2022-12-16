@@ -40,25 +40,11 @@ export class PromotionDescriptionComponent implements OnInit {
     this.newDescription = true;
   }
 
-  updateDescription(descriptionId:number){
-    this.promotionService.updateDescription(this.promotion.promotionDescriptions[descriptionId]).subscribe({
-      next:() => {this.toastr.success('Descrição atualizada');
-      this.dataForm.reset(this.promotion.promotionDescriptions[descriptionId]);
-    }
-    })
-  }
 
   getIndex(index:any){
     this.Index= index;
   }
 
-  deleteDescriptionPhoto (index:number){
-    this.promotionService.deleteDescriptionPhoto(this.promotion.promotionDescriptions[index].id).subscribe({
-      next:()=> {this.toastr.success('Foto deletada');
-      this.loadPromotions();
-  }
-    })
-  }
 
   reloadCurrentRoute() {
     let currentUrl = this.router.url;
@@ -66,13 +52,6 @@ export class PromotionDescriptionComponent implements OnInit {
         this.router.navigate([currentUrl]);
     });
 }
-  registerDescriptions() {
-    this.promotionService.registerDescription(this.model,this.promotion.id).subscribe({
-      next:()=>{this.toastr.success('Registrado')
-      this.reloadCurrentRoute();
-    }
-    })
-  }
 
   onChange(event) {
     this.file =event.target.files[0];

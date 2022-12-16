@@ -19,7 +19,6 @@
     &--1 {
       height: 62.8rem;
       width: 67rem;
-
     }
 
     &--2 {
@@ -71,6 +70,17 @@
         border: 0.1rem solid #ffffff;
       }
 
+      &--feed {
+        display: flex;
+        justify-content: center;
+        margin-top: 0.5rem;
+        color: #a472b0;
+        font-family: "nunito";
+        font-weight: 500;
+        text-align: center;
+        font-size: normal;
+      }
+
       &--center {
         margin-top: 0.5rem;
         color: #a472b0;
@@ -91,6 +101,13 @@
         }
       }
     }
+  }
+
+  &__feed-photo{
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    object-fit: cover;
   }
 }
 
@@ -113,4 +130,15 @@
     margin-top: 1.9rem;
     margin-bottom: 10.2rem;
   }
+
+  .text-4 {
+    margin-top: 1.9rem;
+  }
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin:0 2rem;
 }

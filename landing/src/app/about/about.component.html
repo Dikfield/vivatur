@@ -1,7 +1,7 @@
-<div class="about" id="about" *ngIf="abouts && abouts.length > 0">
+<div class="about" id="about" *ngIf="abouts && abouts.length > 0 && feedbacks && feedbacks.length > 0">
   <div class="about__gallery">
-    <img src={{abouts[0].vivaPhotos[0].url}} alt="" class="about__img--1" />
-    <img src={{abouts[1].vivaPhotos[0].url}} alt="" class="about__img--2" />
+    <img src="{{ abouts[0].vivaPhotos[0].url }}" alt="" class="about__img--1" />
+    <img src="{{ abouts[1].vivaPhotos[0].url }}" alt="" class="about__img--2" />
   </div>
   <div class="about__grad"></div>
   <div class="about__box">
@@ -9,37 +9,53 @@
       <div class="about__box__content--title">Sobre a Viva <br />Turismo</div>
       <div class="about__box__content--line"></div>
       <div class="about__box__content--center">
-        <h2 class="heading">{{abouts[0].title}}</h2>
+        <h2 class="heading">{{ abouts[0].title }}</h2>
       </div>
       <div class="about__box__content--about"></div>
       <div class="section-text">
         <p class="text-1">
-          {{abouts[0].description}}
+          {{ abouts[0].description }}
         </p>
         <br />
       </div>
       <div class="about__box__content--center">
         <h2 class="heading">
-          {{abouts[1].title}}
+          {{ abouts[1].title }}
         </h2>
       </div>
       <div class="section-text">
         <p class="text-2">
-          {{abouts[0].description}}
+          {{ abouts[0].description }}
         </p>
         <br />
       </div>
-      <div class="about__box__content--center">
-        <h2 class="heading">Feedbacks</h2>
+      <div class="about__box__content--feed">
+        <button (click)="backwardList()">
+          <img
+            src="../../assets/icons/Polygon_4.svg"
+            alt="arrow left"
+            class="arrow"
+          />
+        </button>
+        <div class="destinations__box__content--center">
+          <h2 class="heading">Feedbacks</h2>
+        </div>
+        <button (click)="forwardList()">
+          <img
+            src="../../assets/icons/Polygon_3.svg"
+            alt="arrow right"
+            class="arrow"
+          />
+        </button>
       </div>
       <div class="section-text">
-        <p class="text-3">
-          “Viajo todos os anos com a Viva desde 2015 e as viagens foram uma
-          melhor que a outra! A Vivian sempre cuida de tudo e programa os
-          melhores passeios, tem as melhores dicas de bares, restaurantes e
-          lugares para visitar. ” <br /><br />- Fulana de Tal, empresária.
+        <p class="text-4">
+          {{ feedbacks[ite].description }}
         </p>
-        <br />
+        <p class="text-4">
+          {{ feedbacks[ite].name }}
+        </p>
+        <img class="about__feed-photo" src="{{ feedbacks[ite].feedbackPhoto.url }}" alt="">
       </div>
     </div>
   </div>

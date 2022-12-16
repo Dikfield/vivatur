@@ -10,8 +10,11 @@ import { FeaturesComponent } from './features/features.component';
 import { AboutComponent } from './about/about.component';
 import { FormComponent } from './form/form.component';
 import { FooterComponent } from './footer/footer.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import { ReactiveFormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    HttpClientJsonpModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    DatePipe,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

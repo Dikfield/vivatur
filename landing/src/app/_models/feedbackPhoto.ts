@@ -1,4 +1,4 @@
-export interface PromotionDescriptionPhoto{
+export interface FeedbackPhoto{
   id:number;
   url:string;
   isMain:boolean;

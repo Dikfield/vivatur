@@ -1,21 +1,28 @@
-import { animation, animate, style, transition, trigger, useAnimation } from '@angular/animations';
+import {
+  animation,
+  animate,
+  style,
+  transition,
+  trigger,
+  useAnimation,
+} from '@angular/animations';
 import { Component } from '@angular/core';
 import { LandingService } from '../landing.service';
 import { Destination } from '../_models/destination';
 
 export const scaleIn = animation([
-  style({ opacity: 0, transform: "scale(0.5)" }), // start state
+  style({ opacity: 0, transform: 'scale(0.5)' }), // start state
   animate(
-    "{{time}} cubic-bezier(0.785, 0.135, 0.15, 0.86)",
-    style({ opacity: 1, transform: "scale(1)" })
-  )
+    '{{time}} cubic-bezier(0.785, 0.135, 0.15, 0.86)',
+    style({ opacity: 1, transform: 'scale(1)' })
+  ),
 ]);
 
 export const scaleOut = animation([
   animate(
-    "{{time}} cubic-bezier(0.785, 0.135, 0.15, 0.86)",
-    style({ opacity: 0, transform: "scale(0.5)" })
-  )
+    '{{time}} cubic-bezier(0.785, 0.135, 0.15, 0.86)',
+    style({ opacity: 0, transform: 'scale(0.5)' })
+  ),
 ]);
 
 @Component({
@@ -23,17 +30,21 @@ export const scaleOut = animation([
   templateUrl: './destination.component.html',
   styleUrls: ['./destination.component.scss'],
   animations: [
-    trigger("slideAnimation", [
+    trigger('slideAnimation', [
       /* scale */
-      transition("void => *", [useAnimation(scaleIn, {params: { time: '500ms' }} )]),
-      transition("* => void", [useAnimation(scaleOut, {params: { time: '500ms' }})]),
-    ])
-  ]
+      transition('void => *', [
+        useAnimation(scaleIn, { params: { time: '500ms' } }),
+      ]),
+      transition('* => void', [
+        useAnimation(scaleOut, { params: { time: '500ms' } }),
+      ]),
+    ]),
+  ],
 })
 export class DestinationComponent {
-  destinations: Destination[] = [];
+  destinations!: Destination[];
   ite: number = 0;
-  time:number = 5000;
+  time: number = 5000;
   interval: any;
 
   constructor(private landingService: LandingService) {}
@@ -52,15 +63,13 @@ export class DestinationComponent {
   }
 
   timer() {
-      this.interval = setInterval(() => {
-        if(this.ite < this.destinations.length -1){
-         this.ite++;
-        } else {
-          this.ite=0;
-        }
-
-      }, this.time);
-
+    this.interval = setInterval(() => {
+      if (this.ite < this.destinations.length - 1) {
+        this.ite++;
+      } else {
+        this.ite = 0;
+      }
+    }, this.time);
   }
 
   forwardList() {
@@ -68,7 +77,7 @@ export class DestinationComponent {
       this.ite++;
       scaleIn;
     } else {
-      this.ite =0;
+      this.ite = 0;
     }
 
     clearInterval(this.interval);
@@ -79,7 +88,7 @@ export class DestinationComponent {
     if (this.ite > 0) {
       this.ite--;
     } else {
-      this.ite = this.destinations.length -1;
+      this.ite = this.destinations.length - 1;
     }
     clearInterval(this.interval);
     this.timer();
@@ -87,14 +96,9 @@ export class DestinationComponent {
 
   fadeIn = animation([
     style({ opacity: 0 }), // start state
-    animate('300ms', style({ opacity: 1 }))
+    animate('300ms', style({ opacity: 1 })),
   ]);
 
-  fadeOut = animation([
-    animate('300ms', style({ opacity: 0 }))
-  ]);
-
-
+  fadeOut = animation([animate('300ms', style({ opacity: 0 }))]);
 }
-
 

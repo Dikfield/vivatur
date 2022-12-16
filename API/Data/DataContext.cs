@@ -19,13 +19,11 @@ namespace API.Data
         public DbSet<Destination> Destinations { get; set; }
         public DbSet<About> Abouts { get; set; }
         public DbSet<VivaPhoto> VivaPhotos { get; set; }
-        public DbSet<DescriptionPhoto> DescriptionPhotos { get; set; }
         public DbSet<DestinationPhoto> DestinationPhotos { get; set; }
-        public DbSet<DestinationDescription> DestinationDescriptions { get; set; }
         public DbSet<Promotion> Promotions { get; set; }
-        public DbSet<PromotionDescriptionPhoto> PromotionDescriptionPhotos { get; set; }
         public DbSet<PromotionPhoto> PromotionPhotos { get; set; }
-        public DbSet<PromotionDescription> PromotionDescriptions { get; set; }
+        public DbSet<Feedback> Feedbacks{ get; set; }
+        public DbSet<FeedbackPhoto> FeedbackPhotos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

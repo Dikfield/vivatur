@@ -27,27 +27,6 @@ namespace API.Data
 
             await context.SaveChangesAsync();
 
-
-            var descData = await System.IO.File.ReadAllTextAsync("Data/DescriptionData.json");
-            var desc = JsonSerializer.Deserialize<List<DestinationDescription>>(descData);
-
-            foreach (var d in desc)
-            {
-                context.DestinationDescriptions.Add(d);
-            }
-
-            await context.SaveChangesAsync();
-
-            var descPhotoData = await System.IO.File.ReadAllTextAsync("Data/DescriptionPhotosData.json");
-            var descPhoto = JsonSerializer.Deserialize<List<DescriptionPhoto>>(descPhotoData);
-
-            foreach (var d in descPhoto)
-            {
-                context.DescriptionPhotos.Add(d);
-            }
-
-            await context.SaveChangesAsync();
-
             if (await userManager.Users.AnyAsync()) return;
 
             await roleManager.CreateAsync(new Role { Name = "Admin" });

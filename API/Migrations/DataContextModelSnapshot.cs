@@ -129,35 +129,6 @@ namespace API.Migrations
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("API.Entities.DescriptionPhoto", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("DescriptionId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsMain")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("PublicId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DescriptionId")
-                        .IsUnique();
-
-                    b.ToTable("DescriptionPhotos");
-                });
-
             modelBuilder.Entity("API.Entities.Destination", b =>
                 {
                     b.Property<int>("Id")
@@ -175,6 +146,9 @@ namespace API.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -185,32 +159,6 @@ namespace API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Destinations");
-                });
-
-            modelBuilder.Entity("API.Entities.DestinationDescription", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("DestinationId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DestinationId");
-
-                    b.ToTable("DestinationDescriptions");
                 });
 
             modelBuilder.Entity("API.Entities.DestinationPhoto", b =>
@@ -241,6 +189,61 @@ namespace API.Migrations
                     b.ToTable("DestinationPhotos");
                 });
 
+            modelBuilder.Entity("API.Entities.Feedback", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AboutId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AboutId");
+
+                    b.ToTable("Feedbacks");
+                });
+
+            modelBuilder.Entity("API.Entities.FeedbackPhoto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("FeedbackId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PublicId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FeedbackId")
+                        .IsUnique();
+
+                    b.ToTable("FeedbackPhotos");
+                });
+
             modelBuilder.Entity("API.Entities.Promotion", b =>
                 {
                     b.Property<int>("Id")
@@ -254,6 +257,9 @@ namespace API.Migrations
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Month")
                         .HasColumnType("nvarchar(max)");
@@ -271,61 +277,6 @@ namespace API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Promotions");
-                });
-
-            modelBuilder.Entity("API.Entities.PromotionDescription", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("PromotionId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PromotionId");
-
-                    b.ToTable("PromotionDescriptions");
-                });
-
-            modelBuilder.Entity("API.Entities.PromotionDescriptionPhoto", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<bool>("IsMain")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("PromotionDescriptionId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PublicId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PromotionDescriptionId")
-                        .IsUnique();
-
-                    b.ToTable("PromotionDescriptionPhotos");
                 });
 
             modelBuilder.Entity("API.Entities.PromotionPhoto", b =>
@@ -524,26 +475,6 @@ namespace API.Migrations
                     b.Navigation("_Role");
                 });
 
-            modelBuilder.Entity("API.Entities.DescriptionPhoto", b =>
-                {
-                    b.HasOne("API.Entities.DestinationDescription", "Description")
-                        .WithOne("DescriptionPhoto")
-                        .HasForeignKey("API.Entities.DescriptionPhoto", "DescriptionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Description");
-                });
-
-            modelBuilder.Entity("API.Entities.DestinationDescription", b =>
-                {
-                    b.HasOne("API.Entities.Destination", null)
-                        .WithMany("Descriptions")
-                        .HasForeignKey("DestinationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("API.Entities.DestinationPhoto", b =>
                 {
                     b.HasOne("API.Entities.Destination", "Destination")
@@ -555,24 +486,26 @@ namespace API.Migrations
                     b.Navigation("Destination");
                 });
 
-            modelBuilder.Entity("API.Entities.PromotionDescription", b =>
+            modelBuilder.Entity("API.Entities.Feedback", b =>
                 {
-                    b.HasOne("API.Entities.Promotion", null)
-                        .WithMany("PromotionDescriptions")
-                        .HasForeignKey("PromotionId")
+                    b.HasOne("API.Entities.About", "About")
+                        .WithMany("Feedbacks")
+                        .HasForeignKey("AboutId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("About");
                 });
 
-            modelBuilder.Entity("API.Entities.PromotionDescriptionPhoto", b =>
+            modelBuilder.Entity("API.Entities.FeedbackPhoto", b =>
                 {
-                    b.HasOne("API.Entities.PromotionDescription", "Description")
-                        .WithOne("PromotionDescriptionPhoto")
-                        .HasForeignKey("API.Entities.PromotionDescriptionPhoto", "PromotionDescriptionId")
+                    b.HasOne("API.Entities.Feedback", "feedback")
+                        .WithOne("FeedbackPhoto")
+                        .HasForeignKey("API.Entities.FeedbackPhoto", "FeedbackId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Description");
+                    b.Navigation("feedback");
                 });
 
             modelBuilder.Entity("API.Entities.PromotionPhoto", b =>
@@ -635,6 +568,8 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Entities.About", b =>
                 {
+                    b.Navigation("Feedbacks");
+
                     b.Navigation("VivaPhotos");
                 });
 
@@ -645,26 +580,17 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Entities.Destination", b =>
                 {
-                    b.Navigation("Descriptions");
-
                     b.Navigation("DestinationPhotos");
                 });
 
-            modelBuilder.Entity("API.Entities.DestinationDescription", b =>
+            modelBuilder.Entity("API.Entities.Feedback", b =>
                 {
-                    b.Navigation("DescriptionPhoto");
+                    b.Navigation("FeedbackPhoto");
                 });
 
             modelBuilder.Entity("API.Entities.Promotion", b =>
                 {
-                    b.Navigation("PromotionDescriptions");
-
                     b.Navigation("PromotionPhotos");
-                });
-
-            modelBuilder.Entity("API.Entities.PromotionDescription", b =>
-                {
-                    b.Navigation("PromotionDescriptionPhoto");
                 });
 
             modelBuilder.Entity("API.Entities.Role", b =>

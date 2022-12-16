@@ -1,1 +1,24 @@
+.selection-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+button-2 {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+button-1 {
+  margin: 0 1rem;
+}
+.arrow {
+  border:none;
+  border-style: none;
+}
+
+.card-img-top {
+  background-size: cover;
+  object-fit: cover;
+}

@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 import { map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Promotion } from '../_models/promotion';
-import { PromotionDescription } from '../_models/promotionDescription';
-
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +10,6 @@ import { PromotionDescription } from '../_models/promotionDescription';
 export class PromotionsService {
   baseUrl = environment.apiUrl;
   promotions: Promotion [] = [];
-  promotionDescriptions:PromotionDescription [] = [];
-
 
   constructor(private http:HttpClient) { }
 
@@ -67,12 +63,6 @@ export class PromotionsService {
         const index = this.promotions.indexOf(promotion);
         this.promotions[index] = promotion;
       })
-    )
-  }
-
-  updateDescription(description:PromotionDescription){
-    return this.http.put(this.baseUrl + 'promotion/description/update/' + description.id, description).pipe(
-      map(() => {})
     )
   }
 

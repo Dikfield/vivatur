@@ -9,7 +9,7 @@
         perdidas
       </div>
     </div>
-    <div class="col-3">
+    <div class="col-6">
       <div class="card">
         <img
           src="{{ destination.photoUrl }}"
@@ -24,19 +24,12 @@
           >
             <strong>País</strong>
             <p>{{ destination.name }}</p>
-            <strong>Cidades</strong>
+            <strong>Descrição</strong>
             <textarea
               class="form-control"
-              [(ngModel)]="destination.city"
-              name="city"
-              rows="2"
-            ></textarea>
-            <strong>Melhores meses</strong>
-            <textarea
-              class="form-control"
-              [(ngModel)]="destination.bestMonths"
-              name="bestMonths"
-              rows="1"
+              [(ngModel)]="destination.description"
+              name="description"
+              rows="4"
             ></textarea>
             <strong (click)="clickBottom()">O Destino está público?</strong>
 
@@ -77,12 +70,9 @@
       </div>
     </div>
 
-    <div class="col-9">
+    <div class="col-6">
       <tabset class="member-tabset">
-        <tab heading="Descrições do destino {{ destination.name }}">
-          <app-description [destination]="destination"></app-description>
-        </tab>
-        <tab heading="Fotos do destino{{ destination.name }}">
+        <tab heading="Fotos do destino {{ destination.name }}">
           <app-photo-detination-editor
             [destination]="destination"
           ></app-photo-detination-editor>
