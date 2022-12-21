@@ -7,31 +7,47 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 120vh;
+
+  @media only screen and (max-width: 62.5em) {
+    height: 140vh;
+  }
 
   &__img {
     width: 100%;
-    height: max-content;
-
+    height: 100%;
   }
 
   &__title {
-    top: 9rem;
+    top: 7rem;
     position: absolute;
-    font-family: 'Sansita Swashed';
+    font-family: "Sansita Swashed";
     font-style: normal;
     font-weight: 500;
     font-size: 36px;
     line-height: 43px;
     text-align: center;
+    color: #231f20;
 
-    color: #231F20;
+    @media only screen and (max-width: 75em) {
+      top: 4rem;
+    }
   }
 
   &__content {
     position: absolute;
-    top:21.8rem;
-    margin:auto;
+    top: 16.8rem;
     display: flex;
+
+    @media only screen and (max-width: 75em) {
+      top: 13rem;
+    }
+
+    @media only screen and (max-width: 62.5em) {
+      top: 13rem;
+      flex-direction: column;
+    }
+
 
   }
 
@@ -43,6 +59,11 @@
       rgba(217, 217, 217, 0.5)
     );
     margin-right: 3.3rem;
+
+    @media only screen and (max-width: 75em) {
+      margin-right: 1rem;
+      width: 62rem;
+    }
   }
 
   &__personal {
@@ -52,107 +73,122 @@
       rgba(217, 217, 217, 0.5),
       rgba(217, 217, 217, 0.5)
     );
+
+    @media only screen and (max-width: 75em) {
+      width: 32.7rem;
+    }
   }
 
   &__box--title {
     margin: 2.5rem 6rem;
-    font-family: 'Nunito';
+    font-family: "Nunito";
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
     line-height: 22px;
-    color: #FFFFFF;
+    color: #ffffff;
     text-align: justify;
+
+    @media only screen and (max-width: 75em) {
+      margin: 2.5rem 4rem;
+    }
   }
 
   .special {
-    margin:2.5rem 21rem;
+    margin: 2.5rem 21rem;
   }
 
   &__box--info {
     &--1 {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      grid-row-gap: .8rem;
-      margin-top:calc(5.3rem - 2.5rem);
+      grid-row-gap: 0.8rem;
+      margin-top: calc(5.3rem - 2.5rem);
       margin: 0 2.8rem;
       justify-items: center;
+
+      @media only screen and (max-width: 75em) {
+        margin: 0 1.8rem;
+      }
     }
 
     &--2 {
       display: grid;
       flex-direction: column;
-      grid-row-gap: .8rem;
+      grid-row-gap: 0.8rem;
       justify-items: center;
     }
   }
 
   &__box--text {
-    font-family: 'nunito';
+    font-family: "nunito";
     width: 27rem;
     height: 3.8rem;
     border: none;
     border-color: #a472b0;
-    padding-left: .7rem;
-    padding-top: .6rem;
+    padding-left: 0.7rem;
+    padding-top: 0.6rem;
     border-radius: 5px 5px 5px 5px;
     border-bottom: 3px solid transparent;
-    transition: all .3s;
+    transition: all 0.3s;
 
     &:focus {
       outline: none;
-      box-shadow: 0 1rem 2rem rgba(black, .1);
+      box-shadow: 0 1rem 2rem rgba(black, 0.1);
       border-bottom: 3px solid #a472b0;
-
     }
-
   }
 
-  &__box--text:placeholder-shown + &__label{
+  &__box--text:placeholder-shown + &__label {
     opacity: 0;
     visibility: hidden;
     transform: translateY(-4rem);
   }
 
-  &__label{
-    color:white;
-    font-family: 'nunito';
+  &__label {
+    color: white;
+    font-family: "nunito";
     font-size: 1.2rem;
     font-weight: 700;
     margin-top: 0rem;
-    transition: all .3s;
+    transition: all 0.3s;
     display: block;
     justify-self: start;
-}
+  }
 
-  .--1{
+  .--1 {
     margin-left: 5rem;
   }
 
-  .--2{
+  .--2 {
     margin-left: 1rem;
   }
-
 }
 .btn {
   &,
   &:link,
   &:visited {
-  font-family: 'nunito';
-  font-weight: 500;
-  position: absolute;
-  text-align: center;
-  text-transform: uppercase;
-  text-decoration: none;
-  padding: 1.5rem 1rem;
-  height: 5.6rem;
-  width: 21.3rem;
-  top:59.8rem;
-  right: 19rem;
-  border: none;
-  border-radius: 5px 5px 5px 5px;
-  transition: all .2s;
-  cursor: pointer;
+    font-family: "nunito";
+    font-weight: 500;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.5rem 1rem;
+    height: 5.6rem;
+    width: 21.3rem;
+    top: 51.8rem;
+    right: 20rem;
+    margin: 0 auto;
+    border: none;
+    border-radius: 5px 5px 5px 5px;
+    transition: all 0.2s;
+    cursor: pointer;
+
+    @media only screen and (max-width: 75em) {
+      top: 48rem;
+      right: 15rem;
+    }
   }
 
   &:hover {
@@ -171,11 +207,11 @@
   }
 
   &--green {
-    background-color: #8CC63F;
+    background-color: #8cc63f;
     color: white;
 
     &::after {
-      background-color: #8CC63F;
+      background-color: #8cc63f;
     }
   }
 
@@ -214,15 +250,15 @@
 }
 
 .input:focus {
-  outline-color:red;
+  outline-color: red;
 }
 
-.alert-danger{
-    color:white;
-    font-family: 'nunito';
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-top: -1rem;
-    margin-left: 5rem;
-    justify-self: start;
+.alert-danger {
+  color: white;
+  font-family: "nunito";
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: -1rem;
+  margin-left: 5rem;
+  justify-self: start;
 }
