@@ -18,14 +18,14 @@ namespace API.Data
             if (await context.Destinations.AnyAsync()) return;
 
             var destData = await System.IO.File.ReadAllTextAsync("Data/DestinationData.json");
-            var dest = JsonSerializer.Deserialize<List<Destination>>(destData);
+            //var dest = JsonSerializer.Deserialize<List<Destination>>(destData);
             
-            foreach(var d in dest)
-            {
-                context.Destinations.Add(d);
-            }
+            //foreach(var d in dest)
+            //{
+            //    context.Destinations.Add(d);
+            //}
 
-            await context.SaveChangesAsync();
+            //await context.SaveChangesAsync();
 
             if (await userManager.Users.AnyAsync()) return;
 

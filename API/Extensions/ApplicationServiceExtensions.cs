@@ -18,12 +18,7 @@ namespace API.Extensions
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddScoped<IDestination, DestinationData>();
             services.AddScoped<IPromotion, PromotionData>();
-
-            services.AddDbContext<DataContext>(options =>
-            {
-                options.UseSqlServer(config["ConnectionStrings:VivaTur"]);
-            });
-
+           
             return services;
         }
     }
