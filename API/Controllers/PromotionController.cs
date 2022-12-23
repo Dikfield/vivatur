@@ -50,6 +50,7 @@ namespace API.Controllers
 
 
             dest.Name = registerPromotionDto.Name.ToLower();
+            dest.Created = DateTime.SpecifyKind(dest.Created, DateTimeKind.Utc);
 
             if (registerPromotionDto.Public == 1) dest.Public = true;
             else dest.Public = false;
