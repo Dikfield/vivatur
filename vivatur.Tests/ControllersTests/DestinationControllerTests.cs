@@ -32,21 +32,21 @@ namespace vivatur.Tests.ControllersTests
 
             _controller = new DestinationController(_photoService.Object, _mapper.Object, _destinationRepo.Object);
 
-            _paris = Mock.Of<DestinationDto>
-                (x =>
-                    x.Name == "Paris" &&
-                    x.Public == true &&
-                    x.Id == 1 &&
-                    x.Country == "France"
-                );
+            //_paris = Mock.Of<DestinationDto>
+                // (x =>
+                //     x.Name == "Paris" &&
+                //     x.Public == true &&
+                //     x.Id == 1 &&
+                //     x.Country == "France"
+                // );
 
-            _berlin =  Mock.Of<DestinationDto>
-                (x =>
-                    x.Name == "Paris" &&
-                    x.Public == true &&
-                    x.Id == 1 &&
-                    x.Country == "France"
-                );
+            // _berlin =  Mock.Of<DestinationDto>
+            //     (x =>
+            //         x.Name == "Paris" &&
+            //         x.Public == true &&
+            //         x.Id == 1 &&
+            //         x.Country == "France"
+            //     );
         }
 
         [Fact]
@@ -59,51 +59,51 @@ namespace vivatur.Tests.ControllersTests
 
             _destinationRepo.Setup(x => x.GetAllAsync()).Returns(Task.FromResult(list.AsEnumerable()));
 
-            var listAll = await _controller.GetAllDestinations();
+           // var listAll = await _controller.GetAllDestinations();
 
-            Assert.Equal(2, list.Count);
-            Assert.IsAssignableFrom<Task<ActionResult>>(listAll);
+           //Assert.Equal(2, list.Count);
+            //Assert.IsAssignableFrom<Task<ActionResult>>(listAll);
         }
 
         [Fact]
         public async void GetDestinationByName_Returns_Destination()
         {
-            var france = Mock.Of<Destination>
-                        (x =>
-                            x.Name == "Paris" &&
-                            x.Public == true &&
-                            x.Id == 1 &&
-                            x.Country == "France"
-                        );
+            // var france = Mock.Of<Destination>
+            //             (x =>
+            //                 x.Name == "Paris" &&
+            //                 x.Public == true &&
+            //                 x.Id == 1 &&
+            //                 x.Country == "France"
+            //             );
 
-            _destinationRepo.Setup(x => x.GetByNameAsync(It.IsAny<string>())).Returns(Task.FromResult(france));
+            //_destinationRepo.Setup(x => x.GetByNameAsync(It.IsAny<string>())).Returns(Task.FromResult(france));
 
-            var result = await _controller.GetDestinationByName(It.IsAny<string>());
+            //var result = await _controller.GetDestinationByName(It.IsAny<string>());
 
-            Assert.IsAssignableFrom<ActionResult<DestinationDto>>(result);
-            Assert.Equal("Paris", france.Name);
+            //Assert.IsAssignableFrom<ActionResult<DestinationDto>>(result);
+            //Assert.Equal("Paris", france.Name);
 
         }
 
         [Fact]
         public async void RegisterDestinationHolland_Returns_DestinationHolland()
         {
-            var dest = Mock.Of<RegisterDestinationDto>
-            (x =>
-                x.Name == "Brasil" &&
-                x.Public == true
-            );
+            // var dest = Mock.Of<RegisterDestinationDto>
+            // (x =>
+            //     x.Name == "Brasil" &&
+            //     x.Public == true
+            // );
 
 
-            _destinationRepo.Setup(x => x.GetByNameAsync(It.IsAny<string>())).Returns(Task.FromResult<Destination>(null));
+            //_destinationRepo.Setup(x => x.GetByNameAsync(It.IsAny<string>())).Returns(Task.FromResult<Destination>(null));
 
              
-            _destinationRepo.Setup(x => x.SaveAllAsync()).Returns(Task.FromResult(true));
+            //_destinationRepo.Setup(x => x.SaveAllAsync()).Returns(Task.FromResult(true));
 
 
-            var result = await _controller.RegisterDestination(dest);
+            //var result = await _controller.RegisterDestination(dest);
 
-            Assert.IsAssignableFrom<ActionResult>(result);
+            //Assert.IsAssignableFrom<ActionResult>(result);
 
 
 
