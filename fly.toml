@@ -9,6 +9,9 @@ processes = []
   image = "dikfield/vivatur:latest"
 
 [env]
+  ASPNETCORE_URLS="http://+:80"
+  CloudinarySettings__CloudName="vivaturismoviagens-com-br"
+  CloudinarySettings__ApiKey="248172928766635"
 
 [experimental]
   allowed_public_ports = []
