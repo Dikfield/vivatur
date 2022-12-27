@@ -39,13 +39,13 @@ namespace API.Controllers
         public async Task<ActionResult> RegisterFeedback(RegisterFeedDto registerFeedDto)
         {
             var feed= _mapper.Map<Feedback>(registerFeedDto);
-            feed.AboutId = 3;
+            feed.AboutId = 2;
 
             _about.RegisterFeedback(feed);
 
             if (!await _about.SaveAllAsync()) return BadRequest("Error saving about");
 
-            return Ok(registerFeedDto);
+            return Ok(feed);
 
          }
 

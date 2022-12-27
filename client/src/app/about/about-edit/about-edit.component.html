@@ -84,7 +84,7 @@
           <h3>Fotos da viva turismo</h3>
           <div class="card-img-wrapper">
             <div *ngFor="let about of abouts; index as indexOfabouts">
-              <div *ngIf="about.id == 3">
+              <div *ngIf="about.id == 2">
                 <div *ngFor="let photo of about.vivaPhotos">
                   <br />
                   <img
@@ -121,40 +121,39 @@
       </tab>
       <tab heading="Feedback">
         <div class="col-12" *ngIf="feedbacks && feedbacks.length > 0">
-
-            <div class="selection-box">
-              <button-2 (click)="backwardList()">
-                <img
-                  src="../../../assets/icons/Polygon_4.svg"
-                  alt="arrow left"
-                  class="arrow"
-                />
-              </button-2>
-              <h3>Nome</h3>
-              <button-2 (click)="backwardList()">
-                <img
-                  src="../../../assets/icons/Polygon_3.svg"
-                  alt="arrow right"
-                  class="arrow"
-                />
-              </button-2>
-              <button-1
-                class="btn btn-primary"
-                type="submit"
-                form="feedForm"
-                (click)="updateFeedback(feedbacks[feedIndex])"
-              >
-                Atualize Feed
-              </button-1>
-              <button-1
-                class="btn btn-primary"
-                (click)="feedbackDeleted(feedbacks[feedIndex].id)"
-                type="submit"
-              >
-                Delete Feed
-              </button-1>
-            </div>
-            <form #feedForm="ngForm" id="feedForm" name="feedForm">
+          <div class="selection-box">
+            <button-2 (click)="backwardList()">
+              <img
+                src="../../../assets/icons/Polygon_4.svg"
+                alt="arrow left"
+                class="arrow"
+              />
+            </button-2>
+            <h3>Nome</h3>
+            <button-2 (click)="backwardList()">
+              <img
+                src="../../../assets/icons/Polygon_3.svg"
+                alt="arrow right"
+                class="arrow"
+              />
+            </button-2>
+            <button-1
+              class="btn btn-primary"
+              type="submit"
+              form="feedForm"
+              (click)="updateFeedback(feedbacks[feedIndex])"
+            >
+              Atualize Feed
+            </button-1>
+            <button-1
+              class="btn btn-primary"
+              (click)="feedbackDeleted(feedbacks[feedIndex].id)"
+              type="submit"
+            >
+              Delete Feed
+            </button-1>
+          </div>
+          <form #feedForm="ngForm" id="feedForm" name="feedForm">
             <textarea
               class="form-control"
               [(ngModel)]="feedbacks[feedIndex].name"
@@ -191,14 +190,9 @@
             >
               <i class="fa fa-trash"></i>
             </button>
-            <button-1
-              type="button"
-              class="btn btn-primary"
-              (click)="openModal(template)"
-            >
-              Registre um feedback
-            </button-1>
           </div>
+          <br />
+
           <div
             class="text-center"
             style="width: 300px"
@@ -283,6 +277,13 @@
               </div>
             </div>
           </ng-template>
+          <button-1
+            type="button"
+            class="btn btn-primary"
+            (click)="openModal(template)"
+          >
+            Registre um feedback
+          </button-1>
         </div>
       </tab>
     </tabset>

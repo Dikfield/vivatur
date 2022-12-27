@@ -151,9 +151,10 @@ export class AboutEditComponent implements OnInit {
 
   registerFeed() {
     this.aboutService.registerFeedback(this.model).subscribe({
-      next: () => {
+      next: (feedback: Feedback) => {
+        this.feedbacks.push(feedback);
         this.toastr.success('Registered');
-        this.router.navigateByUrl('about');
+        this.closeModal();
       },
       error: (e) => {
         console.log(e);
