@@ -18,14 +18,38 @@ namespace API.Data
             if (await context.Destinations.AnyAsync()) return;
 
             var destData = await System.IO.File.ReadAllTextAsync("Data/DestinationData.json");
-            //var dest = JsonSerializer.Deserialize<List<Destination>>(destData);
-            
-            //foreach(var d in dest)
-            //{
-            //    context.Destinations.Add(d);
-            //}
 
-            //await context.SaveChangesAsync();
+            var about1 = new About
+            {
+                Title = "VivaTur",
+                Description = "Descrição para a empresa viva turismo",
+                VivaInfo = true
+            };
+
+            var about2 = new About
+            {
+                Title = "Viva",
+                Description = "Descrição para a pessoa Vivian",
+                VivaInfo = true,
+            };
+
+            context.Abouts.Add(about1);
+            context.Abouts.Add(about2);
+
+            await context.SaveChangesAsync();
+
+            var feedback = new Feedback
+            {
+                Name = "Perola",
+                Description = "A tia viva me deu muito matinho e muitos petiscos",
+                AboutId = 2
+            };
+
+            context.Feedbacks.Add(feedback);
+
+            await context.SaveChangesAsync();
+
+
 
             if (await userManager.Users.AnyAsync()) return;
 
