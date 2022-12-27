@@ -19,35 +19,39 @@ namespace API.Data
 
             var destData = await System.IO.File.ReadAllTextAsync("Data/DestinationData.json");
 
-            var about1 = new About
+            if (!context.Abouts.Any())
             {
-                Title = "VivaTur",
-                Description = "Descrição para a empresa viva turismo",
-                VivaInfo = true
-            };
+                var about1 = new About
+                {
+                    Title = "VivaTur",
+                    Description = "Descrição para a empresa viva turismo",
+                    VivaInfo = true
+                };
 
-            var about2 = new About
-            {
-                Title = "Viva",
-                Description = "Descrição para a pessoa Vivian",
-                VivaInfo = true,
-            };
+                var about2 = new About
+                {
+                    Title = "Viva",
+                    Description = "Descrição para a pessoa Vivian",
+                    VivaInfo = true,
+                };
 
-            context.Abouts.Add(about1);
-            context.Abouts.Add(about2);
+                context.Abouts.Add(about1);
+                context.Abouts.Add(about2);
 
-            await context.SaveChangesAsync();
+                await context.SaveChangesAsync();
 
-            var feedback = new Feedback
-            {
-                Name = "Perola",
-                Description = "A tia viva me deu muito matinho e muitos petiscos",
-                AboutId = 2
-            };
+                var feedback = new Feedback
+                {
+                    Name = "Perola",
+                    Description = "A tia viva me deu muito matinho e muitos petiscos",
+                    AboutId = 2
+                };
 
-            context.Feedbacks.Add(feedback);
+                context.Feedbacks.Add(feedback);
 
-            await context.SaveChangesAsync();
+                await context.SaveChangesAsync();
+            }
+
 
 
 
@@ -61,7 +65,7 @@ namespace API.Data
             };
 
             await userManager.CreateAsync(admin, "Dik@1234");
-            await userManager.AddToRoleAsync(admin,"Admin");
+            await userManager.AddToRoleAsync(admin, "Admin");
 
         }
     }

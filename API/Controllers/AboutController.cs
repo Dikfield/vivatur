@@ -4,6 +4,7 @@ using API.Entities;
 using API.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
@@ -23,6 +24,7 @@ namespace API.Controllers
             _photoService = photoService;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult> RegisterAbout(RegisterAboutDto registerAboutDto)
         {
@@ -35,6 +37,7 @@ namespace API.Controllers
             return Ok(registerAboutDto);
         }
 
+        [Authorize]
         [HttpPost("feed")]
         public async Task<ActionResult> RegisterFeedback(RegisterFeedDto registerFeedDto)
         {
@@ -49,6 +52,7 @@ namespace API.Controllers
 
          }
 
+        [Authorize]
         [HttpDelete("delete/{id}")]
         public async Task<ActionResult> DeleteAbout(int id)
         {
@@ -67,6 +71,7 @@ namespace API.Controllers
 
         }
 
+        [Authorize]
         [HttpDelete("feed/delete/{id}")]
         public async Task<ActionResult> DeleteFeed(int id)
         {
@@ -85,6 +90,7 @@ namespace API.Controllers
 
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateAbout(AboutUpdateDto aboutUpdateDto, int id)
         {
@@ -105,6 +111,7 @@ namespace API.Controllers
             return BadRequest("Failed to update destination");
         }
 
+        [Authorize]
         [HttpPut("feed/{id}")]
         public async Task<ActionResult> UpdateFeedback(FeedbackUpdateDto feedbackUpdateDto, int id)
         {
@@ -157,6 +164,7 @@ namespace API.Controllers
             return Ok(about);
         }
 
+        [Authorize]
         [HttpPost("feed/add-photo/{id}")]
         public async Task<ActionResult<FeedbackPhotoDto>> AddFeedPhoto(IFormFile file, int id)
         {
@@ -195,6 +203,7 @@ namespace API.Controllers
 
         }
 
+        [Authorize]
         [HttpPost("add-photo/{id}")]
         public async Task<ActionResult<VivaPhotoDto>> AddPhoto(IFormFile file, int id)
         {
@@ -229,6 +238,7 @@ namespace API.Controllers
 
         }
 
+        [Authorize]
         [HttpPut("set-type-photo/{photoId}")]
         public async Task<ActionResult> SetPhotoType(int photoId)
         {
@@ -243,6 +253,7 @@ namespace API.Controllers
             return BadRequest("Failed to change the type");
         }
 
+        [Authorize]
         [HttpDelete("delete-photo/{photoId}")]
         public async Task<ActionResult> DeletePhoto(int photoId)
         {
@@ -265,6 +276,7 @@ namespace API.Controllers
             return BadRequest("Failed to delete the photo");
         }
 
+        [Authorize]
         [HttpDelete("feed/delete-photo/{feedId}")]
         public async Task<ActionResult> DeleteFeedPhoto(int feedId)
         {

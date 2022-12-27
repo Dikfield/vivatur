@@ -2,6 +2,7 @@
 using API.Entities;
 using API.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -20,6 +21,7 @@ namespace API.Controllers
             _promotionRepository = promotionRepository;
         }
 
+        [Authorize]
         [HttpGet("{id}", Name = "GetPromotion")]
         public async Task<ActionResult> GetPromotionById(int id)
         {
@@ -39,6 +41,7 @@ namespace API.Controllers
             return Ok(promotions);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult> RegisterDestination(RegisterPromotionDto registerPromotionDto)
         {
@@ -65,6 +68,7 @@ namespace API.Controllers
 
         }
 
+        [Authorize]
         [HttpPost("add-photo/{id}")]
         public async Task<ActionResult<DestinationPhoto>> AddPhoto(IFormFile file, int id)
         {
@@ -97,7 +101,7 @@ namespace API.Controllers
 
         }
 
-
+        [Authorize]
         [HttpDelete("delete/{id}")]
         public async Task<ActionResult> DeleteDestination(int id)
         {
@@ -116,7 +120,7 @@ namespace API.Controllers
 
         }
 
-
+        [Authorize]
         [HttpPut("set-main-photo/{id}/{photoId}")]
         public async Task<ActionResult> SetMainPhoto(int photoId, int id)
         {
@@ -139,6 +143,7 @@ namespace API.Controllers
             return BadRequest("Failed to set a main photo");
         }
 
+        [Authorize]
         [HttpDelete("delete-photo/{photoId}")]
         public async Task<ActionResult> DeletePhoto(int photoId)
         {
@@ -162,7 +167,7 @@ namespace API.Controllers
             return BadRequest("Failed to delete the photo");
         }
 
-
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateDestination(PromotionUpdateDto promotionUpdateDto, int id)
         {
