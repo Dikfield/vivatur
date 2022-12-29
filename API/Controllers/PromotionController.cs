@@ -61,7 +61,7 @@ namespace API.Controllers
             _promotionRepository.Register(dest);
 
             if (await _promotionRepository.SaveAllAsync())
-                return Ok(registerPromotionDto);
+                return Ok(dest);
 
             return BadRequest("Some error to save the new destination");
 

@@ -14,6 +14,7 @@
     type="button"
     class="btn btn-primary"
     (click)="openModal(template)"
+
   >
     Registre um novo destino
   </button>
@@ -31,6 +32,6 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-register-destinations></app-register-destinations>
+    <app-register-destinations (destinationRegistered)="closeModal($event)"></app-register-destinations>
   </div>
 </ng-template>

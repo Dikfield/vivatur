@@ -16,6 +16,7 @@ import { DestinationsService } from 'src/app/_services/destinations.service';
 export class DestinationCardComponent implements OnInit {
   @Input() destination:Destination;
   @Output() destinationDeleted = new EventEmitter<number>();
+  
 
   constructor(private router:Router, private toastr:ToastrService, private destinationService:DestinationsService) {}
 

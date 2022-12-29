@@ -30,7 +30,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <app-register-promotions></app-register-promotions>
+      <app-register-promotions (promotionRegistered)="closeModal($event)"></app-register-promotions>
     </div>
   </ng-template>
 </div>

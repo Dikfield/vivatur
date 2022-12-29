@@ -61,7 +61,7 @@ namespace API.Controllers
             _destinationRepo.Register(dest);
 
             if (await _destinationRepo.SaveAllAsync())
-                return Ok(registerDestinationDto);
+                return Ok(dest);
 
             return BadRequest("Some error to save the new destination");
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { PromotionsService } from 'src/app/_services/promotions.service';
@@ -10,6 +10,7 @@ import { PromotionsService } from 'src/app/_services/promotions.service';
 })
 export class RegisterPromotionsComponent implements OnInit {
   model:any = {};
+  @Output() promotionRegistered = new EventEmitter();
 
   constructor(public promotionService:PromotionsService,
     private toastr:ToastrService, private router:Router) { }
@@ -21,6 +22,7 @@ export class RegisterPromotionsComponent implements OnInit {
     this.promotionService.registerPromotion(this.model).subscribe({
       next:(response)=>{
         this.toastr.success("Registered");
+        this.promotionRegistered.emit();
         this.router.navigateByUrl('promotions');
       }, error:(e)=> {
         console.log(e);

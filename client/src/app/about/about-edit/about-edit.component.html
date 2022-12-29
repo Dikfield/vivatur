@@ -143,15 +143,22 @@
               form="feedForm"
               (click)="updateFeedback(feedbacks[feedIndex])"
             >
-              Atualize Feed
+              Atualizar
             </button-1>
             <button-1
               class="btn btn-primary"
               (click)="feedbackDeleted(feedbacks[feedIndex].id)"
               type="submit"
             >
-              Delete Feed
+              Delete
             </button-1>
+            <button-1
+            type="button"
+            class="btn btn-primary"
+            (click)="openModal(template)"
+          >
+            Novo
+          </button-1>
           </div>
           <form #feedForm="ngForm" id="feedForm" name="feedForm">
             <textarea
@@ -278,13 +285,7 @@
             </div>
           </ng-template>
           <br><br>
-          <button-1
-            type="button"
-            class="btn btn-primary"
-            (click)="openModal(template)"
-          >
-            Registre um feedback
-          </button-1>
+
         </div>
       </tab>
     </tabset>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
@@ -13,7 +13,6 @@ import { DestinationsService } from 'src/app/_services/destinations.service';
 })
 export class DestinationsListComponent implements OnInit {
     destinations: Destination[];
-    @Input() destination:Destination;
     modalRef?:BsModalRef;
 
     constructor(private destinationService:DestinationsService, private router:Router,

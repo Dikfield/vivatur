@@ -17,8 +17,9 @@ export class DestinationsService {
 
   registerDestination(model:any){
     return this.http.post<Destination>(this.baseUrl + 'destination', model).pipe(
-      map((destination) => {
+      map((destination:Destination) => {
         this.destinations.push(destination);
+        return destination;
       })
     )
   }

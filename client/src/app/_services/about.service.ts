@@ -18,7 +18,6 @@ export class AboutService {
   registerAbout(model: any) {
     return this.http.post(this.baseUrl + 'about', model).pipe(
       map((about: any) => {
-        console.log(about);
         this.abouts.push(about);
       })
     );

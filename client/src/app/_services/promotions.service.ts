@@ -15,8 +15,7 @@ export class PromotionsService {
 
   registerPromotion(model:any){
     return this.http.post(this.baseUrl + 'promotion', model).pipe(
-      map((promotion : any) => {
-        console.log(promotion);
+      map(() => {
       })
     )
   }
