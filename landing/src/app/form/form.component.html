@@ -99,7 +99,8 @@
           type="email"
           class="form__box--text form-group"
           placeholder="Email"
-          ngModel email="true"
+          ngModel
+          email="true"
           id="email"
           formControlName="email"
         />
@@ -113,15 +114,15 @@
             value=""
           />
         </div>
+        <button
+          type="submit"
+          form="mc-embedded-subscribe-form"
+          value="Submit"
+          class="btn btn--green form-group"
+        >
+          Solicitar Orçamento
+        </button>
       </div>
     </div>
   </form>
-  <button
-    type="submit"
-    form="mc-embedded-subscribe-form"
-    value="Submit"
-    class="btn btn--green form-group"
-  >
-    Solicitar Orçamento
-  </button>
 </div>
