@@ -14,8 +14,10 @@ export class PromotionsService {
   constructor(private http:HttpClient) { }
 
   registerPromotion(model:any){
-    return this.http.post(this.baseUrl + 'promotion', model).pipe(
-      map(() => {
+    return this.http.post<Promotion>(this.baseUrl + 'promotion', model).pipe(
+      map((promotion:Promotion) => {
+        this.promotions.push(promotion);
+        return promotion;
       })
     )
   }

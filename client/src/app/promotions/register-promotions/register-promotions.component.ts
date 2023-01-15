@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Promotion } from 'src/app/_models/promotion';
 import { PromotionsService } from 'src/app/_services/promotions.service';
 
 @Component({
@@ -20,10 +21,10 @@ export class RegisterPromotionsComponent implements OnInit {
 
   register(){
     this.promotionService.registerPromotion(this.model).subscribe({
-      next:(response)=>{
+      next:(promotions:Promotion)=>{
         this.toastr.success("Registered");
         this.promotionRegistered.emit();
-        this.router.navigateByUrl('promotions');
+        this.router.navigateByUrl('promotion/edit/' + promotions.id);
       }, error:(e)=> {
         console.log(e);
         this.toastr.error(e.error)}
