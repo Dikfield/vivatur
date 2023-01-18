@@ -48,7 +48,7 @@ app.UseCors(builder => builder
     .AllowAnyHeader()
     .AllowAnyMethod()
     .AllowCredentials()
-    .WithOrigins("https://localhost:4200", "https://vivatur-dikfield.vercel.app"));
+    .WithOrigins("https://localhost:4200", "https://vivatur-dikfield.vercel.app", "https://vivatur.vercel.app"));
 
 app.UseAuthentication();
 app.UseAuthorization();
