@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl:'https://vivatur.fly.dev/'
+  apiUrl:'https://vivatur.fly.dev/api/'
 };
 
 /*
