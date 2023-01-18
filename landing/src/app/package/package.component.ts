@@ -23,7 +23,7 @@ export class PackageComponent {
   initialState() {
     this.landingService.getPromotions().subscribe({
       next: (promotions) => {
-        this.promotions = promotions;
+        this.promotions = promotions.filter(promotions => promotions.photoUrl !== null);
       },
     });
   }
