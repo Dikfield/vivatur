@@ -24,6 +24,13 @@
       width: 9rem;
       height: 9.5rem;
     }
+
+    @media only screen and (max-width: 43.75em) {
+      width: 7rem;
+      height: 7.5rem;
+    }
+
+
   }
 
   &__icon {
@@ -34,6 +41,11 @@
       height: 8rem;
       width: 5rem;
     }
+
+    @media only screen and (max-width: 43.75em) {
+      height: 6rem;
+      width: 4rem;
+    }
   }
 
   &__link:link,
@@ -41,6 +53,11 @@
     text-decoration: none;
     color: white;
   }
+
+  @media only screen and (max-width: 37.5em) {
+    flex-direction: column;
+  }
+
 }
 
 .menu-list {
@@ -61,14 +78,17 @@
       margin: 0 1rem;
     }
 
-    @media only screen and (max-width: 62.5em) {
-      margin: 0 1rem;
-    }
-
     @media only screen and (max-width: 50em) {
-      margin: 0 1rem;
       font-size: 1rem;
     }
+
+    @media only screen and (max-width: 43.75em) {
+      margin: 0 .5rem;
+    }
+  }
+
+  @media only screen and (max-width: 37.5em) {
+    display: flexbox;
   }
 }
 
@@ -81,6 +101,10 @@
 
   @media only screen and (max-width: 50em) {
     font-size: 1rem;
+  }
+
+  @media only screen and (max-width: 43.75em) {
+    margin: 1.5rem auto;
   }
 
   &__img {

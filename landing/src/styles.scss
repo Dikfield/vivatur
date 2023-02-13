@@ -29,7 +29,7 @@ body {
 
 .container {
   display: grid;
-  grid-template-rows: 100vh 100vh 100vh 100vh repeat(3, min-content);
+  grid-template-rows: repeat(3, 100vh) max-content repeat(3, min-content);
   grid-template-columns: [full-start] repeat(12, [col-start] minmax(min-content, 20rem) [col-end]) [full-end];
   justify-content: center;
 }

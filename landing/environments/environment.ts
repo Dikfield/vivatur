@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiUrl:'https://vivatur.fly.dev/api/'
+  //apiUrl: 'https://localhost:5001/api/'
 };
 
 /*

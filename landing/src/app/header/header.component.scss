@@ -60,6 +60,9 @@
     &--2 {
       padding-right: 2.077rem;
       z-index: 100;
+      @media only screen and (max-width: 50em) {
+        padding-right: 1rem;
+      }
     }
 
     &--3 {
@@ -75,11 +78,18 @@
     display: flex;
     list-style: none;
     z-index: 100;
+
+    @media only screen and (max-width: 50em) {
+      font-size: 1.2rem;
+    }
   }
 
   &__item {
     &:not(:last-child) {
       padding-right: 5.9rem;
+      @media only screen and (max-width: 50em) {
+        padding-right: 2.9rem;
+      }
     }
   }
 
@@ -99,7 +109,7 @@
   top: 19.63vh;
   z-index: 1000;
 
-  @media only screen and (min-width: 112em) {
+  @media only screen and (min-width: 112.5em) {
     height: 55rem;
     width: 55rem;
   }
